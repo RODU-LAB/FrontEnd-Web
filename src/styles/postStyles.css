@@ -1,0 +1,239 @@
+.parent {
+}
+
+.Education-inquiry-board_after-answer {
+  width: 65.571rem;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  margin-bottom: 11.667rem;
+  margin-top: 5.389rem;
+}
+
+.Post-title {
+  height: 2.278rem;
+  margin: 1.333rem 0rem 0.583rem 0rem;
+  font-family: Pretendard;
+  font-size: 1.889rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000;
+}
+.Frame-63 {
+  width: 15.556rem;
+  height: 1.726rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin: 2.269rem 0rem 0rem 0rem;
+  padding: 0 0.444rem 0 0;
+}
+.Post-title-frame63-parent {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+.Post-Frame-59 {
+  width: 4.851rem;
+  height: 1.726rem;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5.5rem;
+  padding: 0.444rem 0.889rem;
+  border-radius: 17px;
+  background-color: var(--rodu-medium);
+}
+.Post-answered-content {
+  flex-grow: 0;
+  font-family: Pretendard;
+  font-size: 0.558rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  text-align: left;
+  color: #fff;
+}
+.Post-owner {
+  width: 3.167rem;
+  height: 1.111rem;
+  flex-grow: 0;
+  font-family: Pretendard;
+  font-size: 0.748rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: center;
+  color: #777777;
+}
+.Post-date {
+  width: 4.444rem;
+  height: 1.111rem;
+  flex-grow: 0;
+  font-family: Pretendard;
+  font-size: 0.748rem;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: right;
+  color: #777777;
+}
+.Post-Line-2 {
+  height: 0.083rem;
+  margin: 0.469rem 0rem 2rem;
+  background-color: #212121;
+}
+
+.Post-content {
+  margin: 2rem 0rem 1.917rem;
+  word-break: normal;
+  width: 65.556rem;
+}
+
+.Post-content-span {
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: 0.9px;
+  text-align: left;
+  color: #000;
+  white-space: normal;
+  width: 65.556rem;
+  word-wrap: break-word;
+}
+
+.Post-Line-3 {
+  height: 0.083rem;
+  margin: 1.917rem 0rem 1.944rem;
+  background-color: #212121;
+}
+.Post-Frame-64 {
+  width: 4.444rem;
+  height: 1.778rem;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 13px;
+  background-color: #d3efff;
+}
+
+.Post-Frame-65 {
+  width: 4.444rem;
+  height: 1.778rem;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 13px;
+  background-color: #ffab49;
+}
+
+.Post-Frame-66 {
+  width: 4.444rem;
+  height: 1.778rem;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 13px;
+  background-color: #f9911e;
+}
+.Post-Frame-67-parent {
+  margin-top: 1.944rem;
+  margin-bottom: 6rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.Post-Frame-67 {
+  height: 1.778rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 0;
+}
+
+.Post-answer-title {
+  width: 7rem;
+  height: 2.278rem;
+  margin: 6rem 42.944rem 0.583rem 0rem;
+  font-family: Pretendard;
+  font-size: 1.889rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  text-align: left;
+  color: #f9911e;
+}
+.Post-Line-4 {
+  height: 0.083rem;
+  margin: 0.583rem 0rem 2rem;
+  background-color: #212121;
+}
+.Post-answer-content {
+  margin: 2rem 0rem 1.917rem;
+  font-family: Pretendard;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.44;
+  letter-spacing: 0.9px;
+  text-align: left;
+  white-space: normal;
+  color: #000;
+  word-wrap: break-word;
+}
+.Post-Line-5 {
+  height: 0.083rem;
+  margin: 0.469rem 0rem 2rem 0rem;
+  background-color: #212121;
+}
+
+.Post-comment-container {
+  width: 55.556rem;
+  height: 10rem;
+  border: 1px solid #000;
+}
+
+.Post-edit-logo {
+  width: 1.111rem;
+  height: 1.111rem;
+}
+
+.Post-delete-logo {
+  width: 1.111rem;
+  height: 1.111rem;
+}
+
+.Post-posts-list-logo {
+  width: 1.167rem;
+  height: 1.167rem;
+}
