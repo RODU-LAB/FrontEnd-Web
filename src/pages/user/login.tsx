@@ -1,9 +1,7 @@
 import React from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { authTokenVar, isLoggedInVar } from "../../apollo";
-import { LOCALSTORAGE_TOKEN } from "../../constants";
-import { login, loginVariables } from "../../__generated__/login";
+
 import { Button } from "../../components/button";
 import { FormError } from "../../components/formError";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,51 +23,16 @@ interface ILoginForm {
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { register, formState, getValues, handleSubmit } = useForm<ILoginForm>({
-    mode: "onChange",
-  });
+  // const { register, formState, getValues, handleSubmit } = useForm<ILoginForm>({
+  //   mode: "onChange",
+  // });
 
-  const onSubmit = () => {
-    if (!loading) {
-      const { email, password } = getValues();
-      loginMutation({
-        variables: {
-          loginInput: {
-            email,
-            password,
-          },
-        },
-      });
-    }
-  };
 
-  const onCompleted = (data: login) => {
-    const {
-      login: { ok, token },
-    } = data;
-    if (ok && token) {
-      localStorage.setItem(LOCALSTORAGE_TOKEN, token);
-      // localStorage.setItem(LOCALSTORAGE_TOKEN, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjc4MjY2NDM3fQ.4yUG_y_kp9SBWiiihHaaDRPFR0x_gwhRf9ZwAIiuEE8");
-      authTokenVar(token);
-      // authTokenVar("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjc4MjY2NDM3fQ.4yUG_y_kp9SBWiiihHaaDRPFR0x_gwhRf9ZwAIiuEE8");
-      isLoggedInVar(true);
-      navigate("/", { replace: true });
-    }
-  };
 
-  // useMutation React Query를 이용해 서버에 데이터 변경 작업을 요청할 때 사용
-  // 데이터베이스로 비유하자면 insert, update, delete가 모두 포함
-
-  const [loginMutation, { data: loginData, loading }] = useMutation<
-    login,
-    loginVariables
-  >(LOGIN_MUTATION, {
-    onCompleted,
-  });
 
   return (
     <div>
-      <div>
+      {/* <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input
             {...register("email", { required: true })}
@@ -94,7 +57,7 @@ export const Login = () => {
             />
           )}
         </form>
-      </div>
+      </div> */}
       <div>
         <Link to="/createuser" className=" text-blue-700 hover:underline">
           회원가입

@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { isLoggedInVar } from "../apollo";
 import { Banner } from "../components/banner";
 import { Button } from "../components/button";
 import { useMe } from "../hooks/useMe";

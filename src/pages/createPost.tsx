@@ -2,7 +2,6 @@ import { gql, useMutation, useReactiveVar } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { isLoggedInVar } from "../apollo";
 import { Banner } from "../components/banner";
 import { useMe } from "../hooks/useMe";
 import { createPost, createPostVariables } from "../__generated__/createPost";
@@ -35,7 +34,6 @@ export const CreatePost = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const { data: userData, refetch } = useMe();
   const [isHovering, setIsHovering] = useState(0);
   const navigate = useNavigate();

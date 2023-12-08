@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Banner } from "../components/banner";
 import EduDetailContents from "../components/EduDetailContents";
-import { LOCALSTORAGE_TOKEN } from "./../constants";
 
 import "../styles/eduContentStyles.css";
 

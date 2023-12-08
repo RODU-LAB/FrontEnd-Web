@@ -2,7 +2,6 @@ import { ApolloProvider } from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
-import { client } from "./apollo";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/styles.css";
@@ -38,11 +37,9 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   // <React.StrictMode>
-    <ApolloProvider client={client}>
       <HelmetProvider>
         <App />
       </HelmetProvider>
-    </ApolloProvider>
   // </React.StrictMode>
 );
 
