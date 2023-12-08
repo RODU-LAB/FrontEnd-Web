@@ -39,7 +39,6 @@ import MainEduType from "../components/mainEduType"
 import RoduInstructor from "../components/RoduInstructor"
 import ModalMap from "../components/ModalMap";
 
-import { LOCALSTORAGE_TOKEN } from "../constants";
 
 
 

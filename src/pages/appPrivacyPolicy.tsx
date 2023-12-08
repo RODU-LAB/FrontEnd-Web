@@ -61,7 +61,7 @@ function appPrivacyPolicy() {
       <ul style={{ listStyleType: "decimal", marginBottom: "2rem" }}>
         <li>
           본 약관은 RODU가 운영하는 온라인 사이트
-          'RODU(https://doroedu.net)'에서 제공하는 서비스(이하 '서비스'라
+          'RODU(https://rodu.co.kr)'에서 제공하는 서비스(이하 '서비스'라
           합니다)를 이용함에 있어 당사자의 권리 의무 및 책임사항을 규정하는 것을
           목적으로 합니다.
         </li>
@@ -78,7 +78,7 @@ function appPrivacyPolicy() {
           '회사'라 함은, 'RODU'가 재화 또는 용역을 이용자 에게 제공하기 위하여
           컴퓨터 등 정보통신설비를 이용하여 재화등을 거래할 수 있도록 설정한
           가상의 영업장을 운영하는 사업자를 말하며, 아울러
-          'RODU(https://doroedu.net)'을 통해 제공되는 전자상거래 관련 서비스의
+          'RODU(https://rodu.co.kr)'을 통해 제공되는 전자상거래 관련 서비스의
           의미로도 사용합니다.
         </li>
         <li>

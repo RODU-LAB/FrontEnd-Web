@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { LOCALSTORAGE_TOKEN } from "./../constants";
 import { ReactComponent as HomeIcon } from "../images/homeicon.svg";
 
 interface Banner {

@@ -13,7 +13,7 @@ import { CreateUser } from "../pages/user/createUser";
 import { Login } from "../pages/user/login";
 import { ApplyEdu } from "../pages/applyEdu";
 import { MakeNewApplication } from "../pages/makeNewApplication";
-import { ShowApplication } from "../pages/showApplication";
+import  ShowApplication  from "../pages/showApplication";
 import { ShowDetailContent } from "../pages/showDetailContent";
 import { EditApplication } from "../pages/editApplication";
 

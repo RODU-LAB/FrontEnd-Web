@@ -1,6 +1,5 @@
 import { Banner } from "../components/banner";
 import ApplyButton from "../components/applyButton";
-import { LOCALSTORAGE_TOKEN } from "./../constants";
 
 export const ApplyEdu: React.FC = () => {
   return (
