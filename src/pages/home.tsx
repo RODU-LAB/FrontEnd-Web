@@ -23,7 +23,7 @@ import process from "../images/process.png";
 import main8Logo from "../images/main8Logo.png";
 import rodumap from "../images/rodumap.png";
 
-import ansan from "../images/ansan.png";
+import company from "../images/company.png";
 import rodueducation from "../images/rodueducation.png";
 import { Helmet } from "react-helmet-async";
 import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
@@ -521,7 +521,7 @@ export const HomePage = () => {
               </p>
             </div>
             <div className="Main4-image-container" {...main4BottomAnimation}>
-              <img src={ansan} alt="Company x RODU" className="Main4-image"></img>
+              <img src={company} alt="Company x RODU" className="Main4-image"></img>
             </div>
           </div>
         </div>

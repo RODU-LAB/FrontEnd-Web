@@ -7,11 +7,6 @@ import type2 from "../images/icon_people2.png";
 import type3 from "../images/icon_people3.png";
 import type4 from "../images/icon_people4.png";
 
-import type1_photo from "../images/edutype1.png";
-import type2_photo from "../images/edutype2.png";
-import type3_photo from "../images/edutype3.png";
-import type4_photo from "../images/edutype4.png";
-
 const FadeOut = keyframes`
     0% {
         opacity: 1;
@@ -207,17 +202,6 @@ const MainEduContent = () => {
             img.src = imageArray[i];
         }
     }
-
-    const imgList : string[] = [
-      type1_photo,
-      type2_photo,
-      type3_photo,
-      type4_photo
-    ]
-
-      useEffect(() => {
-        preloading(imgList)
-    }, [])
 
     const dummyData = [
         {
