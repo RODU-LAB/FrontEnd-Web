@@ -10,13 +10,13 @@ import mood from "../images/smallpuppy.png";
 import human from "../images/human.png";
 import security from "../images/security.png";
 
-// import child1 from "../images/main6-1.png";
-// import child2 from "../images/main6-2.png";
-// import child3 from "../images/main6-3.png";
-// import child4 from "../images/main6-4.png";
-// import child5 from "../images/main6-5.png";
-// import child6 from "../images/main6-6.png";
-// import child7 from "../images/main6-7.png";
+import child1 from "../images/main6-1.png";
+import child2 from "../images/main6-2.png";
+import child3 from "../images/main6-3.png";
+import child4 from "../images/main6-4.png";
+import child5 from "../images/main6-5.png";
+import child6 from "../images/main6-6.png";
+import child7 from "../images/main6-7.png";
 
 import roduLogoGray from "../images/roduLogoGray.png";
 import process from "../images/process.png";
@@ -175,14 +175,14 @@ export const HomePage = () => {
                     src={leftButton}
                     alt="Left"
                     className="Main3-top-left-image"
-                  ></img>
+                  />
                 </button>
                 <button className="Main3-top-right-button">
                   <img
                     src={rightButton}
                     alt="Right"
                     className="Main3-top-right-image"
-                  ></img>
+                  />
                 </button>
               </div>
             </div>
@@ -534,11 +534,7 @@ export const HomePage = () => {
               </p>
             </div>
             <div className="Main4-image-container" {...main4BottomAnimation}>
-              <img
-                src={company}
-                alt="Company x RODU"
-                className="Main4-image"
-              ></img>
+              <img src={company} alt="Company x RODU" className="Main4-image" />
             </div>
           </div>
         </div>
@@ -570,6 +566,86 @@ export const HomePage = () => {
                 </button>
               </div>
             </div>
+            <Swiper
+              slidesPerView="auto"
+              spaceBetween={20}
+              navigation={{
+                prevEl: ".Main6-top-left-button",
+                nextEl: ".Main6-top-right-button",
+              }}
+              modules={[Navigation]}
+              className="Main6-bottom-container overflow-auto"
+            >
+              <SwiperSlide>
+                <div className="Main6-bottom-image-container">
+                  <img
+                    src={child1}
+                    alt="Program"
+                    className="Main6-bottom-image"
+                  ></img>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <div className="Main6-bottom-image-container">
+                  <img
+                    src={child2}
+                    alt="Program"
+                    className="Main6-bottom-image"
+                  ></img>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <div className="Main6-bottom-image-container">
+                  <img
+                    src={child3}
+                    alt="Program"
+                    className="Main6-bottom-image"
+                  ></img>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <div className="Main6-bottom-image-container">
+                  <img
+                    src={child4}
+                    alt="Program"
+                    className="Main6-bottom-image"
+                  ></img>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <div className="Main6-bottom-image-container">
+                  <img
+                    src={child5}
+                    alt="Program"
+                    className="Main6-bottom-image"
+                  ></img>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <div className="Main6-bottom-image-container">
+                  <img
+                    src={child6}
+                    alt="Program"
+                    className="Main6-bottom-image"
+                  ></img>
+                </div>
+              </SwiperSlide>
+
+              <SwiperSlide>
+                <div className="Main6-bottom-image-container">
+                  <img
+                    src={child7}
+                    alt="Program"
+                    className="Main6-bottom-image"
+                  ></img>
+                </div>
+              </SwiperSlide>
+            </Swiper>
           </div>
         </div>
 

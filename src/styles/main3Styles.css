@@ -79,6 +79,12 @@
   overflow: visible !important;
 }
 
+/* slidesPerView="auto" 속성을 부여하기 위해
+아래 코드를 적용 해야함 */
+.swiper-slide {
+  width: auto !important;
+}
+
 .Main3-bottom-image1-container,
 .Main3-bottom-image2-container,
 .Main3-bottom-image3-container,
