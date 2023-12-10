@@ -1,9 +1,9 @@
 import { Banner } from "../../components/banner";
-import { EduTable } from "../../components/eduDetailContents/eduTable";
+import { EduTable } from "../../components/eduDetailContents/EduTable";
 import { LearningObjective } from "../../components/eduDetailContents/learningObjective";
-import { ContentsSlide } from "../../components/eduDetailContents/contentsSlide";
+import { ContentsSlide } from "../../components/eduDetailContents/ContentsSlide";
 // import { KitPicture } from "../../components/eduDetailContents/kitPicture";
-import { Notice } from "../../components/eduDetailContents/notice";
+import { Notice } from "../../components/eduDetailContents/Notice";
 
 import deepLearningImg from "../../images/detailContents/slide/edu_detail_deepLearning/upperBannerImageDeepLearning.png";
 import deepLearningClass1 from "../../images/detailContents/slide/edu_detail_deepLearning/logo.png";

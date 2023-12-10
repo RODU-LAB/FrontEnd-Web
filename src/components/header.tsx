@@ -1,10 +1,10 @@
-import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+// import { faUser } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Link } from "react-router-dom";
 import roduLogo from "../images/logo.png";
 
-export const Header: React.FC = () => {
+export function Header() {
   return (
     <>
       <header className="Header-header">
@@ -15,7 +15,12 @@ export const Header: React.FC = () => {
           <div>
             <ul className="flex flex-row bg-white">
               <li>
-                <a href="https://smartstore.naver.com/robotedu" target="_blank" rel="noopener noreferrer" className="Header-link-inquiry">
+                <a
+                  href="https://smartstore.naver.com/robotedu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="Header-link-inquiry"
+                >
                   구매 링크
                 </a>
               </li>
@@ -44,4 +49,4 @@ export const Header: React.FC = () => {
       </header>
     </>
   );
-};
+}

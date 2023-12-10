@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Notice {
+interface NoticeProps {
   title: string;
   titleMarginTop: number;
   contentsText1?: string;
@@ -12,7 +12,7 @@ interface Notice {
   contentsText7?: string;
 }
 
-export const Notice: React.FC<Notice> = ({
+export function Notice({
   title,
   titleMarginTop,
   contentsText1,
@@ -22,23 +22,25 @@ export const Notice: React.FC<Notice> = ({
   contentsText5,
   contentsText6,
   contentsText7,
-}) => (
-  <>
-    <div className="Body" style={{ marginTop: `${titleMarginTop}rem` }}>
-      <div className="EduTable-container">
-        <div className="EduDetailContents-title-box">
-          <p className="EduDetailContents-title">{title}</p>
+}: NoticeProps) {
+  return (
+    <>
+      <div className="Body" style={{ marginTop: `${titleMarginTop}rem` }}>
+        <div className="EduTable-container">
+          <div className="EduDetailContents-title-box">
+            <p className="EduDetailContents-title">{title}</p>
+          </div>
+        </div>
+        <div className="Notice-container">
+          <p>{contentsText1}</p>
+          <p>{contentsText2}</p>
+          <p>{contentsText3}</p>
+          <p>{contentsText4}</p>
+          <p>{contentsText5}</p>
+          <p>{contentsText6}</p>
+          <p>{contentsText7}</p>
         </div>
       </div>
-      <div className="Notice-container">
-        <p>{contentsText1}</p>
-        <p>{contentsText2}</p>
-        <p>{contentsText3}</p>
-        <p>{contentsText4}</p>
-        <p>{contentsText5}</p>
-        <p>{contentsText6}</p>
-        <p>{contentsText7}</p>
-      </div>
-    </div>
-  </>
-);
+    </>
+  );
+}

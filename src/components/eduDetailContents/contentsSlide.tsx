@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { ReactComponent as PrevBtn } from "../../images/prev_button.svg";
 import { ReactComponent as NextBtn } from "../../images/next_button.svg";
 
-interface ContentsSlide {
+interface ContentsSlideProps {
   title: string;
   titleMarginTop: number;
   imgSrc1?: string;
@@ -13,7 +13,7 @@ interface ContentsSlide {
   imgSrc5?: string;
 }
 
-export function ContentsSlide(props: ContentsSlide) {
+export function ContentsSlide(props: ContentsSlideProps) {
   const images = useRef([
     { src: "" },
     { src: "" },
@@ -69,11 +69,11 @@ export function ContentsSlide(props: ContentsSlide) {
               />
               <div className="window">
                 <div className="flexbox" style={style}>
-                  <img src={props.imgSrc1} className="img" />
-                  <img src={props.imgSrc2} className="img" />
-                  <img src={props.imgSrc3} className="img" />
-                  <img src={props.imgSrc4} className="img" />
-                  <img src={props.imgSrc5} className="img" />
+                  <img src={props.imgSrc1} className="img" alt="img" />
+                  <img src={props.imgSrc2} className="img" alt="img" />
+                  <img src={props.imgSrc3} className="img" alt="img" />
+                  <img src={props.imgSrc4} className="img" alt="img" />
+                  <img src={props.imgSrc5} className="img" alt="img" />
                 </div>
               </div>
               <NextBtn

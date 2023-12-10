@@ -1,33 +1,33 @@
-import React from "react";
-
-interface LearningObjective {
+interface LearningObjectiveProps {
   title: string;
   titleMarginTop: number;
   contents1: string;
   contents2: string;
 }
 
-export const LearningObjective: React.FC<LearningObjective> = ({
+export function LearningObjective({
   title,
   titleMarginTop,
   contents1,
   contents2,
-}) => (
-  <>
-    <div className="Body" style={{ marginTop: `${titleMarginTop}rem` }}>
-      <div className="EduTable-container">
-        <div className="EduDetailContents-title-box">
-          <p className="EduDetailContents-title">{title}</p>
+}: LearningObjectiveProps) {
+  return (
+    <>
+      <div className="Body" style={{ marginTop: `${titleMarginTop}rem` }}>
+        <div className="EduTable-container">
+          <div className="EduDetailContents-title-box">
+            <p className="EduDetailContents-title">{title}</p>
+          </div>
+        </div>
+
+        <div
+          className="LearningObjective-container"
+          style={{ marginTop: "2.444rem" }}
+        >
+          <p className="LearningObjective-content-container">{contents1}</p>
+          <p className="LearningObjective-content-container">{contents2}</p>
         </div>
       </div>
-
-      <div
-        className="LearningObjective-container"
-        style={{ marginTop: "2.444rem" }}
-      >
-        <p className="LearningObjective-content-container">{contents1}</p>
-        <p className="LearningObjective-content-container">{contents2}</p>
-      </div>
-    </div>
-  </>
-);
+    </>
+  );
+}

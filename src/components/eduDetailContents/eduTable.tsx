@@ -1,6 +1,6 @@
 import React from "react";
 
-interface EduTable {
+interface EduTableProps {
   title: string;
   titleMarginTop: number;
   tabletitle1: string;
@@ -58,7 +58,7 @@ interface EduTable {
   liClass3_5?: string;
 }
 
-export const EduTable: React.FC<EduTable> = ({
+export const EduTable: React.FC<EduTableProps> = ({
   title,
   titleMarginTop,
   tabletitle1,

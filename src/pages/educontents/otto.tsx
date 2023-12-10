@@ -1,9 +1,9 @@
 import { Banner } from "../../components/banner";
-import { EduTable } from "../../components/eduDetailContents/eduTable";
+import { EduTable } from "../../components/eduDetailContents/EduTable";
 import { LearningObjective } from "../../components/eduDetailContents/learningObjective";
-import { ContentsSlide } from "../../components/eduDetailContents/contentsSlide";
-import { KitPicture } from "../../components/eduDetailContents/kitPicture";
-import { Notice } from "../../components/eduDetailContents/notice";
+import { ContentsSlide } from "../../components/eduDetailContents/ContentsSlide";
+import { KitPicture } from "../../components/eduDetailContents/KitPicture";
+import { Notice } from "../../components/eduDetailContents/Notice";
 
 import ottoImg from "../../images/detailContents/slide/edu_detail_otto/upperBannerrImageOtto.png";
 import ottoKitImg1 from "../../images/detailContents/slide/edu_detail_otto/ottoImage1.png";
