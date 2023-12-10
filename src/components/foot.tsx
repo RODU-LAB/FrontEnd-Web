@@ -18,7 +18,7 @@ export const Foot: React.FC = () => {
               <p className="Foot-company">Company</p>
               <a
                 className="Foot-introduce"
-                href="https://dojeonrobot.notion.site/DORO-a622f18163b74a03947551f5eebf12ff"
+                href="https://sugared-syzygy-e4c.notion.site/RODU-8116d06bc3c24f4cbfb112cdfab9e6cf?pvs=4"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -26,7 +26,7 @@ export const Foot: React.FC = () => {
               </a>
               <a
                 className="Foot-recruit"
-                href="https://dojeonrobot.notion.site/DORO-a622f18163b74a03947551f5eebf12ff"
+                href="https://sugared-syzygy-e4c.notion.site/RODU-8116d06bc3c24f4cbfb112cdfab9e6cf?pvs=4"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -63,7 +63,7 @@ export const Foot: React.FC = () => {
             <div className="Foot-sns">
               <a
                 className="Foot-insta-frame"
-                href="https://www.instagram.com/doro_edu/"
+                href="https://www.instagram.com/rodu_edu/"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -71,7 +71,7 @@ export const Foot: React.FC = () => {
               </a>
               <a
                 className="Foot-notion-frame"
-                href="https://dojeonrobot.notion.site/DORO-a622f18163b74a03947551f5eebf12ff"
+                href="https://sugared-syzygy-e4c.notion.site/RODU-8116d06bc3c24f4cbfb112cdfab9e6cf?pvs=4"
                 target="_blank"
                 rel="noreferrer"
               >
