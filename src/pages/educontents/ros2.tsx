@@ -2,7 +2,7 @@ import { Banner } from "../../components/banner";
 import { EduTable } from "../../components/eduDetailContents/eduTable";
 import { LearningObjective } from "../../components/eduDetailContents/learningObjective";
 import { ContentsSlide } from "../../components/eduDetailContents/contentsSlide";
-import { KitPicture } from "../../components/eduDetailContents/kitPicture";
+// import { KitPicture } from "../../components/eduDetailContents/kitPicture";
 import { Notice } from "../../components/eduDetailContents/notice";
 
 import ros2Img from "../../images/detailContents/slide/edu_detail_ros2/upperBannerImageRos2.png";

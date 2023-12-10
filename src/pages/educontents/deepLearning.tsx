@@ -2,7 +2,7 @@ import { Banner } from "../../components/banner";
 import { EduTable } from "../../components/eduDetailContents/eduTable";
 import { LearningObjective } from "../../components/eduDetailContents/learningObjective";
 import { ContentsSlide } from "../../components/eduDetailContents/contentsSlide";
-import { KitPicture } from "../../components/eduDetailContents/kitPicture";
+// import { KitPicture } from "../../components/eduDetailContents/kitPicture";
 import { Notice } from "../../components/eduDetailContents/notice";
 
 import deepLearningImg from "../../images/detailContents/slide/edu_detail_deepLearning/upperBannerImageDeepLearning.png";

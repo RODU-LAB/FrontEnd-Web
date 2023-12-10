@@ -11,7 +11,7 @@
   margin-left: auto;
   margin-right: auto;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .Main1-content-container {
@@ -72,11 +72,8 @@
   transition: 300ms;
 }
 
-.Item-center{
+.Item-center {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  
-  
 }

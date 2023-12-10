@@ -1,14 +1,9 @@
-import { Link } from "react-router-dom";
 import { Banner } from "../components/banner";
 import EduDetailContents from "../components/EduDetailContents";
 
 import "../styles/eduContentStyles.css";
 
-
-
-export const ShowDetailContent: React.FC = () => {
-
-
+export function ShowDetailContent() {
   return (
     <>
       <Banner
@@ -27,4 +22,4 @@ export const ShowDetailContent: React.FC = () => {
       <EduDetailContents />
     </>
   );
-};
+}

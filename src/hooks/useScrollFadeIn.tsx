@@ -7,19 +7,23 @@ export const useScrollFadeIn = (
 ) => {
   const dom = useRef<HTMLInputElement>(null);
 
-  const handleScroll = useCallback((entries: any) => {
-    const { current } = dom;
-    entries.forEach((entry: any) => {
-      if (entry.isIntersecting) {
-        current!.style.transitionProperty = "opacity transform";
-        current!.style.transitionDuration = "1s";
-        current!.style.transitionTimingFunction = "cubic-bezier(0, 0, 0.2, 1)";
-        current!.style.transitionDelay = `${delay}`;
-        current!.style.opacity = "50";
-        current!.style.transform = "translate3d(0, 0, 0)";
-      }
-    });
-  }, []);
+  const handleScroll = useCallback(
+    (entries: any) => {
+      const { current } = dom;
+      entries.forEach((entry: any) => {
+        if (entry.isIntersecting) {
+          current!.style.transitionProperty = "opacity transform";
+          current!.style.transitionDuration = "1s";
+          current!.style.transitionTimingFunction =
+            "cubic-bezier(0, 0, 0.2, 1)";
+          current!.style.transitionDelay = `${delay}`;
+          current!.style.opacity = "50";
+          current!.style.transform = "translate3d(0, 0, 0)";
+        }
+      });
+    },
+    [delay]
+  );
 
   useEffect(() => {
     let observer: IntersectionObserver;
@@ -33,7 +37,7 @@ export const useScrollFadeIn = (
 
       return () => observer && observer.disconnect();
     }
-  }, [handleScroll]);
+  }, [handleScroll, thresholdValue]);
 
   return {
     ref: dom,

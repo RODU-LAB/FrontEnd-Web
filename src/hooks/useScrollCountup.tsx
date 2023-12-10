@@ -14,6 +14,7 @@ export const useScrollCount = (
     const { current } = dom;
     entries.forEach((entry: any) => {
       if (entry.isIntersecting && judge) {
+        // eslint-disable-next-line
         judge = false;
         let currentNumber = start;
         const counter = setInterval(() => {

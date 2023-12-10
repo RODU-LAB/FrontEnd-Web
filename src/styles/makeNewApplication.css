@@ -312,7 +312,7 @@
   height: 4.056rem;
   flex-grow: 0;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   gap: 8px;
   padding: 0.722rem 0;
   border-bottom: solid 1px var(--rodu-light-grey);
@@ -370,7 +370,7 @@
 .create-post-notification-checkbox-parent {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-content: center;
   margin-left: 1.111rem;
   margin-top: 0.944rem;
@@ -396,7 +396,7 @@
 .Create-post-agree-info-confirm-parent {
   display: flex;
   position: absolute;
-  justify-content: start;
+  justify-content: flex-start;
   z-index: 1;
   margin-top: 2.444rem;
 }

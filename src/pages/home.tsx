@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import leftButton from "../images/left-button.png";
 import rightButton from "../images/right-button.png";
@@ -10,13 +10,13 @@ import mood from "../images/smallpuppy.png";
 import human from "../images/human.png";
 import security from "../images/security.png";
 
-import child1 from "../images/main6-1.png";
-import child2 from "../images/main6-2.png";
-import child3 from "../images/main6-3.png";
-import child4 from "../images/main6-4.png";
-import child5 from "../images/main6-5.png";
-import child6 from "../images/main6-6.png";
-import child7 from "../images/main6-7.png";
+// import child1 from "../images/main6-1.png";
+// import child2 from "../images/main6-2.png";
+// import child3 from "../images/main6-3.png";
+// import child4 from "../images/main6-4.png";
+// import child5 from "../images/main6-5.png";
+// import child6 from "../images/main6-6.png";
+// import child7 from "../images/main6-7.png";
 
 import roduLogoGray from "../images/roduLogoGray.png";
 import process from "../images/process.png";
@@ -25,9 +25,9 @@ import rodumap from "../images/rodumap.png";
 
 import company from "../images/company.png";
 import rodueducation from "../images/rodueducation.png";
-import { Helmet } from "react-helmet-async";
+// import { Helmet } from "react-helmet-async";
 import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
-import { useScrollCount } from "../hooks/useScrollCountup";
+// import { useScrollCount } from "../hooks/useScrollCountup";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -89,16 +89,16 @@ export const HomePage = () => {
     setOpenModal(!isOpenModal);
   }, [isOpenModal]);
 
-  const horizontalScrollRef = useRef<HTMLInputElement>(null);
-  const main6ScrollRef = useRef<HTMLInputElement>(null);
+  // const horizontalScrollRef = useRef<HTMLInputElement>(null);
+  // const main6ScrollRef = useRef<HTMLInputElement>(null);
 
-  let main3_current_translate = 0;
-  let main6_current_translate = 0;
+  // let main3_current_translate = 0;
+  // let main6_current_translate = 0;
 
   const main1TopAnimation = useScrollFadeIn(1, "25%", "0s");
   const main1BottomAnimation = useScrollFadeIn(1, "100%", "0.3s");
 
-  const main2TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
+  // const main2TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
   const main2BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
   const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
@@ -113,10 +113,10 @@ export const HomePage = () => {
   const main7TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
   const main7BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main5Count1Animation = useScrollCount(10834, 10400, 1500, "명");
-  const main5Count2Animation = useScrollCount(3312, 3000, 1500, "개");
-  const main5Count3Animation = useScrollCount(488, 463, 1500, "시간");
-  const main5Count4Animation = useScrollCount(27, 10, 1500, "개교");
+  // const main5Count1Animation = useScrollCount(10834, 10400, 1500, "명");
+  // const main5Count2Animation = useScrollCount(3312, 3000, 1500, "개");
+  // const main5Count3Animation = useScrollCount(488, 463, 1500, "시간");
+  // const main5Count4Animation = useScrollCount(27, 10, 1500, "개교");
 
   return (
     <>
@@ -518,7 +518,7 @@ export const HomePage = () => {
         </div>
         {isOpenModal && (
           <ModalMap onClickToggleModal={onClickToggleModal}>
-            <img src={rodumap}></img>
+            <img src={rodumap} alt="rodu-map" />
           </ModalMap>
         )}
 

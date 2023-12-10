@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import React, { useEffect } from "react";
+// import { Helmet } from "react-helmet-async";
 import { Banner } from "../components/banner";
 import { getPosts } from "../services/post";
-import postsRoute from "../images/postsRoute.png";
-import lock from "../images/lock.png";
-import { Foot } from "../components/foot";
+// import postsRoute from "../images/postsRoute.png";
+// import lock from "../images/lock.png";
+// import { Foot } from "../components/foot";
 
 export const Posts = () => {
   useEffect(() => {
@@ -13,7 +13,7 @@ export const Posts = () => {
   }, []);
 
   return (
-    <div style={{}}>
+    <div>
       {/* <Helmet>
         <title>Board | RODU</title>
       </Helmet> */}
