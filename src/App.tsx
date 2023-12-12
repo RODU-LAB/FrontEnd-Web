@@ -29,13 +29,14 @@ import "./styles/bodyStyles.css";
 import "./styles/makeNewApplication.css";
 import "./styles/retrieveStyles.css";
 import "./styles/globalStyle.css";
+import "./styles/applyEdu.css";
 
 import ScrollToTop from "./components/scrollToTop"; // 페이지 렌더링 시 스크롤 최상단
 import { Foot } from "./components/foot";
 import { Header } from "./components/Header";
 import { NotFound } from "./pages/404";
-import { CreatePost } from "./pages/createPost";
-import { EditPost } from "./pages/editPost";
+import { UpdatePost } from "./pages/UpdatePost";
+// import { EditPost } from "./pages/editPost";
 import { HomePage } from "./pages/home";
 import { Post } from "./pages/post";
 import { Posts } from "./pages/posts";
@@ -72,10 +73,10 @@ export const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/createPost" element={<CreatePost />} />
+        <Route path="/post/updatepost" element={<UpdatePost />} />
         <Route path="/posts" element={<Posts />} />
-        <Route path="/post/:id/edit" element={<EditPost />} />
-        <Route path="/post/:id" element={<Post />} />
+        {/* <Route path="/post/:id/edit" element={<EditPost />} /> */}
+        <Route path="/post" element={<Post />} />
         <Route path="*" element={<NotFound />}></Route>
         <Route path="/applyEdu" element={<ApplyEdu />}></Route>
         <Route

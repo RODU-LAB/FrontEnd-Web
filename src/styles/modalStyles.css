@@ -18,11 +18,11 @@
 }
 
 .Posts-modal-title {
+  display: flex;
+  justify-items: center;
+  align-items: center;
   height: 3rem;
   width: 26.667rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border: solid 1px var(--rodu-grey);
   background-color: var(--rodu-medium);
   border-top-left-radius: 10px;
