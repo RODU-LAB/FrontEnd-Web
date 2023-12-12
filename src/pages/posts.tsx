@@ -187,7 +187,7 @@ export function Posts() {
             </div>
             <button
               className="w-[180px] h-[52px] bg-rodu-medium text-white flex items-center justify-center rounded-[25px]"
-              onClick={() => navigate("/createpost")}
+              onClick={() => navigate("/post/updatepost")}
             >
               교육 문의하기
             </button>
