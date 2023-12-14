@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { Banner } from "../components/banner";
-import { getAllPosts } from "../services/postAPI";
+import { getAllPosts, getPost } from "../services/post/postAPI";
 import lock from "../images/lock.png";
 // import postsRoute from "../images/postsRoute.png";
 // import { Foot } from "../components/foot";
@@ -16,7 +16,7 @@ interface PostsTypes {
   title: string;
   ownerName: string;
   createdAt: string;
-  locked: boolean;
+  isLocked: boolean;
   answered: boolean;
   idx: number;
 }
@@ -27,11 +27,7 @@ export function Posts() {
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<PostsTypes[]>([]);
   const [passwordModal, setPasswordModal] = useState(false);
-  // eslint-disable-next-line
   const [postId, setPostId] = useState<number | null>();
-  // eslint-disable-next-line
-  const [passwordIsWrong, setPasswordIsWrong] = useState(false);
-  // eslint-disable-next-line
   const [pw, setPw] = useState<string>("");
 
   useEffect(() => {
@@ -42,7 +38,7 @@ export function Posts() {
     const fetchPosts = async () => {
       try {
         const result = await getAllPosts(page);
-        setPosts(result);
+        setPosts(result.posts);
       } catch (error) {
         console.error(error);
       }
@@ -51,15 +47,29 @@ export function Posts() {
     fetchPosts();
   }, [page]);
 
-  /** 게시판 항목 클릭 시 작동. 비밀번호가 없으면 게시물 페이지로 넘어감 */
-  const passwordModalHandler = (isPassword: boolean, id: number) => {
-    if (isPassword) {
+  /** 게시판 항목 클릭 시 작동. 비밀글이 아니면 게시물 페이지로 넘어감 */
+  const handlePasswordModal = (isLocked: boolean, id: number) => {
+    if (isLocked) {
       setPasswordModal(true);
       setPostId(id);
     } else {
       setPostId(null);
       setPasswordModal(false);
-      navigate("/post", { state: id });
+      handleGetPost(id);
+    }
+  };
+
+  /** 게시물 불러오기 */
+  const handleGetPost = async (id: number) => {
+    const result = await getPost(id, pw);
+    if (result !== "error") {
+      navigate("/post", { state: result });
+    }
+  };
+
+  const handleEnterPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && postId) {
+      handleGetPost(postId);
     }
   };
 
@@ -69,7 +79,7 @@ export function Posts() {
     title,
     ownerName,
     createdAt,
-    locked,
+    isLocked,
     answered,
     idx,
   }: PostsTypes) => {
@@ -82,14 +92,14 @@ export function Posts() {
     return (
       <div
         className={containerClass}
-        onClick={() => passwordModalHandler(locked, id)}
+        onClick={() => handlePasswordModal(isLocked, id)}
       >
         <div className="flex items-center">
           <p className="w-[78px] text-center button text-rodu-grey mr-[20px]">
             {idx + 1 + page * 10}
           </p>
           <p className="body1 mr-[14px]">{title}</p>
-          {locked ? (
+          {isLocked ? (
             <img src={lock} alt="lock" className="w-[1rem] h-[1rem]" />
           ) : (
             ""
@@ -147,7 +157,7 @@ export function Posts() {
               title={item.title}
               ownerName={item.ownerName}
               createdAt={item.createdAt}
-              locked={item.locked}
+              isLocked={item.isLocked}
               answered={item.answered}
               idx={i}
             />
@@ -207,7 +217,6 @@ export function Posts() {
                 onClick={() => {
                   setPostId(null);
                   setPasswordModal(false);
-                  setPasswordIsWrong(false);
                   setPw("");
                 }}
               />
@@ -218,29 +227,15 @@ export function Posts() {
                   const target = e.target as HTMLInputElement;
                   setPw(target.value);
                 }}
-                name="password"
                 placeholder="비밀번호를 입력해주세요"
                 className="Posts-modal-input"
                 type="password"
+                onKeyDown={handleEnterPress}
               />
-              {/* {passwordIsWrong ? (
-                <input
-                  {...register("password", { required: true })}
-                  name="password"
-                  placeholder="비밀번호가 틀렸습니다"
-                  className="Posts-modal-input-error"
-                  type="password"
-                />
-              ) : (
-                <input
-                  {...register("password", { required: true })}
-                  name="password"
-                  placeholder="비밀번호를 입력해주세요"
-                  className="Posts-modal-input"
-                  type="password"
-                />
-              )} */}
-              <button className="Posts-modal-button transition-colors">
+              <button
+                className="Posts-modal-button transition-colors"
+                onClick={() => handleGetPost(postId as number)}
+              >
                 확인
               </button>
             </div>

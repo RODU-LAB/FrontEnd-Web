@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-import { getPost, deletePostAPI } from "../services/postAPI";
+import { deletePostAPI } from "../services/post/postAPI";
 import { YesNoModal } from "../components/YesNoModal";
 
 import { Banner } from "../components/banner";
@@ -13,35 +13,56 @@ import Delete from "../images/delete.png";
 export function Post() {
   const navigator = useNavigate();
   const location = useLocation();
-  const id = location.state;
+  const locationData = location.state;
   // location.state => 전 페이지에서 넘겨 받은 state 값
 
-  const [data, setData] = useState({ title: "", content: "", ownerName: "" });
+  const [data, setDate] = useState({ title: "", content: "", ownerName: "" });
   const [deleteModal, setDeleteModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
 
   useEffect(() => {
-    const getPostHandler = async () => {
-      const result = await getPost(id);
-      console.log(result);
-      if (!result || result.name === "AxiosError") {
-        navigator("/posts");
-      } else {
-        setData(result);
-      }
-    };
-
-    getPostHandler();
-    // eslint-disable-next-line
+    if (!locationData) {
+      console.log(locationData);
+      // alert("잘못된 경로입니다.");
+      navigator("/posts");
+    } else {
+      setDate(locationData);
+    }
   }, []);
 
+  // useEffect(() => {
+  //   const getPostHandler = async () => {
+  //     const result = await getPost(id);
+  //     console.log(result);
+  //     if (!result || result.name === "AxiosError") {
+  //       navigator("/posts");
+  //     } else {
+  //       setData(result);
+  //     }
+  //   };
+
+  //   getPostHandler();
+  //   // eslint-disable-next-line
+  // }, []);
+
   const deletePostHandler = async () => {
-    const result = await deletePostAPI(id);
-    if (result === "SUCCESS") {
-      setData({ title: "", content: "", ownerName: "" });
-      setDeleteModal(false);
-      navigator("/posts");
-    }
+    // const result = await deletePostAPI(locationData.id);
+    // if (result === "SUCCESS") {
+    //   setData({
+    //     title: "",
+    //     content: "",
+    //     ownerName: "",
+    //     answer: "",
+    //     answered: "",
+    //   });
+    //   setDeleteModal(false);
+    //   navigator("/posts");
+    // }
+  };
+
+  const editHandler = () => {
+    // const { answer, answered, ...stateValue } = data;
+    // navigator("updatepost", { state: stateValue });
   };
 
   return (
@@ -73,8 +94,26 @@ export function Post() {
           <p className="whitespace-pre-line py-[34px] border-y-[1.5px] border-y-rodu-black">
             {data.content}
           </p>
+          <div className="px-2">
+            <div className="border p-3 bg-[#fafafa] rounded mt-6">
+              <div>
+                <p className="font-bold text-[18px] text-rodu-black ml-2 mb-1">
+                  문의 답변
+                </p>
+              </div>
+              <textarea className="w-full h-[10rem] border p-2 mt-2 rounded outline-[#949494]" />
+              <div className="flex justify-end">
+                <button className="bg-rodu-medium rounded-[5px] text-white px-[10px] py-2 mr-3 mt-3 font-medium">
+                  답변 작성
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="flex justify-end gap-[20px] mt-[24px]">
-            <button className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9]">
+            <button
+              className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9]"
+              onClick={() => setUpdateModal(true)}
+            >
               <FontAwesomeIcon
                 icon={faPenToSquare}
                 size="lg"
@@ -99,7 +138,7 @@ export function Post() {
       <YesNoModal
         isOpen={updateModal}
         title="게시물을 수정하겠습니까?"
-        yesHandler={() => navigator("/updatepost", { state: id })}
+        yesHandler={() => editHandler()}
         noHandler={() => setUpdateModal(false)}
       />
     </>
