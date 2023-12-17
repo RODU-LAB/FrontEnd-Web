@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginAPI } from "../services/auth";
 
 export function Login() {
+  const navigator = useNavigate();
   const [account, setAccount] = useState("");
   const [pw, setPW] = useState("");
 
   const handleLogin = async () => {
-    const result = LoginAPI(account, pw);
-    // console.log(result.headers.authorization);
+    const result = await LoginAPI(account, pw);
+    if (result) {
+      navigator("/");
+    }
   };
 
   return (

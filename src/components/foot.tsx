@@ -33,12 +33,16 @@ export const Foot: React.FC = () => {
                 강사모집
               </a>
               <div className="Foot-mananger-login">
-                <Link to={"/login"}>a</Link>
+                <Link className="Foot-recruit" to={"/login"}>
+                  관리자 로그인
+                </Link>
               </div>
             </div>
             <div className="Foot-inquiry-container">
               <p className="Foot-inquiry-span">교육 문의</p>
-              <p className="Foot-phone">고객센터 010-5140-3477 / 010-2925-2966</p>
+              <p className="Foot-phone">
+                고객센터 010-5140-3477 / 010-2925-2966
+              </p>
               <p className="Foot-time">
                 상담시간 09:00~21:00
                 <br />
