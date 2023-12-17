@@ -5,9 +5,13 @@ import Modal from "react-modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { Banner } from "../components/banner";
-import { getAllPosts, getPost } from "../services/post/postAPI";
-import lock from "../images/lock.png";
+import { getAllPosts, getPost } from "../../services/post/postAPI";
+import { getPostAdmin } from "../../services/post/postAdminAPI";
+import { handleAdminCheck } from "../../utils/decode";
+
+import { Banner } from "../../components/banner";
+
+import lock from "../../images/lock.png";
 // import postsRoute from "../images/postsRoute.png";
 // import { Foot } from "../components/foot";
 
@@ -47,21 +51,42 @@ export function Posts() {
     fetchPosts();
   }, [page]);
 
+  //** 게시물 로드 (관리자 모드) */
+  const handleGetPostAdmin = async (id: number) => {
+    const result = await getPostAdmin(id);
+    if (result !== "error") {
+      navigate("/post", { state: result });
+    }
+  };
+
   /** 게시판 항목 클릭 시 작동. 비밀글이 아니면 게시물 페이지로 넘어감 */
-  const handlePasswordModal = (isLocked: boolean, id: number) => {
-    if (isLocked) {
-      setPasswordModal(true);
-      setPostId(id);
+  const handlePasswordModal = async (isLocked: boolean, id: number) => {
+    if (handleAdminCheck()) {
+      handleGetPostAdmin(id);
     } else {
-      setPostId(null);
-      setPasswordModal(false);
-      handleGetPost(id);
+      if (isLocked) {
+        setPasswordModal(true);
+        setPostId(id);
+      } else {
+        handleGetPost(id);
+        setPostId(null);
+        setPasswordModal(false);
+      }
     }
   };
 
   /** 게시물 불러오기 */
-  const handleGetPost = async (id: number) => {
-    const result = await getPost(id, pw);
+  const handleGetPost = async (id: number, pw?: string) => {
+    const result = pw ? await getPost(id, pw) : await getPost(id);
+    if (result !== "error") {
+      navigate("/post", { state: result });
+      setPw("");
+    }
+  };
+
+  /** 게시물 불러오기 (비밀글 X) */
+  const handleGetNoSecretPost = async (id: number) => {
+    const result = await getPost(id);
     if (result !== "error") {
       navigate("/post", { state: result });
     }
@@ -69,7 +94,7 @@ export function Posts() {
 
   const handleEnterPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && postId) {
-      handleGetPost(postId);
+      handleGetPost(postId, pw);
     }
   };
 
@@ -234,7 +259,7 @@ export function Posts() {
               />
               <button
                 className="Posts-modal-button transition-colors"
-                onClick={() => handleGetPost(postId as number)}
+                onClick={() => handleGetPost(postId as number, pw)}
               >
                 확인
               </button>

@@ -2,21 +2,24 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 // import { Helmet } from "react-helmet-async";
 
-import { createPostAPI } from "../services/postAPI";
+import { createPostAPI } from "../../services/post/postAPI";
+import { PostDataTypes } from "../../types/postTypes";
 
-import { Banner } from "../components/banner";
-import infoConfirm from "../images/Frame68.svg";
+import { Banner } from "../../components/banner";
+
+import infoConfirm from "../../images/Frame68.svg";
 
 export const UpdatePost = () => {
   const navigate = useNavigate();
-  // eslint-disable-next-line
   const location = useLocation();
+  // eslint-disable-next-line
+  const status = location.state ? "update" : "create";
 
   const [name, setName] = useState("");
   const [institution, setInstitution] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  // const [isPostSecret, setIsPostSecret] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
   const [pw, setPw] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -34,14 +37,14 @@ export const UpdatePost = () => {
     // 입력 필드 검증을 위한 배열
     const validations = [
       { check: name === "", message: "문의자 성함을 다시 확인해 주세요." },
-      { check: institution === "", message: "소속 기관을 입력해 주세요." },
       {
         check: phoneNumber === "" || !onlyNumbers.test(phoneNumber),
-        message: "휴대폰 번호를 확인해 주세요.",
+        message: "연락처를 확인해 주세요.",
       },
       {
-        check: email === "" || !emailRegex.test(email),
-        message: "이메일을 확인해 주세요.",
+        // 이메일이 공백이 아니라면 이메일 유효성 검사 실행
+        check: email !== "" && !emailRegex.test(email),
+        message: "이메일 형식을 확인해 주세요.",
       },
       { check: pw === "", message: "게시글 비밀번호를 입력해 주세요." },
       { check: title === "", message: "글 제목을 입력해 주세요." },
@@ -61,15 +64,24 @@ export const UpdatePost = () => {
       }
     }
 
-    const result = await createPostAPI({
-      name,
-      institution,
-      phoneNumber,
-      pw,
-      title,
-      content,
-      email,
-    });
+    const data: PostDataTypes = {
+      ownerName: name,
+      phoneNumber: phoneNumber,
+      password: pw,
+      title: title,
+      content: content,
+      isLocked: isLocked,
+    };
+
+    if (institution !== "" && institution) {
+      data.institution = institution;
+    }
+
+    if (email !== "" && email) {
+      data.email = email;
+    }
+
+    const result = await createPostAPI(data);
     if (result === "SUCCESS") {
       alert("문의가 성공적으로 접수되었습니다.");
       navigate("/posts");
@@ -94,7 +106,10 @@ export const UpdatePost = () => {
       />
       <div className="Create-post-content-root">
         <div className="CreateEdu-content-root">
-          <div className="CreateEdu-title">문의신청정보</div>
+          <div className="CreateEdu-title flex items-center">
+            문의신청정보
+            <p className="text-[#ff0000] text-[12px] ml-3">* 필수 입력 사항</p>
+          </div>
           <div className="Create-post-form">
             <div className=" Create-post-input-parent ">
               <div className="Create-post-input-description-box Create-post-input-top">
@@ -121,7 +136,6 @@ export const UpdatePost = () => {
                 <span className="Create-post-input-description-text">
                   소속 기관(학원)
                 </span>
-                <span style={{ color: "red" }}>*</span>
               </div>
               <div className="Create-post-input-box">
                 <input
@@ -161,7 +175,6 @@ export const UpdatePost = () => {
                 <span className="Create-post-input-description-text">
                   이메일
                 </span>
-                <span style={{ color: "red" }}>*</span>
               </div>
               <div className="Create-post-input-box">
                 <input
@@ -176,7 +189,7 @@ export const UpdatePost = () => {
               </div>
             </div>
 
-            {/* <div className=" Create-post-input-parent">
+            <div className=" Create-post-input-parent">
               <div className="Create-post-input-description-box">
                 <span className="Create-post-input-description-text">
                   비밀글
@@ -184,12 +197,15 @@ export const UpdatePost = () => {
               </div>
               <div className="Create-post-input-box-checkbox">
                 <input
-                  name="isLocked"
                   className="Create-post-input-checkbox  w-6 h-6 ml-4 mt-2"
                   type="checkbox"
+                  onChange={(e) => {
+                    const target = e.target as HTMLInputElement;
+                    setIsLocked(target.checked);
+                  }}
                 />
               </div>
-            </div> */}
+            </div>
 
             <div className=" Create-post-input-parent">
               <div className="Create-post-input-description-box">
@@ -202,7 +218,7 @@ export const UpdatePost = () => {
                 <input
                   type="password"
                   className="Create-post-input-content"
-                  placeholder="글 삭제 및 수정시 필요합니다"
+                  placeholder="글 삭제 및 수정시 필요합니다."
                   onInput={(e) => {
                     const target = e.target as HTMLInputElement;
                     setPw(target.value);
@@ -232,6 +248,7 @@ export const UpdatePost = () => {
                     const target = e.target as HTMLInputElement;
                     setTitle(target.value);
                   }}
+                  // value={title}
                 />
               </div>
             </div>

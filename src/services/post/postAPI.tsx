@@ -1,15 +1,6 @@
 import axios from "axios";
 import Instance from "../../utils/config";
-
-interface createPost {
-  name: string;
-  institution: string;
-  phoneNumber: string;
-  email: string;
-  pw: string;
-  title: string;
-  content: string;
-}
+import { PostDataTypes } from "../../types/postTypes";
 
 /** 문의글 전체 조회 */
 export async function getAllPosts(page: number) {
@@ -25,9 +16,10 @@ export async function getAllPosts(page: number) {
 }
 
 /** 문의글 조회 */
-export async function getPost(id: number, password: string) {
+export async function getPost(id: number, password?: string) {
   try {
-    const res = await Instance.get(`/posts/${id}?password=${password}`);
+    const url = `/posts/${id}${password ? "?password=" + password : ""}`;
+    const res = await Instance.get(url);
     const result = res.data.data;
     return result;
   } catch (error) {
@@ -41,20 +33,9 @@ export async function getPost(id: number, password: string) {
 }
 
 /** 문의글 생성 */
-export async function createPostAPI(postData: createPost) {
+export async function createPostAPI(data: PostDataTypes) {
   try {
-    const { name, institution, phoneNumber, pw, title, content, email } =
-      postData;
-
-    const res = await Instance.post("/posts/", {
-      ownerName: name,
-      institution: institution,
-      phoneNumber: phoneNumber,
-      password: pw,
-      title: title,
-      content: content,
-      email: email,
-    });
+    const res = await Instance.post("/posts/", data);
     return res.data.code;
   } catch (error) {
     alert("문의 신청에 실패하셨습니다.");
