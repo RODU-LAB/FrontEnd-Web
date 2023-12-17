@@ -84,14 +84,6 @@ export function Posts() {
     }
   };
 
-  /** 게시물 불러오기 (비밀글 X) */
-  const handleGetNoSecretPost = async (id: number) => {
-    const result = await getPost(id);
-    if (result !== "error") {
-      navigate("/post", { state: result });
-    }
-  };
-
   const handleEnterPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && postId) {
       handleGetPost(postId, pw);

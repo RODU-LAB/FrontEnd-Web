@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-import { deletePostAPI } from "../../services/post/postAPI";
+// import { deletePostAPI } from "../../services/post/postAPI";
 import { answerPost, getPostAdmin } from "../../services/post/postAdminAPI";
 import { handleAdminCheck } from "../../utils/decode";
 import { YesNoModal } from "../../components/YesNoModal";
@@ -45,7 +45,7 @@ export function Post() {
         setData(locationData);
       }
     }
-    console.log(location);
+    // eslint-disable-next-line
   }, []);
 
   /** 문의 답변하기 */
