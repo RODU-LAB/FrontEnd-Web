@@ -35,16 +35,17 @@ import ScrollToTop from "./components/scrollToTop"; // 페이지 렌더링 시 �
 import { Foot } from "./components/foot";
 import { Header } from "./components/Header";
 import { NotFound } from "./pages/404";
-import { UpdatePost } from "./pages/UpdatePost";
+import { UpdatePost } from "./pages/post/UpdatePost";
 // import { EditPost } from "./pages/editPost";
 import { HomePage } from "./pages/home";
-import { Post } from "./pages/post";
-import { Posts } from "./pages/posts";
+import { Post } from "./pages/post/post";
+import { Posts } from "./pages/post/posts";
 import { ApplyEdu } from "./pages/applyEdu";
 import { MakeNewApplication } from "./pages/makeNewApplication";
 import ShowApplication from "./pages/showApplication";
 import { ShowDetailContent } from "./pages/showDetailContent";
 import { EditApplication } from "./pages/editApplication";
+import { Login } from "./pages/Login";
 
 import { Otto } from "././pages/educontents/otto";
 import { HourGlass } from "./pages/educontents/hourGlass";
@@ -89,6 +90,7 @@ export const App = () => {
           element={<ShowDetailContent />}
         ></Route>
         <Route path="/editApplication" element={<EditApplication />}></Route>
+        <Route path="/login" element={<Login />}></Route>
 
         <Route path="/otto" element={<Otto />}></Route>
         <Route path="/hourGlass" element={<HourGlass />}></Route>
