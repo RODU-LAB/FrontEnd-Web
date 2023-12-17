@@ -52,7 +52,6 @@ export function Post() {
   const handleAnswer = async () => {
     const result = await answerPost(data.id, answer);
     if (result === 200) {
-      console.log("ad");
       setData((prev) => {
         return { ...prev, answer: answer, isAnswered: true };
       });
