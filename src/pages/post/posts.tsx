@@ -31,6 +31,8 @@ export function Posts() {
 
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<PostsTypes[]>([]);
+  const [postCounts, setPostCounts] = useState(0);
+
   const [passwordModal, setPasswordModal] = useState(false);
   const [postId, setPostId] = useState<number | null>();
   const [pw, setPw] = useState<string>("");
@@ -41,12 +43,9 @@ export function Posts() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      try {
-        const result = await getAllPosts(page);
-        setPosts(result.posts);
-      } catch (error) {
-        console.error(error);
-      }
+      const result = await getAllPosts(page);
+      setPosts(result.posts);
+      setPostCounts(result.total);
     };
 
     fetchPosts();
@@ -178,29 +177,43 @@ export function Posts() {
             <div className="w-[180px]" />
             <div className="Posts-pagination-container">
               <button
-                onClick={() => setPage(0)}
-                className="Posts-pagination-button-left"
-                disabled={page === 0 ? true : false}
+                onClick={() => {
+                  page === 0 ? alert("현재 첫 페이지 입니다.") : setPage(0);
+                }}
+                className={"Posts-pagination-button-left"}
+                // disabled={page === 0 ? true : false}
               >
                 &laquo;
               </button>
               <button
-                onClick={() => setPage((prev) => prev - 1)}
+                onClick={() => {
+                  page === 0
+                    ? alert("현재 첫 페이지 입니다.")
+                    : setPage((prev) => prev - 1);
+                }}
                 className="Posts-pagination-button-left"
-                disabled={page === 0 ? true : false}
+                // disabled={page === 0 ? true : false}
               >
                 &lsaquo;
               </button>
               <span className="Posts-pagination-button-span">{page + 1}</span>
               <button
-                onClick={() => setPage((prev) => prev + 1)}
+                onClick={() => {
+                  postCounts - (page + 1) * 10 <= 0
+                    ? alert("현재 마지막 페이지 입니다.")
+                    : setPage((prev) => prev + 1);
+                }}
                 className="Posts-pagination-button-right"
                 // disabled={page !== data?.findAllPosts.totalPages ? false : true}
               >
                 &rsaquo;
               </button>
               <button
-                // onClick={onLastPageClick}
+                onClick={() => {
+                  postCounts - (page + 1) * 10 <= 0
+                    ? alert("현재 마지막 페이지 입니다.")
+                    : setPage(Math.floor(postCounts / 10));
+                }}
                 className="Posts-pagination-button-right"
                 // disabled={page !== data?.findAllPosts.totalPages ? false : true}
               >
