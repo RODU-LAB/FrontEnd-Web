@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 // import { Helmet } from "react-helmet-async";
-import Modal from "react-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+// import Modal from "react-modal";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 import { getAllPosts, getPost } from "../../services/post/postAPI";
 import { getPostAdmin } from "../../services/post/postAdminAPI";
 import { handleAdminCheck } from "../../utils/decode";
+import { PwInputModal } from "../../components/modal/PwInputModal";
 
 import { Banner } from "../../components/banner";
 
@@ -81,12 +82,6 @@ export function Posts() {
     if (result !== "error") {
       navigate("/post", { state: result });
       setPw("");
-    }
-  };
-
-  const handleEnterPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && postId) {
-      handleGetPost(postId, pw);
     }
   };
 
@@ -221,44 +216,16 @@ export function Posts() {
           </div>
         </div>
       </div>
-      <Modal isOpen={passwordModal} className="Posts-modal">
-        <>
-          <div className="Posts-modal-container">
-            <span className="Posts-modal-title flex justify-between items-center px-4">
-              <div className="w-[15px]" />
-              <p>게시글 비밀번호를 입력해주세요</p>
-              <FontAwesomeIcon
-                icon={faXmark}
-                size="lg"
-                className="cursor-pointer"
-                onClick={() => {
-                  setPostId(null);
-                  setPasswordModal(false);
-                  setPw("");
-                }}
-              />
-            </span>
-            <div className="flex w-full Posts-modal-form">
-              <input
-                onInput={(e) => {
-                  const target = e.target as HTMLInputElement;
-                  setPw(target.value);
-                }}
-                placeholder="비밀번호를 입력해주세요"
-                className="Posts-modal-input"
-                type="password"
-                onKeyDown={handleEnterPress}
-              />
-              <button
-                className="Posts-modal-button transition-colors"
-                onClick={() => handleGetPost(postId as number, pw)}
-              >
-                확인
-              </button>
-            </div>
-          </div>
-        </>
-      </Modal>
+      <PwInputModal
+        isOpen={passwordModal}
+        enterPress={() => handleGetPost(postId as number, pw)}
+        onInput={setPw}
+        onClickXmark={() => {
+          setPostId(null);
+          setPasswordModal(false);
+          setPw("");
+        }}
+      />
     </div>
   );
 }

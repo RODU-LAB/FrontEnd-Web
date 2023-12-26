@@ -36,7 +36,7 @@ export async function getPost(id: number, password?: string) {
 export async function createPostAPI(data: PostDataTypes) {
   try {
     const res = await Instance.post("/posts/", data);
-    return res.data.code;
+    return res.status;
   } catch (error) {
     alert("문의 신청에 실패하셨습니다.");
     console.error(error);
@@ -45,13 +45,34 @@ export async function createPostAPI(data: PostDataTypes) {
 }
 
 /** 문의글 삭제 */
-export async function deletePostAPI(id: number) {
+export async function deletePostAPI(id: number, password: string) {
   try {
-    const res = await Instance.delete("/posts/" + id);
-    return res.data.code;
+    const res = await Instance.delete("/posts/" + id + "?password=" + password);
+    return res.status;
   } catch (error) {
     alert("문의글 삭제에 실패하셨습니다.");
     console.error(error);
     throw error;
+  }
+}
+
+/** 문의글 수정 */
+export async function updatePostAPI(
+  id: number,
+  password: string,
+  data: PostDataTypes
+) {
+  try {
+    const res = await Instance.patch(
+      "/posts/" + id + "?password=" + password,
+      data
+    );
+    return res.status;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.data.code === "POST001") {
+      alert("비밀번호를 다시 확인하십시오.");
+    } else {
+      alert("문의글 수정에 실패하셨습니다.");
+    }
   }
 }

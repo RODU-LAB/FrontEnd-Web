@@ -4,11 +4,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-// import { deletePostAPI } from "../../services/post/postAPI";
-import { answerPost, getPostAdmin } from "../../services/post/postAdminAPI";
+import { deletePostAPI } from "../../services/post/postAPI";
+import {
+  answerPost,
+  getPostAdmin,
+  deletePostAdmin,
+} from "../../services/post/postAdminAPI";
 import { handleAdminCheck } from "../../utils/decode";
-import { YesNoModal } from "../../components/YesNoModal";
 
+import { YesNoModal } from "../../components/modal/YesNoModal";
+import { PwInputModal } from "../../components/modal/PwInputModal";
 import { Banner } from "../../components/banner";
 import Delete from "../../images/delete.png";
 
@@ -27,15 +32,18 @@ export function Post() {
     answer: "",
   });
   const [deleteModal, setDeleteModal] = useState(false);
-  const [updateModal, setUpdateModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [pwStatus, setPwStatus] = useState("");
   const [answer, setAnswer] = useState("");
+  const [pw, setPw] = useState("");
+  // const [pwModal, setPwModal] = useState(false);
 
   useEffect(() => {
     if (!locationData) {
       alert("잘못된 경로입니다.");
       navigator("/posts");
     } else {
-      if (!locationData.isAnswered) {
+      if (!locationData.isAnswered && handleAdminCheck()) {
         const getPost = async () => {
           const result = await getPostAdmin(locationData.id);
           setData(result);
@@ -58,24 +66,53 @@ export function Post() {
     }
   };
 
-  const deletePostHandler = async () => {
-    // const result = await deletePostAPI(locationData.id);
-    // if (result === "SUCCESS") {
-    //   setData({
-    //     title: "",
-    //     content: "",
-    //     ownerName: "",
-    //     answer: "",
-    //     answered: "",
-    //   });
-    //   setDeleteModal(false);
-    //   navigator("/posts");
-    // }
+  const handleDeletePost = async () => {
+    const result = await deletePostAPI(data.id, pw);
+    if (result === 200) {
+      alert("문의글 삭제가 완료되었습니다.");
+      setData({
+        title: "",
+        content: "",
+        ownerName: "",
+        id: 0,
+        isAnswered: false,
+        answer: "",
+      });
+      setDeleteModal(false);
+      setPwStatus("");
+      setPw("");
+      navigator("/posts");
+    }
   };
 
-  const editHandler = () => {
-    // const { answer, answered, ...stateValue } = data;
-    // navigator("updatepost", { state: stateValue });
+  const handleEditPost = () => {
+    navigator("updatepost", { state: data });
+  };
+
+  //** 문의 수정 삭제 시 관리자인지 확인 */
+  const handleCheckStatus = async (status: string) => {
+    setDeleteModal(false);
+    setEditModal(false);
+    if (status === "delete") {
+      // 관리자 계정
+      if (handleAdminCheck()) {
+        const result = await deletePostAdmin(data.id);
+        if (result === 200) {
+          alert("문의글을 삭제하였습니다.");
+          navigator("/posts");
+        }
+      } else {
+        setPwStatus("delete");
+      }
+    }
+    if (status === "edit") {
+      // 관리자 계정
+      if (handleAdminCheck()) {
+        navigator("updatepost", { state: data });
+      } else {
+        setPwStatus("edit");
+      }
+    }
   };
 
   return (
@@ -109,10 +146,13 @@ export function Post() {
           </p>
 
           <div className="flex justify-end gap-[20px] mt-[24px]">
-            {!handleAdminCheck() ? (
+            {handleAdminCheck() || data.isAnswered ? (
+              ""
+            ) : (
+              // 게시물 수정 버튼
               <button
                 className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9]"
-                onClick={() => setUpdateModal(true)}
+                onClick={() => setEditModal(true)}
               >
                 <FontAwesomeIcon
                   icon={faPenToSquare}
@@ -120,15 +160,19 @@ export function Post() {
                   className="text-white"
                 />
               </button>
-            ) : (
-              ""
             )}
-            <button
-              className="h-[28px] w-[80px] rounded-[15px] bg-rodu-medium flex justify-center items-center"
-              onClick={() => setDeleteModal(true)}
-            >
-              <img src={Delete} alt="delete" className="h-[20px]" />
-            </button>
+
+            {data.isAnswered && !handleAdminCheck() ? (
+              ""
+            ) : (
+              // 게시물 삭제 버튼
+              <button
+                className="h-[28px] w-[80px] rounded-[15px] bg-rodu-medium flex justify-center items-center"
+                onClick={() => setDeleteModal(true)}
+              >
+                <img src={Delete} alt="delete" className="h-[20px]" />
+              </button>
+            )}
           </div>
 
           {/* 답변이 있다면 답변 내용 보여주기
@@ -177,16 +221,34 @@ export function Post() {
         </div>
       </div>
       <YesNoModal
-        isOpen={deleteModal}
-        title="게시물을 삭제하겠습니까?"
-        yesHandler={() => deletePostHandler()}
-        noHandler={() => setDeleteModal(false)}
+        isOpen={deleteModal || editModal}
+        title={`게시물을 ${deleteModal ? "삭제" : "수정"}하겠습니까?`}
+        yesHandler={() =>
+          deleteModal ? handleCheckStatus("delete") : handleCheckStatus("edit")
+        }
+        noHandler={() => {
+          setDeleteModal(false);
+          setEditModal(false);
+        }}
       />
-      <YesNoModal
-        isOpen={updateModal}
+      {/* <YesNoModal
+        isOpen={editModal}
         title="게시물을 수정하겠습니까?"
         yesHandler={() => editHandler()}
-        noHandler={() => setUpdateModal(false)}
+        noHandler={() => setEditModal(false)}
+      /> */}
+      <PwInputModal
+        isOpen={pwStatus !== ""}
+        enterPress={() => {
+          pwStatus === "delete" ? handleDeletePost() : handleEditPost();
+        }}
+        onInput={setPw}
+        onClickXmark={() => {
+          setDeleteModal(false);
+          setEditModal(false);
+          setPwStatus("");
+          setPw("");
+        }}
       />
     </>
   );

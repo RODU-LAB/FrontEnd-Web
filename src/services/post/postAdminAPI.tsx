@@ -7,7 +7,6 @@ export async function getPostAdmin(id: number) {
     return result;
   } catch (error) {
     alert("문의글 조회에 실패하셨습니다.");
-    console.log(error);
     return "error";
   }
 }
@@ -21,6 +20,18 @@ export async function answerPost(id: number, answer: string) {
     return result;
   } catch (error) {
     alert("문의 답변에 실패하셨습니다.");
+    // console.log(error);
+    return "error";
+  }
+}
+
+export async function deletePostAdmin(id: number) {
+  try {
+    const res = await Instance.delete(`/posts-admin/${id}`);
+    const result = res.status;
+    return result;
+  } catch (error) {
+    alert("문의 삭제에 실패하셨습니다.");
     // console.log(error);
     return "error";
   }

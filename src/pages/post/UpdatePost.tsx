@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router";
 // import { Helmet } from "react-helmet-async";
 
-import { createPostAPI } from "../../services/post/postAPI";
+import { createPostAPI, updatePostAPI } from "../../services/post/postAPI";
 import { PostDataTypes } from "../../types/postTypes";
 
 import { Banner } from "../../components/banner";
@@ -12,19 +12,41 @@ import infoConfirm from "../../images/Frame68.svg";
 export const UpdatePost = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // eslint-disable-next-line
-  const status = location.state ? "update" : "create";
+  const locationData = location.state;
+  const updateStatus = location.state ? "update" : "create";
 
-  const [name, setName] = useState("");
-  const [institution, setInstitution] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [isLocked, setIsLocked] = useState(false);
+  // 렌더링 이후인지 확인
+  const [isAfterRender, setIsAfterRender] = useState(true);
+
+  const [name, setName] = useState(
+    updateStatus === "update" ? locationData.name : ""
+  );
+  const [institution, setInstitution] = useState(
+    updateStatus === "update" ? locationData.institution : ""
+  );
+  const [phoneNumber, setPhoneNumber] = useState(
+    updateStatus === "update" ? locationData.phoneNumber : ""
+  );
+  const [email, setEmail] = useState(
+    updateStatus === "update" ? locationData.email : ""
+  );
   const [pw, setPw] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(
+    updateStatus === "update" ? locationData.title : ""
+  );
+  const [content, setContent] = useState(
+    updateStatus === "update" ? locationData.content : ""
+  );
+
+  const [isLocked, setIsLocked] = useState(
+    updateStatus === "update" ? locationData.isLocked : false
+  );
   const [isAgree, setIsAgree] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    setIsAfterRender(false);
+  }, []);
 
   /** 폼 제출 (제출 전 유효성 검사 포함) */
   const summitHandler = async () => {
@@ -68,25 +90,27 @@ export const UpdatePost = () => {
       ownerName: name,
       phoneNumber: phoneNumber,
       password: pw,
+      institution: institution,
+      email: email,
       title: title,
       content: content,
       isLocked: isLocked,
     };
 
-    if (institution !== "" && institution) {
-      data.institution = institution;
+    if (updateStatus === "create") {
+      const result = await createPostAPI(data);
+      if (result === 200) {
+        alert("문의가 성공적으로 접수되었습니다.");
+        navigate("/posts");
+      }
     }
 
-    if (email !== "" && email) {
-      data.email = email;
-    }
-
-    const result = await createPostAPI(data);
-    if (result === "SUCCESS") {
-      alert("문의가 성공적으로 접수되었습니다.");
-      navigate("/posts");
-    } else {
-      alert("문의 신청에 실패하셨습니다.");
+    if (updateStatus === "update") {
+      const result = await updatePostAPI(locationData.id, pw, data);
+      if (result === 200) {
+        alert("문의가 성공적으로 수정되었습니다.");
+        navigate("/posts");
+      }
     }
   };
 
@@ -128,6 +152,9 @@ export const UpdatePost = () => {
                     const target = e.target as HTMLInputElement;
                     setName(target.value);
                   }}
+                  {...(isAfterRender && locationData
+                    ? { value: locationData.ownerName }
+                    : {})}
                 />
               </div>
             </div>
@@ -139,13 +166,15 @@ export const UpdatePost = () => {
               </div>
               <div className="Create-post-input-box">
                 <input
-                  name="institution"
                   placeholder="로듀 초등학교"
                   className="Create-post-input-content"
                   onInput={(e) => {
                     const target = e.target as HTMLInputElement;
                     setInstitution(target.value);
                   }}
+                  {...(isAfterRender && locationData
+                    ? { value: locationData.institution }
+                    : {})}
                 />
               </div>
             </div>
@@ -166,6 +195,9 @@ export const UpdatePost = () => {
                     const target = e.target as HTMLInputElement;
                     setPhoneNumber(target.value);
                   }}
+                  {...(isAfterRender && locationData
+                    ? { value: locationData.phoneNumber }
+                    : {})}
                 />
               </div>
             </div>
@@ -185,6 +217,9 @@ export const UpdatePost = () => {
                     const target = e.target as HTMLInputElement;
                     setEmail(target.value);
                   }}
+                  {...(isAfterRender && locationData
+                    ? { value: locationData.email }
+                    : {})}
                 />
               </div>
             </div>
@@ -203,6 +238,9 @@ export const UpdatePost = () => {
                     const target = e.target as HTMLInputElement;
                     setIsLocked(target.checked);
                   }}
+                  {...(isAfterRender && locationData.isLocked
+                    ? { checked: true }
+                    : {})}
                 />
               </div>
             </div>
@@ -218,7 +256,11 @@ export const UpdatePost = () => {
                 <input
                   type="password"
                   className="Create-post-input-content"
-                  placeholder="글 삭제 및 수정시 필요합니다."
+                  placeholder={
+                    updateStatus === "create"
+                      ? "글 삭제 및 수정시 필요합니다."
+                      : "현재 게시판의 비밀번호를 입력하십시오."
+                  }
                   onInput={(e) => {
                     const target = e.target as HTMLInputElement;
                     setPw(target.value);
@@ -248,7 +290,9 @@ export const UpdatePost = () => {
                     const target = e.target as HTMLInputElement;
                     setTitle(target.value);
                   }}
-                  // value={title}
+                  {...(isAfterRender && locationData
+                    ? { value: locationData.title }
+                    : {})}
                 />
               </div>
             </div>
@@ -269,6 +313,9 @@ export const UpdatePost = () => {
                     const target = e.target as HTMLInputElement;
                     setContent(target.value);
                   }}
+                  {...(isAfterRender && locationData
+                    ? { value: locationData.content }
+                    : {})}
                 />
               </div>
             </div>
