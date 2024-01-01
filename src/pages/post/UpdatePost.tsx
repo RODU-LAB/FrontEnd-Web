@@ -232,13 +232,13 @@ export const UpdatePost = () => {
               </div>
               <div className="Create-post-input-box-checkbox">
                 <input
-                  className="Create-post-input-checkbox  w-6 h-6 ml-4 mt-2"
+                  className="Create-post-input-checkbox w-6 h-6 ml-4 mt-2"
                   type="checkbox"
                   onChange={(e) => {
                     const target = e.target as HTMLInputElement;
                     setIsLocked(target.checked);
                   }}
-                  {...(isAfterRender && locationData.isLocked
+                  {...(isAfterRender && locationData?.isLocked
                     ? { checked: true }
                     : {})}
                 />
