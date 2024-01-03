@@ -148,7 +148,7 @@ export const UpdatePost = () => {
                   name="ownerName"
                   placeholder="성함 입력"
                   maxLength={4}
-                  onInput={(e) => {
+                  onChange={(e) => {
                     const target = e.target as HTMLInputElement;
                     setName(target.value);
                   }}
@@ -168,7 +168,7 @@ export const UpdatePost = () => {
                 <input
                   placeholder="로듀 초등학교"
                   className="Create-post-input-content"
-                  onInput={(e) => {
+                  onChange={(e) => {
                     const target = e.target as HTMLInputElement;
                     setInstitution(target.value);
                   }}
@@ -191,7 +191,7 @@ export const UpdatePost = () => {
                   name="phoneNumber"
                   placeholder="하이픈(-) 없이 숫자만 입력"
                   className="Create-post-input-content"
-                  onInput={(e) => {
+                  onChange={(e) => {
                     const target = e.target as HTMLInputElement;
                     setPhoneNumber(target.value);
                   }}
@@ -213,7 +213,7 @@ export const UpdatePost = () => {
                   name="email"
                   placeholder="이메일 주소 입력"
                   className="Create-post-input-content"
-                  onInput={(e) => {
+                  onChange={(e) => {
                     const target = e.target as HTMLInputElement;
                     setEmail(target.value);
                   }}
@@ -261,7 +261,7 @@ export const UpdatePost = () => {
                       ? "글 삭제 및 수정시 필요합니다."
                       : "현재 게시판의 비밀번호를 입력하십시오."
                   }
-                  onInput={(e) => {
+                  onChange={(e) => {
                     const target = e.target as HTMLInputElement;
                     setPw(target.value);
                   }}
@@ -286,7 +286,7 @@ export const UpdatePost = () => {
                   maxLength={30}
                   className="Create-post-input-content"
                   placeholder=""
-                  onInput={(e) => {
+                  onChange={(e) => {
                     const target = e.target as HTMLInputElement;
                     setTitle(target.value);
                   }}
@@ -309,9 +309,9 @@ export const UpdatePost = () => {
                   name="content"
                   placeholder="문의 내용을 입력해주세요"
                   className="Create-post-textarea"
-                  onInput={(e) => {
-                    const target = e.target as HTMLInputElement;
-                    setContent(target.value);
+                  onChange={(e) => {
+                    const target = e.target.value;
+                    setContent(target);
                   }}
                   {...(isAfterRender && locationData
                     ? { value: locationData.content }
