@@ -25,7 +25,7 @@ export async function verifyAuthCodeAPI(authNum: string, phoneNumber: string) {
       phone: phoneNumber,
       messageType: "TEMP",
     });
-    return res.status;
+    return res.headers["session-id"];
   } catch (error) {
     alert("인증번호 인증에 실패하였습니다.");
     console.error(error);

@@ -38,7 +38,7 @@ export async function createPostAPI(data: PostDataTypes) {
     return res.status;
   } catch (error) {
     alert("문의 신청에 실패하셨습니다.");
-    console.error(error);
+    // console.error(error);
     throw error;
   }
 }
@@ -50,7 +50,7 @@ export async function deletePostAPI(id: number, password: string) {
     return res.status;
   } catch (error) {
     alert("문의글 삭제에 실패하셨습니다.");
-    console.error(error);
+    // console.error(error);
     throw error;
   }
 }

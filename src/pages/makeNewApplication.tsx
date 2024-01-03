@@ -7,15 +7,22 @@ import { sendAuthCodeAPI, verifyAuthCodeAPI } from "../services/apply";
 import { Banner } from "../components/banner";
 import { Calendar } from "../components/Calendar";
 
-import createEduRoute from "../images/bannerCategory/createEdu.png";
-import infoConfirm from "../images/Frame68.svg";
 import { ReactComponent as Delete } from "../images/delete.svg";
+
+interface ClassGroupTypes {
+  className: string;
+  educationConcept: string;
+  numberOfStudents: string;
+  remark: string;
+  unfixed: boolean;
+}
 
 export const MakeNewApplication = () => {
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
   const [finishAuthModal, setFinishAuthModal] = useState(false);
   const [submitModal, setSubmitModal] = useState(false);
-  const [calendarModal, setCalendarModal] = useState(false);
+  // 학급 정보 폼의 인덱스가 입력되면 modal이 띄워짐
+  const [calendarModal, setCalendarModal] = useState(-1);
 
   const [formNum, setFormNum] = useState(0);
   const [inputCheck, setInputCheck] = useState("");
@@ -25,18 +32,39 @@ export const MakeNewApplication = () => {
   const [timeLeft, setTimeLeft] = useState(300);
   const [isClickBeforeSendAuthCode, setIsClickBeforeSendAuthCode] =
     useState(false);
-
+  const [authSesstionId, setAuthSessionId] = useState("");
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
 
   const leftBarRef = useRef<HTMLDivElement>(null);
   const mainFormRef = useRef<HTMLDivElement>(null);
 
+  // Form 0
   const [name, setName] = useState("");
   const [institutionName, setInstitutionName] = useState("");
   const [position, setPosition] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [authNum, setAuthNum] = useState(""); // 인증번호
   const [email, setEmail] = useState("");
+
+  // Form 1 - 교육생 정보
+  const [numberOfStudents, setNumberOfStudents] = useState("");
+  const [studentRank, setStudentRank] = useState("");
+  const [budget, setBudget] = useState("");
+
+  // Form 2 - 학급별 교육 일정
+  const [classGroup, setClassGroup] = useState([
+    {
+      className: "",
+      educationConcept: "",
+      numberOfStudents: "",
+      remark: "",
+      unfixed: false,
+    },
+  ]);
+  const [educationDates, setEducationDates] = useState<string[][]>([]);
+
+  // Form 3 - 교육 특이사항
+  const [overallRemark, setOverallRemark] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
@@ -143,15 +171,67 @@ export const MakeNewApplication = () => {
       alert("인증 번호가 만료되었습니다.");
     } else if (!!!authNum || !onlyNumbers.test(authNum)) {
       setInputCheck("authCode");
-    } else if (isActiveTimer ?? timeLeft > 0) {
+    } else if (isActiveTimer && timeLeft > 0) {
       const result = await verifyAuthCodeAPI(authNum, phoneNumber);
-      if (result === 200) {
+      if (result) {
         setFinishAuthModal(true);
         setIsAuth(true);
         setIsActiveTimer(false);
+        setAuthSessionId(result);
       }
     } else if (!isActiveTimer) {
       setIsClickBeforeSendAuthCode(true);
+    }
+  };
+
+  /** input 값 핸들링 (Form 2 - 학급별 교육 일정) */
+  const handleClassGroupInput = (
+    idx: number,
+    key: keyof ClassGroupTypes,
+    value: ClassGroupTypes[keyof ClassGroupTypes]
+  ) => {
+    setClassGroup((prev) => {
+      const updatedData: any = [...prev];
+
+      // 특정 인덱스의 객체에 접근하여 값을 업데이트
+      const updatedItem = { ...updatedData[idx] };
+      updatedItem[key] = value;
+      updatedData[idx] = updatedItem;
+
+      return updatedData;
+    });
+  };
+
+  /** 학급 추가 버튼 클릭 시 (Form 2 - 학급별 교육 일정) */
+  const handleAddClass = () => {
+    setClassGroup((prev) => [
+      ...prev,
+      {
+        className: "",
+        educationConcept: "",
+        educationDates: [],
+        numberOfStudents: "",
+        remark: "",
+        unfixed: false,
+      },
+    ]);
+    setEducationDates((prev) => {
+      const prevData = [...prev];
+      prevData.push([]);
+      return prevData;
+    });
+  };
+
+  /** 학급 삭제 (Form 2 - 학급별 교육 일정) */
+  const handleRemoveClass = (idx: number) => {
+    if (classGroup.length > 1) {
+      setClassGroup((prev) => {
+        const prevDate = [...prev];
+        prevDate.splice(idx, 1);
+        return prevDate;
+      });
+    } else {
+      alert("최소 한 개의 학급이 필요합니다.");
     }
   };
 
@@ -204,10 +284,81 @@ export const MakeNewApplication = () => {
     return true;
   };
 
+  /** Form 1 - 교육생 정보 에서 다음 버튼 클릭 */
+  const handleSecondNextBtn = () => {
+    const onlyNumbers = /^\d+$/;
+
+    const validations = [
+      {
+        check: !!!numberOfStudents,
+        item: "numberOfStudents",
+      },
+      {
+        check: !onlyNumbers.test(numberOfStudents),
+        item: "numberOfStudentsRegex",
+      },
+      {
+        check: !!!studentRank,
+        item: "studentRank",
+      },
+      {
+        check: !!!budget,
+        item: "budget",
+      },
+      {
+        check: !onlyNumbers.test(budget),
+        item: "budgetRegex",
+      },
+    ];
+
+    // 각 조건 검증
+    for (let i = 0; i < validations.length; i++) {
+      const { check, item } = validations[i];
+      if (check) {
+        setInputCheck(item);
+        if (item === "numberOfStudentsRegex" || item === "budgetRegex") {
+          alert("'교육 학생 수'와 '교육 예산' 항목은 숫자만 입력 가능합니다.");
+        }
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  /** Form 2 - 학급별 교육 정보 에서 다음 버튼 클릭 */
+  const handleThirdNextBtn = () => {
+    for (let i = 0; i < classGroup.length; i++) {
+      if (!!!classGroup[i].className) {
+        alert("'학급 이름' 입력란을 다시 확인해 주세요.");
+        return false;
+      }
+    }
+    return true;
+  };
+
+  /** 다음 버튼 클릭 */
   const handleNextBtn = () => {
-    if (handleFirstNextBtn()) {
+    if (
+      (formNum === 0 && handleFirstNextBtn()) ||
+      (formNum === 1 && handleSecondNextBtn()) ||
+      (formNum === 2 && handleThirdNextBtn()) ||
+      formNum === 3
+    ) {
       setFormNum(formNum + 1);
     }
+  };
+
+  /** 캘린더 핸들링 */
+  const handleCalendar = (dates: string[]) => {
+    setEducationDates((prev) => {
+      if (calendarModal >= 0) {
+        const prevDate = [...prev];
+        prevDate.splice(calendarModal, 1, dates);
+        return prevDate;
+      }
+      return prev;
+    });
   };
 
   return (
@@ -430,7 +581,7 @@ export const MakeNewApplication = () => {
                         : "Create-post-input-content"
                     }
                     placeholder="신청자 성함"
-                    onInput={(e) => {
+                    onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setName(target.value);
                       setInputCheck("");
@@ -454,7 +605,7 @@ export const MakeNewApplication = () => {
                         ? "Create-post-input-content horizontal-shaking border-red"
                         : "Create-post-input-content"
                     }
-                    onInput={(e) => {
+                    onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setInstitutionName(target.value);
                       setInputCheck("");
@@ -478,7 +629,7 @@ export const MakeNewApplication = () => {
                         ? "Create-post-input-content horizontal-shaking border-red"
                         : "Create-post-input-content"
                     }
-                    onInput={(e) => {
+                    onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setPosition(target.value);
                       setInputCheck("");
@@ -503,7 +654,7 @@ export const MakeNewApplication = () => {
                         : "Create-post-input-phoneNum"
                     }
                     readOnly={formNum === 4 || isAuth || isActiveTimer}
-                    onInput={(e) => {
+                    onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setPhoneNumber(target.value);
                       setInputCheck("");
@@ -540,7 +691,7 @@ export const MakeNewApplication = () => {
                         ? "Create-post-input-phoneNum horizontal-shaking border-red"
                         : "Create-post-input-phoneNum"
                     }
-                    onInput={(e) => {
+                    onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setAuthNum(target.value);
                       setInputCheck("");
@@ -610,7 +761,7 @@ export const MakeNewApplication = () => {
                         ? "Create-post-input-content horizontal-shaking border-red"
                         : "Create-post-input-content"
                     }
-                    onInput={(e) => {
+                    onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setEmail(target.value);
                       setInputCheck("");
@@ -641,9 +792,17 @@ export const MakeNewApplication = () => {
                 </div>
                 <div className="Create-post-input-box Create-post-input-top">
                   <input
-                    type="text"
-                    className="Create-post-input-content"
-                    name="student_count"
+                    className={
+                      inputCheck === "numberOfStudents" ||
+                      inputCheck === "numberOfStudentsRegex"
+                        ? "Create-post-input-content horizontal-shaking border-red"
+                        : "Create-post-input-content"
+                    }
+                    onChange={(e) => {
+                      const target = e.target as HTMLInputElement;
+                      setNumberOfStudents(target.value);
+                      setInputCheck("");
+                    }}
                     placeholder="총 학생 수를 입력해주세요."
                     readOnly={formNum === 4}
                   />
@@ -659,7 +818,16 @@ export const MakeNewApplication = () => {
                 <div className="Create-post-input-box">
                   <input
                     placeholder="초등학교 1학년, 3학년"
-                    className="Create-post-input-content"
+                    className={
+                      inputCheck === "studentRank"
+                        ? "Create-post-input-content horizontal-shaking border-red"
+                        : "Create-post-input-content"
+                    }
+                    onChange={(e) => {
+                      const target = e.target as HTMLInputElement;
+                      setStudentRank(target.value);
+                      setInputCheck("");
+                    }}
                     readOnly={formNum === 4}
                   />
                 </div>
@@ -673,10 +841,17 @@ export const MakeNewApplication = () => {
                 </div>
                 <div className="Create-post-input-box">
                   <input
-                    type="text"
-                    name="budget"
                     placeholder="교육 커리큘럼 제안에 활용되는 정보입니다."
-                    className="Create-post-input-content"
+                    className={
+                      inputCheck === "budget" || inputCheck === "budgetRegex"
+                        ? "Create-post-input-content horizontal-shaking border-red"
+                        : "Create-post-input-content"
+                    }
+                    onChange={(e) => {
+                      const target = e.target as HTMLInputElement;
+                      setBudget(target.value);
+                      setInputCheck("");
+                    }}
                     readOnly={formNum === 4}
                   />
                 </div>
@@ -695,84 +870,138 @@ export const MakeNewApplication = () => {
             >
               <div className="CreateEdu-title">학급별 교육 일정</div>
               <div className="classInfo-container">
-                <div className="classInfo-box">
-                  <section className={"section"}>
-                    <div className="classInfo-subtitle-container">
-                      <div className="classInfo-subtitle">학급 정보</div>
+                {classGroup.map((item, i) => {
+                  return (
+                    <div className="classInfo-box">
+                      <section className={"section"}>
+                        <div className="classInfo-subtitle-container">
+                          <div className="classInfo-subtitle">학급 정보</div>
 
-                      <button
-                        type="button"
-                        // onClick={() => remove(index)}
-                        disabled={formNum === 4}
-                      >
-                        <Delete style={{ width: "0.833rem" }} />
-                      </button>
-                    </div>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveClass(i)}
+                            disabled={formNum === 4}
+                          >
+                            <Delete style={{ width: "0.833rem" }} />
+                          </button>
+                        </div>
 
-                    <div className="classInfo-topInfo-container">
-                      <span className="classInfo-topInfo-font">학급 이름</span>
-                      <input
-                        className="classInfo-topInfo-input  px-[0.778rem]"
-                        placeholder="6학년 3반"
-                        readOnly={formNum === 4}
-                      />
+                        <div className="classInfo-topInfo-container">
+                          <span className="classInfo-topInfo-font">
+                            학급 이름
+                          </span>
+                          <input
+                            className="classInfo-topInfo-input px-[0.778rem]"
+                            placeholder="6학년 3반"
+                            onChange={(e) => {
+                              const target = e.target as HTMLInputElement;
+                              handleClassGroupInput(
+                                i,
+                                "className",
+                                target.value
+                              );
+                              setInputCheck("");
+                            }}
+                            value={classGroup[i].className}
+                            readOnly={formNum === 4}
+                          />
+                        </div>
+                        <div className="classInfo-topInfo-container">
+                          <span className="classInfo-topInfo-font">
+                            교육 컨셉
+                          </span>
+                          <input
+                            className="classInfo-topInfo-input px-[0.778rem]"
+                            placeholder="AI, 로봇, 소프트웨어, 메이커, 3D 등"
+                            onChange={(e) => {
+                              const target = e.target as HTMLInputElement;
+                              handleClassGroupInput(
+                                i,
+                                "educationConcept",
+                                target.value
+                              );
+                              setInputCheck("");
+                            }}
+                            value={classGroup[i].educationConcept}
+                            readOnly={formNum === 4}
+                          />
+                        </div>
+                        <div className="classInfo-topInfo-container">
+                          <span className="classInfo-topInfo-font">
+                            학생 수
+                          </span>
+                          <input
+                            className="classInfo-topInfo-input px-[0.778rem]"
+                            placeholder="학생 수를 입력해주세요."
+                            onChange={(e) => {
+                              const target = e.target as HTMLInputElement;
+                              handleClassGroupInput(
+                                i,
+                                "numberOfStudents",
+                                target.value
+                              );
+                              setInputCheck("");
+                            }}
+                            value={classGroup[i].numberOfStudents}
+                            readOnly={formNum === 4}
+                          />
+                        </div>
+                        <div className="classInfo-topInfo-container">
+                          <span className="classInfo-topInfo-font">
+                            교육 날짜
+                          </span>
+                          <button
+                            className="classInfo-topInfo-input px-[0.778rem] flex items-center text-[#9CA3AF]"
+                            onClick={() => setCalendarModal(i)}
+                          >
+                            <p className="whitespace-nowrap overflow-scroll scrollbar-hide">
+                              {!!!educationDates[i]?.length
+                                ? "교육 날짜를 선택하세요."
+                                : educationDates[i].join(", ")}
+                            </p>
+                          </button>
+                        </div>
+                        <div className="classInfo-date-addExplanation">
+                          (다회차 교육인 경우 복수 선택 해주세요)
+                        </div>
+                        <div>
+                          <div className="classInfo-bottomInfo-title">
+                            희망 교육 시간
+                          </div>
+                          <textarea
+                            className="classInfo-bottomInfo-input"
+                            placeholder="희망하시는 교육 시간을 적어주세요.&#13;&#10;미정 일시 하단 체크박스를 체크해주세요."
+                            onChange={(e) => {
+                              const target = e.target.value;
+                              handleClassGroupInput(i, "remark", target);
+                              setInputCheck("");
+                            }}
+                            value={classGroup[i].remark}
+                            readOnly={formNum === 4}
+                          />
+                        </div>
+                        <div className="classInfo-checkbox-container">
+                          <input
+                            className="classInfo-checkbox"
+                            type="checkbox"
+                            readOnly={formNum === 4}
+                            {...(classGroup[i].unfixed
+                              ? { checked: true }
+                              : {})}
+                          />
+                          <span className="classInfo-checkbox-text">
+                            교육 시간 미정
+                          </span>
+                        </div>
+                      </section>
                     </div>
-                    <div className="classInfo-topInfo-container">
-                      <span className="classInfo-topInfo-font">교육 컨셉</span>
-                      <input
-                        className="classInfo-topInfo-input px-[0.778rem]"
-                        placeholder="AI, 로봇, 소프트웨어, 메이커, 3D 등"
-                        readOnly={formNum === 4}
-                      />
-                    </div>
-                    <div className="classInfo-topInfo-container">
-                      <span className="classInfo-topInfo-font">학생 수</span>
-                      <input
-                        className="classInfo-topInfo-input px-[0.778rem]"
-                        placeholder="학생 수를 입력해주세요."
-                        type="text"
-                        readOnly={formNum === 4}
-                      />
-                    </div>
-                    <div className="classInfo-topInfo-container">
-                      <span className="classInfo-topInfo-font">교육 날짜</span>
-                      <button
-                        className="classInfo-topInfo-input px-[0.778rem] flex items-center text-[#9CA3AF]"
-                        onClick={() => setCalendarModal(true)}
-                      >
-                        <p>교육 날짜를 선택하세요.</p>
-                      </button>
-                    </div>
-                    <div className="classInfo-date-addExplanation">
-                      (다회차 교육인 경우 복수 선택 해주세요)
-                    </div>
-                    <div>
-                      <div className="classInfo-bottomInfo-title">
-                        희망 교육 시간
-                      </div>
-                      <textarea
-                        className="classInfo-bottomInfo-input"
-                        placeholder="희망하시는 교육 시간을 적어주세요.&#13;&#10;미정 일시 하단 체크박스를 체크해주세요."
-                        readOnly={formNum === 4}
-                      />
-                    </div>
-                    <div className="classInfo-checkbox-container">
-                      <input
-                        className="classInfo-checkbox"
-                        type="checkbox"
-                        readOnly={formNum === 4}
-                      />
-                      <span className="classInfo-checkbox-text">
-                        교육 시간 미정
-                      </span>
-                    </div>
-                  </section>
-                </div>
+                  );
+                })}
               </div>
               <button
                 className="classInfo-addClass-box"
                 type="button"
-                // onClick={() => click_append_buttion()}
+                onClick={handleAddClass}
                 disabled={formNum === 4}
               >
                 + 학급 추가
@@ -804,6 +1033,11 @@ export const MakeNewApplication = () => {
                   <textarea
                     placeholder="교육 특이사항을 입력해주세요"
                     className="Create-post-textarea"
+                    onChange={(e) => {
+                      const target = e.target.value;
+                      setOverallRemark(target);
+                      setInputCheck("");
+                    }}
                     readOnly={formNum === 4}
                   />
                 </div>
@@ -850,15 +1084,13 @@ export const MakeNewApplication = () => {
                 <>
                   <button
                     type="button"
-                    className="Create-post-button"
+                    className="Create-post-button rounded"
                     style={{
                       background: "#D9D9D9",
-                      color: "#f9911e",
                       marginRight: "1.111rem",
                     }}
                     onClick={() => {
                       setFormNum(formNum - 1);
-                      // delete_added_point();
                     }}
                   >
                     수정 하기
@@ -868,17 +1100,9 @@ export const MakeNewApplication = () => {
                     onClick={() => {
                       setSubmitModal(true);
                     }}
-                    className={`${
-                      true
-                        ? "Create-post-submit-button-on"
-                        : "Create-post-submit-button-off"
-                    }`}
+                    className="Create-post-submit-button-on rounded"
                   >
-                    {/* {loading ? (
-    <span className="Create-post-submit-text">로딩 중</span>
-  ) : ( */}
                     교육 신청
-                    {/* )} */}
                   </button>
                 </>
               ) : (
@@ -888,8 +1112,12 @@ export const MakeNewApplication = () => {
           </div>
         </div>
       </div>
-      {calendarModal ? (
-        <Calendar handleXMark={() => setCalendarModal(false)} />
+      {calendarModal >= 0 ? (
+        <Calendar
+          handleXMark={() => setCalendarModal(-1)}
+          handleSelectDates={handleCalendar}
+          selectedDatesProps={educationDates[calendarModal]}
+        />
       ) : (
         ""
       )}
