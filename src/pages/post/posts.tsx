@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 
 import { getAllPosts, getPost } from "../../services/post/postAPI";
 import { getPostAdmin } from "../../services/post/postAdminAPI";
-import { handleAdminCheck } from "../../utils/decode";
+import { useAdminCheck } from "../../utils/decode";
 import { PwInputModal } from "../../components/modal/PwInputModal";
 
 import { Banner } from "../../components/banner";
@@ -28,6 +28,7 @@ interface PostsTypes {
 
 export function Posts() {
   const navigate = useNavigate();
+  const isAdmin = useAdminCheck();
 
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<PostsTypes[]>([]);
@@ -61,7 +62,7 @@ export function Posts() {
 
   /** 게시판 항목 클릭 시 작동. 비밀글이 아니면 게시물 페이지로 넘어감 */
   const handlePasswordModal = async (isLocked: boolean, id: number) => {
-    if (handleAdminCheck()) {
+    if (isAdmin) {
       handleGetPostAdmin(id);
     } else {
       if (isLocked) {

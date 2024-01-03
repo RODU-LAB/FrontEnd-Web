@@ -10,7 +10,7 @@ import {
   getPostAdmin,
   deletePostAdmin,
 } from "../../services/post/postAdminAPI";
-import { handleAdminCheck } from "../../utils/decode";
+import { useAdminCheck } from "../../utils/decode";
 
 import { YesNoModal } from "../../components/modal/YesNoModal";
 import { PwInputModal } from "../../components/modal/PwInputModal";
@@ -22,6 +22,7 @@ export function Post() {
   const location = useLocation();
   const locationData = location.state;
   // location.state => 전 페이지에서 넘겨 받은 state 값
+  const isAdmin = useAdminCheck();
 
   const [data, setData] = useState({
     title: "",
@@ -43,7 +44,7 @@ export function Post() {
       alert("잘못된 경로입니다.");
       navigator("/posts");
     } else {
-      if (!locationData.isAnswered && handleAdminCheck()) {
+      if (!locationData.isAnswered && isAdmin) {
         const getPost = async () => {
           const result = await getPostAdmin(locationData.id);
           setData(result);
@@ -95,7 +96,7 @@ export function Post() {
     setEditModal(false);
     if (status === "delete") {
       // 관리자 계정
-      if (handleAdminCheck()) {
+      if (isAdmin) {
         const result = await deletePostAdmin(data.id);
         if (result === 200) {
           alert("문의글을 삭제하였습니다.");
@@ -107,7 +108,7 @@ export function Post() {
     }
     if (status === "edit") {
       // 관리자 계정
-      if (handleAdminCheck()) {
+      if (isAdmin) {
         navigator("updatepost", { state: data });
       } else {
         setPwStatus("edit");
@@ -146,7 +147,7 @@ export function Post() {
           </p>
 
           <div className="flex justify-end gap-[20px] mt-[24px]">
-            {handleAdminCheck() || data.isAnswered ? (
+            {isAdmin || data.isAnswered ? (
               ""
             ) : (
               // 게시물 수정 버튼
@@ -162,7 +163,7 @@ export function Post() {
               </button>
             )}
 
-            {data.isAnswered && !handleAdminCheck() ? (
+            {data.isAnswered && !isAdmin ? (
               ""
             ) : (
               // 게시물 삭제 버튼
@@ -189,7 +190,7 @@ export function Post() {
                   {data.answer}
                 </p>
               </>
-            ) : handleAdminCheck() ? (
+            ) : isAdmin ? (
               <div className="px-2">
                 <div className="border p-3 bg-[#fafafa] rounded mt-6">
                   <div>
