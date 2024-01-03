@@ -1,5 +1,5 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 import "./index.css";
 
@@ -70,52 +70,57 @@ import AppPrivacyPolicy from "./pages/appPrivacyPolicy";
 export const App = () => {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/post/updatepost" element={<UpdatePost />} />
-        <Route path="/posts" element={<Posts />} />
-        {/* <Route path="/post/:id/edit" element={<EditPost />} /> */}
-        <Route path="/post" element={<Post />} />
-        <Route path="*" element={<NotFound />}></Route>
-        <Route path="/applyEdu" element={<ApplyEdu />}></Route>
-        <Route
-          path="/makeNewApplication"
-          element={<MakeNewApplication />}
-        ></Route>
-        <Route path="/showApplication" element={<ShowApplication />}></Route>
-        <Route
-          path="/showDetailContent"
-          element={<ShowDetailContent />}
-        ></Route>
-        <Route path="/editApplication" element={<EditApplication />}></Route>
-        <Route path="/login" element={<Login />}></Route>
+      <RecoilRoot>
+        <ScrollToTop />
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/post/updatepost" element={<UpdatePost />} />
+          <Route path="/posts" element={<Posts />} />
+          {/* <Route path="/post/:id/edit" element={<EditPost />} /> */}
+          <Route path="/post" element={<Post />} />
+          <Route path="*" element={<NotFound />}></Route>
+          <Route path="/applyEdu" element={<ApplyEdu />}></Route>
+          <Route
+            path="/makeNewApplication"
+            element={<MakeNewApplication />}
+          ></Route>
+          <Route path="/showApplication" element={<ShowApplication />}></Route>
+          <Route
+            path="/showDetailContent"
+            element={<ShowDetailContent />}
+          ></Route>
+          <Route path="/editApplication" element={<EditApplication />}></Route>
+          <Route path="/login" element={<Login />}></Route>
 
-        <Route path="/otto" element={<Otto />}></Route>
-        <Route path="/hourGlass" element={<HourGlass />}></Route>
-        <Route path="/spider" element={<Spider />}></Route>
-        <Route path="/snake" element={<Snake />}></Route>
-        <Route path="/smallPuppy" element={<SmallPuppy />}></Route>
-        <Route path="/human" element={<Human />}></Route>
-        <Route path="/security" element={<Security />}></Route>
-        <Route path="/logistics" element={<Logistics />}></Route>
-        <Route path="/securityDog" element={<SecurityDog />}></Route>
-        <Route path="/yolo" element={<Yolo />}></Route>
-        <Route path="/deepLearning" element={<DeepLearning />}></Route>
-        <Route
-          path="/reinforcementLearning"
-          element={<ReinforcementLearning />}
-        ></Route>
-        <Route path="/printer" element={<Printer />}></Route>
-        <Route path="/plc" element={<Plc />}></Route>
-        <Route path="/kicad" element={<Kicad />}></Route>
-        <Route path="/embedded" element={<Embedded />}></Route>
-        <Route path="/ros2" element={<Ros2 />}></Route>
-        <Route path="/manipulator" element={<Manipulator />}></Route>
-        <Route path="/appPrivacyPolicy" element={<AppPrivacyPolicy />}></Route>
-      </Routes>
-      <Foot />
+          <Route path="/otto" element={<Otto />}></Route>
+          <Route path="/hourGlass" element={<HourGlass />}></Route>
+          <Route path="/spider" element={<Spider />}></Route>
+          <Route path="/snake" element={<Snake />}></Route>
+          <Route path="/smallPuppy" element={<SmallPuppy />}></Route>
+          <Route path="/human" element={<Human />}></Route>
+          <Route path="/security" element={<Security />}></Route>
+          <Route path="/logistics" element={<Logistics />}></Route>
+          <Route path="/securityDog" element={<SecurityDog />}></Route>
+          <Route path="/yolo" element={<Yolo />}></Route>
+          <Route path="/deepLearning" element={<DeepLearning />}></Route>
+          <Route
+            path="/reinforcementLearning"
+            element={<ReinforcementLearning />}
+          ></Route>
+          <Route path="/printer" element={<Printer />}></Route>
+          <Route path="/plc" element={<Plc />}></Route>
+          <Route path="/kicad" element={<Kicad />}></Route>
+          <Route path="/embedded" element={<Embedded />}></Route>
+          <Route path="/ros2" element={<Ros2 />}></Route>
+          <Route path="/manipulator" element={<Manipulator />}></Route>
+          <Route
+            path="/appPrivacyPolicy"
+            element={<AppPrivacyPolicy />}
+          ></Route>
+        </Routes>
+        <Foot />
+      </RecoilRoot>
     </BrowserRouter>
   );
 };
