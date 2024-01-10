@@ -1,10 +1,10 @@
 // import { useEffect, useRef, useState, useCallback} from "react";
 import styled from "styled-components";
 
-import instructor1 from "../images/instructor1.png";
-import instructor2 from "../images/instructor2.png";
-import instructor3 from "../images/instructor3.png";
-import instructor4 from "../images/instructor4.png";
+import instructor1 from "../images/instructor1.jpg";
+import instructor2 from "../images/instructor2.jpg";
+import instructor3 from "../images/instructor3.jpg";
+import instructor4 from "../images/instructor4.jpg";
 
 import instructor1_box from "../images/instructor1_box.png";
 import instructor2_box from "../images/instructor2_box.png";
@@ -12,8 +12,9 @@ import instructor3_box from "../images/instructor3_box.png";
 import instructor4_box from "../images/instructor4_box.png";
 
 const MainContainer = styled.div`
-  width: 65.555rem;
+  width: 100rem;
   display: flex;
+  align-items: center;
   flex-direction: column;
   /* title */
   p:nth-child(1) {
@@ -50,8 +51,13 @@ const MainContainer = styled.div`
 `;
 
 const Box = styled.div`
+  width: 66rem;
   display: flex;
   gap: 1.111rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
 `;
 /* line between title & description */
 const Line = styled.div`
@@ -62,8 +68,8 @@ const Line = styled.div`
 `;
 
 const Image = styled.img`
-  width: 15.557rem;
-  height: 23.333rem;
+  width: 32rem;
+  height: 18rem;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
@@ -75,18 +81,18 @@ const InstructorBox = styled.img`
 `;
 
 const Container = styled.div`
-    width: 16.556rem;
-    height: 23.333rem;
+    width: 32rem;
+    height: 18rem;
     flex-grow: 0;
     border-radius: 10px;
-    margin-top: 2.944rem;
+    margin-top: 1rem;
     background-color: var(--rodu-super-light-grey);
     text-align: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
         &:hover ${InstructorBox}{
-            -webkit-transform:  translateY(-171.141px);
+            -webkit-transform:  translateY(-290px);
             -webkit-transition-duration: 0.8s;
         }
     }
