@@ -18,6 +18,9 @@ interface ClassGroupTypes {
 }
 
 export const MakeNewApplication = () => {
+  // eslint-disable-next-line
+  const [barPosition, setBarPosition] = useState(0);
+
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
   const [finishAuthModal, setFinishAuthModal] = useState(false);
   const [submitModal, setSubmitModal] = useState(false);
@@ -32,7 +35,9 @@ export const MakeNewApplication = () => {
   const [timeLeft, setTimeLeft] = useState(300);
   const [isClickBeforeSendAuthCode, setIsClickBeforeSendAuthCode] =
     useState(false);
+  // eslint-disable-next-line
   const [authSesstionId, setAuthSessionId] = useState("");
+  // eslint-disable-next-line
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
 
   const leftBarRef = useRef<HTMLDivElement>(null);
@@ -64,65 +69,81 @@ export const MakeNewApplication = () => {
   const [educationDates, setEducationDates] = useState<string[][]>([]);
 
   // Form 3 - 교육 특이사항
+  // eslint-disable-next-line
   const [overallRemark, setOverallRemark] = useState("");
 
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setBrowserWidth(window.innerWidth);
+  //   };
+
+  //   // resize 이벤트 리스너 등록
+  //   window.addEventListener("resize", handleResize);
+
+  //   // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   const progressSpace = () => {
+  //     if (!leftBarRef.current || !mainFormRef.current) {
+  //       return;
+  //     }
+
+  //     let formLeft = mainFormRef.current.getBoundingClientRect().left;
+  //     let progressStyle = leftBarRef.current.style;
+  //     progressStyle.width = `${formLeft - 20}px`;
+  //   };
+
+  //   // 초기 실행
+  //   progressSpace();
+
+  //   // 창 크기 조정 시 실행
+  //   window.onresize = () => {
+  //     progressSpace();
+  //   };
+
+  //   // 스크롤 시 실행
+  //   const handleScroll = () => {
+  //     if (!leftBarRef.current) {
+  //       return;
+  //     }
+
+  //     let barPosition = 461.328 + window.scrollY;
+  //     let progressStyle = leftBarRef.current.style;
+
+  //     if (scrollY <= 811.328) {
+  //       scrollY = 461.328;
+  //     } else {
+  //       scrollY = scrollY - 350;
+  //     }
+
+  //     progressStyle.top = `${scrollY}px`;
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   // Cleanup 함수
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //     window.onresize = null;
+  //   };
+  // }, []);
+
+  const handleScroll = () => {
+    // const position = window.pageYOffset < 248 ? 248 : window.pageYOffset;
+    const position = 495 + window.pageYOffset;
+    console.log(position);
+    setBarPosition(position);
+  };
+
   useEffect(() => {
-    const handleResize = () => {
-      setBrowserWidth(window.innerWidth);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // resize 이벤트 리스너 등록
-    window.addEventListener("resize", handleResize);
-
-    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    const progressSpace = () => {
-      if (!leftBarRef.current || !mainFormRef.current) {
-        return;
-      }
-
-      let formLeft = mainFormRef.current.getBoundingClientRect().left;
-      let progressStyle = leftBarRef.current.style;
-      progressStyle.width = `${formLeft - 20}px`;
-    };
-
-    // 초기 실행
-    progressSpace();
-
-    // 창 크기 조정 시 실행
-    window.onresize = () => {
-      progressSpace();
-    };
-
-    // 스크롤 시 실행
-    const handleScroll = () => {
-      if (!leftBarRef.current) {
-        return;
-      }
-
-      let scrollY = 461.328 + window.scrollY;
-      let progressStyle = leftBarRef.current.style;
-
-      if (scrollY <= 811.328) {
-        scrollY = 461.328;
-      } else {
-        scrollY = scrollY - 350;
-      }
-
-      progressStyle.top = `${scrollY}px`;
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup 함수
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.onresize = null;
     };
   }, []);
 
@@ -159,6 +180,7 @@ export const MakeNewApplication = () => {
       }
     } else {
       alert("휴대폰 번호를 다시 확인 해주세요.");
+      setInputCheck("phoneNumber");
     }
     setIsClickBeforeSendAuthCode(false);
   };
@@ -428,7 +450,11 @@ export const MakeNewApplication = () => {
           rightImg="none"
         />
         {browserWidth > 1300 ? (
-          <div ref={leftBarRef} className="Progress-container">
+          <div
+            ref={leftBarRef}
+            className="Progress-container"
+            // style={{ top: barPosition }}
+          >
             <div>
               <div className="circleNum-text-box">
                 <p
