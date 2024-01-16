@@ -92,10 +92,13 @@
 
 .Progress-container {
   position: absolute;
+  left: 20px;
+  transform: translateY(-50%);
+  top: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: 0.7s;
+  transition: top 0.7s ease-out;
 }
 
 .circleNum-text-box {
@@ -108,11 +111,11 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  width: 1.8vw;
-  height: 1.8vw;
+  width: 26px;
+  height: 26px;
   border: 0.099rem solid var(--rodu-medium);
   font-family: Pretendard;
-  font-size: 1.1vw;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -129,14 +132,14 @@
 }
 
 .Progress-line-container {
-  width: 1.8vw;
+  width: 26px;
   display: flex;
   justify-content: center;
 }
 
 .Progress-line {
   min-height: 0.59rem;
-  height: 1vw;
+  height: 14px;
   width: 0.099rem;
   background: #f9911e;
 }
@@ -145,7 +148,7 @@
   margin-left: 0.847rem;
   font-family: Pretendard;
   color: #777777;
-  font-size: 0.9vw;
+  font-size: 14px;
   font-weight: 600;
 }
 

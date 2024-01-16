@@ -18,8 +18,7 @@ interface ClassGroupTypes {
 }
 
 export const MakeNewApplication = () => {
-  // eslint-disable-next-line
-  const [barPosition, setBarPosition] = useState(0);
+  const [barPosition, setBarPosition] = useState(510);
 
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
   const [finishAuthModal, setFinishAuthModal] = useState(false);
@@ -36,7 +35,7 @@ export const MakeNewApplication = () => {
   const [isClickBeforeSendAuthCode, setIsClickBeforeSendAuthCode] =
     useState(false);
   // eslint-disable-next-line
-  const [authSesstionId, setAuthSessionId] = useState("");
+  const [authSessionId, setAuthSessionId] = useState("");
   // eslint-disable-next-line
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
 
@@ -72,78 +71,40 @@ export const MakeNewApplication = () => {
   // eslint-disable-next-line
   const [overallRemark, setOverallRemark] = useState("");
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setBrowserWidth(window.innerWidth);
-  //   };
-
-  //   // resize 이벤트 리스너 등록
-  //   window.addEventListener("resize", handleResize);
-
-  //   // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   const progressSpace = () => {
-  //     if (!leftBarRef.current || !mainFormRef.current) {
-  //       return;
-  //     }
-
-  //     let formLeft = mainFormRef.current.getBoundingClientRect().left;
-  //     let progressStyle = leftBarRef.current.style;
-  //     progressStyle.width = `${formLeft - 20}px`;
-  //   };
-
-  //   // 초기 실행
-  //   progressSpace();
-
-  //   // 창 크기 조정 시 실행
-  //   window.onresize = () => {
-  //     progressSpace();
-  //   };
-
-  //   // 스크롤 시 실행
-  //   const handleScroll = () => {
-  //     if (!leftBarRef.current) {
-  //       return;
-  //     }
-
-  //     let barPosition = 461.328 + window.scrollY;
-  //     let progressStyle = leftBarRef.current.style;
-
-  //     if (scrollY <= 811.328) {
-  //       scrollY = 461.328;
-  //     } else {
-  //       scrollY = scrollY - 350;
-  //     }
-
-  //     progressStyle.top = `${scrollY}px`;
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   // Cleanup 함수
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //     window.onresize = null;
-  //   };
-  // }, []);
-
   const handleScroll = () => {
-    // const position = window.pageYOffset < 248 ? 248 : window.pageYOffset;
-    const position = 495 + window.pageYOffset;
-    console.log(position);
-    setBarPosition(position);
+    const basePosition = 510;
+    const adjustedPosition = basePosition + window.scrollY;
+    let newPosition = adjustedPosition - 90;
+
+    if (window.innerHeight < 590) {
+      newPosition = Math.max(
+        basePosition,
+        adjustedPosition - (590 - window.innerHeight) - 30
+      );
+    }
+
+    newPosition = Math.max(basePosition, Math.min(newPosition, 956));
+
+    setBarPosition(newPosition);
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
+    window.addEventListener("scroll", handleScroll);
+    // 컴포넌트가 언마운트되거나 다시 렌더링되기 전에 이벤트 리스너 제거
     return () => {
       window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      handleScroll();
+      setBrowserWidth(window.innerWidth);
+    });
+
+    // 컴포넌트가 언마운트되거나 다시 렌더링되기 전에 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleScroll);
     };
   }, []);
 
@@ -449,11 +410,11 @@ export const MakeNewApplication = () => {
           contentClass="Subtitle-smallFont"
           rightImg="none"
         />
-        {browserWidth > 1300 ? (
+        {browserWidth > 1380 ? (
           <div
             ref={leftBarRef}
             className="Progress-container"
-            // style={{ top: barPosition }}
+            style={{ top: barPosition }}
           >
             <div>
               <div className="circleNum-text-box">
