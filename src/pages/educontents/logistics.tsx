@@ -8,11 +8,11 @@ import { Notice } from "../../components/eduDetailContents/Notice";
 import logisticsImg from "../../images/detailContents/slide/edu_detail_logistics/upperBannerImageLogistics.png";
 import logisticsKitImg1 from "../../images/detailContents/slide/edu_detail_logistics/logisticsImage1.png";
 import logisticsKitImg2 from "../../images/detailContents/slide/edu_detail_logistics/logisticsImage2.png";
-import logisticsClass1 from "../../images/detailContents/slide/edu_detail_logistics/logo.png";
-import logisticsClass2 from "../../images/detailContents/slide/edu_detail_logistics/logo.png";
-import logisticsClass3 from "../../images/detailContents/slide/edu_detail_logistics/logo.png";
-import logisticsClass4 from "../../images/detailContents/slide/edu_detail_logistics/logo.png";
-import logisticsClass5 from "../../images/detailContents/slide/edu_detail_logistics/logo.png";
+import logisticsClass1 from "../../images/detailContents/slide/edu_detail_logistics/logisticsEduImage1.png";
+import logisticsClass2 from "../../images/detailContents/slide/edu_detail_logistics/logisticsEduImage2.png";
+import logisticsClass3 from "../../images/detailContents/slide/edu_detail_logistics/logisticsEduImage3.png";
+import logisticsClass4 from "../../images/detailContents/slide/edu_detail_logistics/logisticsEduImage4.png";
+import logisticsClass5 from "../../images/detailContents/slide/edu_detail_logistics/logisticsEduImage5.png";
 
 export const Logistics: React.FC = () => {
   return (

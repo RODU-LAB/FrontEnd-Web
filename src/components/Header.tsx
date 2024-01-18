@@ -40,7 +40,7 @@ export function Header() {
                   className="Header-link-community hover:font-bold"
                   aria-current="page"
                 >
-                  문의게시판
+                  커뮤니티 게시판
                 </Link>
               </li>
             </ul>

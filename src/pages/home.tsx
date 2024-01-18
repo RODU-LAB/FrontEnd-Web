@@ -139,7 +139,7 @@ export const HomePage = () => {
             </div>
             <div {...main1BottomAnimation}>
               <Link
-                to="/createPost"
+                to="/post/updatepost"
                 className="Main1-button-frame Main1-button:hover"
               >
                 <button className="Main1-button">교육 문의하기</button>
@@ -158,12 +158,12 @@ export const HomePage = () => {
           <MainEduType />
         </div>
 
-        {/* RODU 메이킹 7종 키트 */}
+        {/* RODU 메이킹 키트 */}
         <div className="Main3">
           <div className="Main3-content-container">
             <div className="Main3-top-container">
               <div className="Main3-top-letter-container">
-                <p className="Main3-title">RODU의 고유 로봇 7종</p>
+                <p className="Main3-title">RODU의 고유 로봇</p>
                 <p className="Main3-subtitle">
                   RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다.
                 </p>
@@ -680,7 +680,7 @@ export const HomePage = () => {
               <br />
               AI 로보틱스 교육을 제공합니다.
             </p>
-            <Link to="/createPost" className="Main8-button-frame">
+            <Link to="/post/updatepost" className="Main8-button-frame">
               <button className="Main8-button Main8-button:hover">
                 교육 문의하기
               </button>
