@@ -149,7 +149,7 @@ export function Posts() {
         route2="/posts"
         route2Opacity={1}
         title="커뮤니티 게시판"
-        subtitle="Education inquiry board"
+        subtitle="Community bulletin board"
         content="로봇지식을 공유하는 커뮤니티 입니다 "
         contentClass="Subtitle-bigFont"
         rightImg="none"
