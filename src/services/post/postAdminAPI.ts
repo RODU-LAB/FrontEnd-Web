@@ -7,6 +7,7 @@ export async function getPostAdmin(id: number) {
     return result;
   } catch (error) {
     alert("문의글 조회에 실패하셨습니다.");
+    // console.log(error);
     return "error";
   }
 }
