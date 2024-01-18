@@ -8,11 +8,11 @@ import { Notice } from "../../components/eduDetailContents/Notice";
 import snakeImg from "../../images/detailContents/slide/edu_detail_snake/upperBannerImageSnake.png";
 import snakeKitImg1 from "../../images/detailContents/slide/edu_detail_snake/snakeImage1.png";
 import snakeKitImg2 from "../../images/detailContents/slide/edu_detail_snake/snakeImage2.png";
-import snakeClass1 from "../../images/detailContents/slide/edu_detail_snake/logo.png";
-import snakeClass2 from "../../images/detailContents/slide/edu_detail_snake/logo.png";
-import snakeClass3 from "../../images/detailContents/slide/edu_detail_snake/logo.png";
-import snakeClass4 from "../../images/detailContents/slide/edu_detail_snake/logo.png";
-import snakeClass5 from "../../images/detailContents/slide/edu_detail_snake/logo.png";
+import snakeClass1 from "../../images/detailContents/slide/edu_detail_snake/snakeEduImage1.png";
+import snakeClass2 from "../../images/detailContents/slide/edu_detail_snake/snakeEduImage2.png";
+import snakeClass3 from "../../images/detailContents/slide/edu_detail_snake/snakeEduImage3.png";
+import snakeClass4 from "../../images/detailContents/slide/edu_detail_snake/snakeEduImage4.png";
+import snakeClass5 from "../../images/detailContents/slide/edu_detail_snake/snakeEduImage5.png";
 
 export const Snake: React.FC = () => {
   return (

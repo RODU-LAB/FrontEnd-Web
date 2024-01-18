@@ -119,7 +119,7 @@ export function Post() {
   return (
     <>
       {/* <Helmet>
-        <title>문의게시판 | RODU</title>
+        <title>커뮤니티 게시판 | RODU</title>
       </Helmet> */}
       <Banner
         routeDot1="•"
@@ -127,12 +127,12 @@ export function Post() {
         route1=""
         route1Opacity={0.7}
         routeDot2="•"
-        routeName2="문의게시판"
+        routeName2="커뮤니티 게시판"
         route2="/posts"
         route2Opacity={1}
         title="교육 신청"
-        subtitle="Education inquiry board"
-        content="문의 답변을 확인할 수 있습니다"
+        subtitle="Community bulletin board"
+        content="로봇지식을 공유하는 커뮤니티 입니다 "
         contentClass="Subtitle-smallFont"
         rightImg="none"
       />

@@ -145,12 +145,12 @@ export function Posts() {
         route1=""
         route1Opacity={0.7}
         routeDot2="•"
-        routeName2="문의게시판"
+        routeName2="커뮤니티 게시판"
         route2="/posts"
         route2Opacity={1}
-        title="문의 게시판"
+        title="커뮤니티 게시판"
         subtitle="Education inquiry board"
-        content="문의 답변을 확인할 수 있습니다"
+        content="로봇지식을 공유하는 커뮤니티 입니다 "
         contentClass="Subtitle-bigFont"
         rightImg="none"
       />
@@ -225,7 +225,7 @@ export function Posts() {
               className="w-[180px] h-[52px] bg-rodu-medium text-white flex items-center justify-center rounded-[25px]"
               onClick={() => navigate("/post/updatepost")}
             >
-              교육 문의하기
+              글 쓰기
             </button>
           </div>
         </div>
