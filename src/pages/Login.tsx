@@ -1,21 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginAPI } from "../services/auth";
-import { useSetRecoilState } from "recoil";
-import { accessTokenState } from "../utils/state";
 
 export function Login() {
-  const setAccessToken = useSetRecoilState(accessTokenState);
-
   const navigator = useNavigate();
   const [account, setAccount] = useState("");
   const [pw, setPW] = useState("");
 
   const handleLogin = async () => {
     const result = await LoginAPI(account, pw);
-    const accessToken = result.headers["authorization"];
     const refreshToken = result.data;
-    setAccessToken(accessToken);
     localStorage.setItem("refreshToken", refreshToken);
     if (result) {
       navigator("/");
