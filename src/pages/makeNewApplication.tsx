@@ -1,13 +1,20 @@
 import { useEffect, useState, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { Helmet } from "react-helmet-async";
 
-import { sendAuthCodeAPI, verifyAuthCodeAPI } from "../services/apply";
+import {
+  sendAuthCodeAPI,
+  verifyAuthCodeAPI,
+  applyAPI,
+  addClassesDataAPI,
+  deleteApplicationAPI,
+} from "../services/educationAPI";
 
 import { Banner } from "../components/banner";
 import { Calendar } from "../components/Calendar";
 
 import { ReactComponent as Delete } from "../images/delete.svg";
+import { ReactComponent as Loading } from "../images/loading.svg";
 
 interface ClassGroupTypes {
   className: string;
@@ -18,7 +25,10 @@ interface ClassGroupTypes {
 }
 
 export const MakeNewApplication = () => {
+  const navigate = useNavigate();
+
   const [barPosition, setBarPosition] = useState(510);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
   const [finishAuthModal, setFinishAuthModal] = useState(false);
@@ -36,11 +46,7 @@ export const MakeNewApplication = () => {
     useState(false);
   // eslint-disable-next-line
   const [authSessionId, setAuthSessionId] = useState("");
-  // eslint-disable-next-line
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
-
-  const leftBarRef = useRef<HTMLDivElement>(null);
-  const mainFormRef = useRef<HTMLDivElement>(null);
 
   // Form 0
   const [name, setName] = useState("");
@@ -68,8 +74,10 @@ export const MakeNewApplication = () => {
   const [educationDates, setEducationDates] = useState<string[][]>([]);
 
   // Form 3 - 교육 특이사항
-  // eslint-disable-next-line
   const [overallRemark, setOverallRemark] = useState("");
+
+  const leftBarRef = useRef<HTMLDivElement>(null);
+  const mainFormRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
     const basePosition = 510;
@@ -344,8 +352,70 @@ export const MakeNewApplication = () => {
     });
   };
 
+  const handleSummit = async () => {
+    try {
+      setIsLoading(true);
+      const applyData = {
+        sessionId: authSessionId,
+        name: name,
+        institutionName: institutionName,
+        numberOfStudents: parseInt(numberOfStudents),
+        overallRemark: overallRemark,
+        phoneNumber: phoneNumber,
+        position: position,
+        studentRank: studentRank,
+        budget: parseInt(budget),
+        email: email,
+      };
+
+      const applicationId = await applyAPI(applyData);
+      if (applicationId) {
+        for (let i = 0; i < classGroup.length; i++) {
+          const changedDates =
+            educationDates[i].length === 0
+              ? [null]
+              : educationDates[i].map((item) => new Date(item));
+          const parsedNumberOfStudents = parseInt(
+            classGroup[i].numberOfStudents
+          );
+
+          const classesData = {
+            ...classGroup[i],
+            sessionId: authSessionId,
+            educationDates: changedDates,
+            applicationId: applicationId,
+            numberOfStudents: parsedNumberOfStudents,
+          };
+
+          const classesResult = await addClassesDataAPI(classesData);
+          if (!classesResult) {
+            await deleteApplicationAPI(
+              applicationId,
+              authSessionId,
+              "applyFail"
+            );
+            return;
+          } else {
+            alert("교육 신청이 완료되었습니다.");
+            navigate("/applyEdu");
+          }
+        }
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
+      {isLoading ? (
+        <div className="fixed h-[100vh] w-[100vw] flex flex-col justify-center items-center bg-[#292929] z-10 top-0 opacity-60">
+          <Loading />
+          <p className="text-white">요청을 처리 중입니다.</p>
+        </div>
+      ) : (
+        ""
+      )}
       {/* 모달창 */}
       {finishAuthModal ? (
         <div className="Create-post-kakao-modal-container">
@@ -526,15 +596,14 @@ export const MakeNewApplication = () => {
                         className="Create-post-kakao-modal-button"
                         onClick={() => {
                           setSubmitModal(false);
-                          // add_deleting_point();
                         }}
                       >
                         취소
                       </button>
                       <button
-                        type="submit"
                         style={{ fontSize: "0.776rem", marginTop: "0" }}
                         className="Create-post-kakao-modal-button"
+                        onClick={handleSummit}
                       >
                         교육 신청
                       </button>
@@ -1053,11 +1122,6 @@ export const MakeNewApplication = () => {
                   <button
                     type="button"
                     className="Create-post-button bg-rodu-medium text-white rounded"
-                    // style={
-                    //   !nextBtnActive
-                    //     ? { background: "#f9911e", color: "#fff" }
-                    //     : { background: "#d9d9d9", color: "#f9911e" }
-                    // }
                     onClick={handleNextBtn}
                   >
                     다음
