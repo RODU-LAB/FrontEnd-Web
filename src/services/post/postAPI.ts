@@ -10,7 +10,7 @@ export async function getAllPosts(page: number) {
     return result;
   } catch (error) {
     alert("문의글 전체 조회에 실패하셨습니다.");
-    console.error(error);
+    // console.error(error);
   }
 }
 

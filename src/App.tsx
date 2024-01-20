@@ -41,10 +41,9 @@ import { HomePage } from "./pages/home";
 import { Post } from "./pages/post/post";
 import { Posts } from "./pages/post/posts";
 import { ApplyEdu } from "./pages/applyEdu";
-import { MakeNewApplication } from "./pages/makeNewApplication";
+import { UpdateApplication } from "./pages/UpdateApplication";
 import ShowApplication from "./pages/showApplication";
 import { ShowDetailContent } from "./pages/showDetailContent";
-import { EditApplication } from "./pages/editApplication";
 import { Login } from "./pages/Login";
 
 import { Otto } from "././pages/educontents/otto";
@@ -82,15 +81,14 @@ export const App = () => {
           <Route path="*" element={<NotFound />}></Route>
           <Route path="/applyEdu" element={<ApplyEdu />}></Route>
           <Route
-            path="/makeNewApplication"
-            element={<MakeNewApplication />}
+            path="/update-application"
+            element={<UpdateApplication />}
           ></Route>
           <Route path="/showApplication" element={<ShowApplication />}></Route>
           <Route
             path="/showDetailContent"
             element={<ShowDetailContent />}
           ></Route>
-          <Route path="/editApplication" element={<EditApplication />}></Route>
           <Route path="/login" element={<Login />}></Route>
 
           <Route path="/otto" element={<Otto />}></Route>

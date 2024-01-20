@@ -19,8 +19,8 @@ interface ClassesDataTypes {
   applicationId: number;
   className: string;
   educationConcept: string;
-  educationDates: Date[] | null[];
-  numberOfStudents: number;
+  educationDates: string[] | null[];
+  numberOfStudents: number | undefined;
   remark: string;
   unfixed: boolean;
 }
@@ -135,7 +135,7 @@ export async function addClassesDataAPI(classesData: ClassesDataTypes) {
     return res.status;
   } catch (error) {
     alert("교육 신청에 실패하였습니다.");
-    console.error(error);
+    // console.error(error);
     // throw error;
     return false;
   }
@@ -161,10 +161,30 @@ export async function deleteApplicationAPI(
     if (status === "delete") {
       alert("신청 교육 삭제에 실패하였습니다.");
     } else {
-      alert("초기화 단계에서 오류가 발생하였습니다.\n관리자에게 전달바랍니다.");
+      alert("초기화 단계에서 오류가 발생하였습니다.");
     }
-    console.error(error);
+    // console.error(error);
     // throw error;
+    return false;
+  }
+}
+
+/** 교육 신청 조회 */
+export async function findApplicationAPI(phoneNum: string, sessionId: string) {
+  try {
+    const response = await axios.get(URL + "/education-application", {
+      params: {
+        phoneNumber: phoneNum,
+      },
+      headers: {
+        "session-id": sessionId,
+      },
+    });
+    const result = response.data.data;
+    return result;
+  } catch (error) {
+    alert("교육 신청 조회에 실패하셨습니다.");
+    console.error(error);
     return false;
   }
 }
