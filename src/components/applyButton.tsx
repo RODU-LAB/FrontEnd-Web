@@ -6,7 +6,7 @@ const ApplyButton = () => {
 
   const navigateToMakeNewApplication = () => {
     setApplyClick(false);
-    navigate("/makeNewApplication");
+    navigate("/update-application");
   };
 
   const navigateToShowApplication = () => {
@@ -31,7 +31,7 @@ const ApplyButton = () => {
             >
               <p
                 className="Create-post-kakao-modal-bottom-text"
-                style={{textAlign: "center"}}
+                style={{ textAlign: "center" }}
               >
                 RODU 교육 매니저가 예산과 컨셉에 맞는 최적의 교육 커리큘럼을
                 제안 해드릴 예정이니 편안하게 작성해주세요 !

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 // import { Helmet } from "react-helmet-async";
 
 import {
@@ -19,13 +19,19 @@ import { ReactComponent as Loading } from "../images/loading.svg";
 interface ClassGroupTypes {
   className: string;
   educationConcept: string;
-  numberOfStudents: string;
+  numberOfStudents: number | undefined;
   remark: string;
   unfixed: boolean;
 }
 
-export const MakeNewApplication = () => {
+export const UpdateApplication = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const locationData = location.state;
+  const updateStatus = location.state ? "update" : "create";
+
+  // 렌더링 이후인지 확인
+  const [isAfterRender, setIsAfterRender] = useState(true);
 
   const [barPosition, setBarPosition] = useState(510);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +44,7 @@ export const MakeNewApplication = () => {
 
   const [formNum, setFormNum] = useState(0);
   const [inputCheck, setInputCheck] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(updateStatus === "update");
   const [isActiveTimer, setIsActiveTimer] = useState(false);
   // 인증번호 남은 시간
   const [timeLeft, setTimeLeft] = useState(300);
@@ -49,28 +55,50 @@ export const MakeNewApplication = () => {
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
 
   // Form 0
-  const [name, setName] = useState("");
-  const [institutionName, setInstitutionName] = useState("");
-  const [position, setPosition] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [authNum, setAuthNum] = useState(""); // 인증번호
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(
+    updateStatus === "update" ? locationData.name : ""
+  );
+  const [institutionName, setInstitutionName] = useState(
+    updateStatus === "update" ? locationData.institutionName : ""
+  );
+  const [position, setPosition] = useState(
+    updateStatus === "update" ? locationData.position : ""
+  );
+  const [phoneNumber, setPhoneNumber] = useState(
+    updateStatus === "update" ? locationData.phoneNumber : ""
+  );
+  const [authNum, setAuthNum] = useState(
+    updateStatus === "update" ? locationData.authNum : ""
+  ); // 인증번호
+  const [email, setEmail] = useState(
+    updateStatus === "update" ? locationData.email : ""
+  );
 
   // Form 1 - 교육생 정보
-  const [numberOfStudents, setNumberOfStudents] = useState("");
-  const [studentRank, setStudentRank] = useState("");
-  const [budget, setBudget] = useState("");
+  const [numberOfStudents, setNumberOfStudents] = useState(
+    updateStatus === "update" ? locationData.numberOfStudents : undefined
+  );
+  const [studentRank, setStudentRank] = useState(
+    updateStatus === "update" ? locationData.studentRank : ""
+  );
+  const [budget, setBudget] = useState(
+    updateStatus === "update" ? locationData.budget : undefined
+  );
 
   // Form 2 - 학급별 교육 일정
-  const [classGroup, setClassGroup] = useState([
-    {
-      className: "",
-      educationConcept: "",
-      numberOfStudents: "",
-      remark: "",
-      unfixed: false,
-    },
-  ]);
+  const [classGroup, setClassGroup] = useState<ClassGroupTypes[]>(
+    updateStatus === "update"
+      ? locationData.classGroup
+      : [
+          {
+            className: "",
+            educationConcept: "",
+            numberOfStudents: undefined,
+            remark: "",
+            unfixed: false,
+          },
+        ]
+  );
   const [educationDates, setEducationDates] = useState<string[][]>([]);
 
   // Form 3 - 교육 특이사항
@@ -78,6 +106,10 @@ export const MakeNewApplication = () => {
 
   const leftBarRef = useRef<HTMLDivElement>(null);
   const mainFormRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsAfterRender(false);
+  }, []);
 
   const handleScroll = () => {
     const basePosition = 510;
@@ -201,7 +233,7 @@ export const MakeNewApplication = () => {
         className: "",
         educationConcept: "",
         educationDates: [],
-        numberOfStudents: "",
+        numberOfStudents: undefined,
         remark: "",
         unfixed: false,
       },
@@ -359,32 +391,24 @@ export const MakeNewApplication = () => {
         sessionId: authSessionId,
         name: name,
         institutionName: institutionName,
-        numberOfStudents: parseInt(numberOfStudents),
+        numberOfStudents: numberOfStudents,
         overallRemark: overallRemark,
         phoneNumber: phoneNumber,
         position: position,
         studentRank: studentRank,
-        budget: parseInt(budget),
+        budget: budget,
         email: email,
       };
 
       const applicationId = await applyAPI(applyData);
       if (applicationId) {
         for (let i = 0; i < classGroup.length; i++) {
-          const changedDates =
-            educationDates[i].length === 0
-              ? [null]
-              : educationDates[i].map((item) => new Date(item));
-          const parsedNumberOfStudents = parseInt(
-            classGroup[i].numberOfStudents
-          );
-
           const classesData = {
             ...classGroup[i],
             sessionId: authSessionId,
-            educationDates: changedDates,
+            educationDates:
+              educationDates[i].length === 0 ? [null] : educationDates[i],
             applicationId: applicationId,
-            numberOfStudents: parsedNumberOfStudents,
           };
 
           const classesResult = await addClassesDataAPI(classesData);
@@ -643,6 +667,9 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.name }
+                      : {})}
                   />
                 </div>
               </div>
@@ -667,6 +694,9 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.institutionName }
+                      : {})}
                   />
                 </div>
               </div>
@@ -691,6 +721,9 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.position }
+                      : {})}
                   />
                 </div>
               </div>
@@ -716,6 +749,9 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     maxLength={11}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.phoneNumber }
+                      : {})}
                   />
                   <button
                     type="button"
@@ -823,6 +859,9 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.email }
+                      : {})}
                   />
                 </div>
               </div>
@@ -860,7 +899,11 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     placeholder="총 학생 수를 입력해주세요."
+                    type="number"
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.numberOfStudents }
+                      : {})}
                   />
                 </div>
               </div>
@@ -885,6 +928,9 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.studentRank }
+                      : {})}
                   />
                 </div>
               </div>
@@ -908,7 +954,11 @@ export const MakeNewApplication = () => {
                       setBudget(target.value);
                       setInputCheck("");
                     }}
+                    type="number"
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.budget }
+                      : {})}
                   />
                 </div>
               </div>
@@ -999,6 +1049,7 @@ export const MakeNewApplication = () => {
                               setInputCheck("");
                             }}
                             value={classGroup[i].numberOfStudents}
+                            type="number"
                             readOnly={formNum === 4}
                           />
                         </div>
@@ -1095,6 +1146,9 @@ export const MakeNewApplication = () => {
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
+                    {...(isAfterRender && locationData
+                      ? { value: locationData.overallRemark }
+                      : {})}
                   />
                 </div>
               </div>
