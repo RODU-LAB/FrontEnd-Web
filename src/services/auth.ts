@@ -7,6 +7,8 @@ export async function LoginAPI(account: string, pw: string) {
       account: account,
       password: pw,
     });
+    const accessToken = res.headers["authorization"];
+    localStorage.setItem("accessToken", accessToken);
     return res;
   } catch (error) {
     alert("로그인에 실패하셨습니다.");
