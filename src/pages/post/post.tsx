@@ -9,6 +9,7 @@ import {
   answerPost,
   getPostAdmin,
   deletePostAdmin,
+  updatePostAnswerAPI,
 } from "../../services/post/postAdminAPI";
 import { useAdminCheck } from "../../utils/decode";
 
@@ -34,10 +35,12 @@ export function Post() {
   });
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+
   const [pwStatus, setPwStatus] = useState("");
   const [answer, setAnswer] = useState("");
   const [pw, setPw] = useState("");
-  // const [pwModal, setPwModal] = useState(false);
+
+  const [isAdminEditMode, setIsAdminEditMode] = useState(false);
 
   useEffect(() => {
     if (!locationData) {
@@ -59,11 +62,23 @@ export function Post() {
 
   /** 문의 답변하기 */
   const handleAnswer = async () => {
-    const result = await answerPost(data.id, answer);
-    if (result === 200) {
-      setData((prev) => {
-        return { ...prev, answer: answer, isAnswered: true };
-      });
+    if (!isAdminEditMode) {
+      const result = await answerPost(data.id, answer);
+      if (result === 200) {
+        setData((prev) => {
+          return { ...prev, answer: answer, isAnswered: true };
+        });
+      }
+    } else {
+      const result = await updatePostAnswerAPI(data.id, answer);
+      if (result === 200) {
+        alert("답변 수정이 완료되었습니다.");
+        setData((prev) => {
+          const prevData = { ...prev, answer: answer };
+          return prevData;
+        });
+        setIsAdminEditMode(false);
+      }
     }
   };
 
@@ -179,7 +194,7 @@ export function Post() {
           {/* 답변이 있다면 답변 내용 보여주기
           아닐 때 관리자 로그인이 되어 있다면 문의 답변 창 띄우기 */}
           <div className="mt-[100px]">
-            {data.isAnswered ? (
+            {data.isAnswered && !isAdminEditMode ? (
               <>
                 <div className="w-full flex justify-between items-end pr-2 pb-[12px]">
                   <p className="font-bold text-[34px] text-rodu-medium">
@@ -189,6 +204,17 @@ export function Post() {
                 <p className="whitespace-pre-line py-[34px] border-y-[1.5px] border-y-rodu-black">
                   {data.answer}
                 </p>
+                <div className="flex justify-end gap-[20px] mt-[24px]">
+                  <button
+                    className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9] text-white font-semibold"
+                    onClick={() => {
+                      setAnswer(data.answer);
+                      setIsAdminEditMode(true);
+                    }}
+                  >
+                    답변 수정
+                  </button>
+                </div>
               </>
             ) : isAdmin ? (
               <div className="px-2">
@@ -204,11 +230,12 @@ export function Post() {
                       const target = e.target as HTMLInputElement;
                       setAnswer(target.value);
                     }}
+                    {...(isAdminEditMode ? { value: answer } : {})}
                   />
                   <div className="flex justify-end">
                     <button
                       className="bg-rodu-medium rounded-[5px] text-white px-[10px] py-2 mr-3 mt-3 font-medium"
-                      onClick={() => handleAnswer()}
+                      onClick={handleAnswer}
                     >
                       답변 작성
                     </button>
@@ -232,12 +259,6 @@ export function Post() {
           setEditModal(false);
         }}
       />
-      {/* <YesNoModal
-        isOpen={editModal}
-        title="게시물을 수정하겠습니까?"
-        yesHandler={() => editHandler()}
-        noHandler={() => setEditModal(false)}
-      /> */}
       <PwInputModal
         isOpen={pwStatus !== ""}
         enterPress={() => {
