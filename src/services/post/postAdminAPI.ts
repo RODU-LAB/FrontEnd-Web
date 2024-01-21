@@ -37,3 +37,18 @@ export async function deletePostAdmin(id: number) {
     return "error";
   }
 }
+
+/** 게시물 답변 수정 */
+export async function updatePostAnswerAPI(id: number, answer: string) {
+  try {
+    const res = await Instance.patch(`/posts-admin/${id}/answer`, {
+      answer: answer,
+    });
+    const result = res.status;
+    return result;
+  } catch (error) {
+    alert("문의글 답변 수정에 실패하셨습니다.");
+    console.log(error);
+    return "error";
+  }
+}
