@@ -111,7 +111,7 @@ export const UpdateApplication = () => {
       ? locationData.classGroups.map(
           (item: ClassGroupTypes) => item.educationDates
         )
-      : []
+      : [[]]
   );
 
   // Form 3 - 교육 특이사항
@@ -239,7 +239,6 @@ export const UpdateApplication = () => {
       const updatedItem = { ...updatedData[idx] };
       updatedItem[key] = value;
       updatedData[idx] = updatedItem;
-
       return updatedData;
     });
   };
@@ -1154,6 +1153,10 @@ export const UpdateApplication = () => {
                             {...(classGroups[i].unfixed
                               ? { checked: true }
                               : {})}
+                            onChange={(e) => {
+                              const target = e.target.checked;
+                              handleClassGroupInput(i, "unfixed", target);
+                            }}
                           />
                           <span className="classInfo-checkbox-text">
                             교육 시간 미정
