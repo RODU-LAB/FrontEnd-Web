@@ -120,10 +120,10 @@ export const UpdatePost = () => {
         <title>Create | RODU</title>
       </Helmet> */}
       <Banner
-        routeName1="• 교육문의"
+        routeName1="• 고객문의"
         route1=""
-        title="교육문의"
-        subtitle="Education inquiry"
+        title="고객문의"
+        subtitle="Customer inquiry"
         content="궁금하신 점이나 상담을 원하시는 부분은 언제든 문의주시면 신속하게 답변 드리도록 하겠습니다."
         contentClass="Subtitle-bigFont"
         rightImg="none"
