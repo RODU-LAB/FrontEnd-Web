@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSetRecoilState, useResetRecoilState } from "recoil";
 import { sessionIdState } from "../recoil/atoms/sessionIdState";
+import emailjs from "emailjs-com";
 // import { Helmet } from "react-helmet-async";
 
 import {
@@ -21,7 +22,8 @@ import { ReactComponent as Loading } from "../images/loading.svg";
 interface ClassGroupTypes {
   className: string;
   educationConcept: string;
-  numberOfStudents: number | undefined;
+  numberOfStudents: string;
+  educationDates: string[] | null[];
   remark: string;
   unfixed: boolean;
 }
@@ -60,34 +62,34 @@ export const UpdateApplication = () => {
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
 
   // Form 0
-  const [name, setName] = useState(
+  const [name, setName] = useState<string>(
     updateStatus === "update" ? locationData.name : ""
   );
-  const [institutionName, setInstitutionName] = useState(
+  const [institutionName, setInstitutionName] = useState<string>(
     updateStatus === "update" ? locationData.institutionName : ""
   );
-  const [position, setPosition] = useState(
+  const [position, setPosition] = useState<string>(
     updateStatus === "update" ? locationData.position : ""
   );
-  const [phoneNumber, setPhoneNumber] = useState(
+  const [phoneNumber, setPhoneNumber] = useState<string>(
     updateStatus === "update" ? locationData.phoneNumber : ""
   );
   const [authNum, setAuthNum] = useState(
     updateStatus === "update" ? locationData.authNum : ""
   ); // 인증번호
-  const [email, setEmail] = useState(
+  const [email, setEmail] = useState<string>(
     updateStatus === "update" ? locationData.email : ""
   );
 
   // Form 1 - 교육생 정보
-  const [numberOfStudents, setNumberOfStudents] = useState(
-    updateStatus === "update" ? locationData.numberOfStudents : undefined
+  const [numberOfStudents, setNumberOfStudents] = useState<string>(
+    updateStatus === "update" ? locationData.numberOfStudents : ""
   );
-  const [studentRank, setStudentRank] = useState(
+  const [studentRank, setStudentRank] = useState<string>(
     updateStatus === "update" ? locationData.studentRank : ""
   );
-  const [budget, setBudget] = useState(
-    updateStatus === "update" ? locationData.budget : undefined
+  const [budget, setBudget] = useState<string>(
+    updateStatus === "update" ? locationData.budget : ""
   );
 
   // Form 2 - 학급별 교육 일정
@@ -98,13 +100,19 @@ export const UpdateApplication = () => {
           {
             className: "",
             educationConcept: "",
-            numberOfStudents: undefined,
+            numberOfStudents: "",
             remark: "",
             unfixed: false,
           },
         ]
   );
-  const [educationDates, setEducationDates] = useState<string[][]>([]);
+  const [educationDates, setEducationDates] = useState<string[][]>(
+    updateStatus === "update"
+      ? locationData.classGroups.map(
+          (item: ClassGroupTypes) => item.educationDates
+        )
+      : []
+  );
 
   // Form 3 - 교육 특이사항
   const [overallRemark, setOverallRemark] = useState("");
@@ -244,7 +252,7 @@ export const UpdateApplication = () => {
         className: "",
         educationConcept: "",
         educationDates: [],
-        numberOfStudents: undefined,
+        numberOfStudents: "",
         remark: "",
         unfixed: false,
       },
@@ -400,11 +408,10 @@ export const UpdateApplication = () => {
   };
 
   /** 교육 신청 폼 제출 */
-  const handleSummit = async () => {
+  const handleSubmit = async () => {
     try {
       setIsLoading(true);
       const applyData = {
-        sessionId: authSessionId,
         name: name,
         institutionName: institutionName,
         numberOfStudents: numberOfStudents,
@@ -416,7 +423,10 @@ export const UpdateApplication = () => {
         email: email,
       };
 
-      const applicationId = await applyAPI(applyData);
+      const applicationId = await applyAPI({
+        ...applyData,
+        sessionId: authSessionId,
+      });
       if (applicationId) {
         if (applicationId === "SESSION_ID_NOT_VALID") {
           setFormNum(0);
@@ -443,11 +453,35 @@ export const UpdateApplication = () => {
               "applyFail"
             );
             return;
-          } else {
-            alert("교육 신청이 완료되었습니다.");
-            navigate("/applyEdu");
           }
         }
+
+        const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+        const PublicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+        if (serviceId && PublicKey) {
+          const classGroupsString = classGroups
+            .map((group, i) => {
+              return `학급 이름: ${group.className}:
+              - 교육 컨셉: ${group.educationConcept}
+              - 학생 수: ${group.numberOfStudents}
+              - 교육 날짜: ${educationDates[i].join(", ")}
+              - 희망 교육 시간: ${group.remark}
+              - 교육 시간 미정: ${group.unfixed ? "예" : "아니오"}\n`;
+            })
+            .join("\n");
+          emailjs.send(
+            serviceId,
+            "apply-education",
+            {
+              ...applyData,
+              classGroups: classGroupsString,
+            },
+            PublicKey
+          );
+        }
+        alert("교육 신청이 완료되었습니다.");
+        navigate("/applyEdu");
       }
     } finally {
       setIsLoading(false);
@@ -651,7 +685,7 @@ export const UpdateApplication = () => {
                       <button
                         style={{ fontSize: "0.776rem", marginTop: "0" }}
                         className="Create-post-kakao-modal-button"
-                        onClick={handleSummit}
+                        onClick={handleSubmit}
                       >
                         교육 신청
                       </button>
@@ -662,6 +696,7 @@ export const UpdateApplication = () => {
             ) : (
               ""
             )}
+
             <div
               className="Create-post-individual-form"
               style={
@@ -871,7 +906,6 @@ export const UpdateApplication = () => {
                 </div>
                 <div className="Create-post-input-box">
                   <input
-                    name="email"
                     placeholder="이메일"
                     className={
                       inputCheck === "email" || inputCheck === "emailRegex"
