@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { sessionIdState } from "../recoil/atoms/sessionIdState";
 
 import {
   sendAuthCodeAPI,
@@ -18,8 +20,11 @@ interface ApplicationsUIProps {
 function ShowApplication() {
   const navigate = useNavigate();
 
-  const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
+  const [sessionId, setSessionId] = useRecoilState(sessionIdState);
+  const resetSessionId = useResetRecoilState(sessionIdState);
   const [isAuth, setIsAuth] = useState(false);
+
+  const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
 
   const [inputCheck, setInputCheck] = useState("");
   const [isActiveTimer, setIsActiveTimer] = useState(false);
@@ -32,6 +37,22 @@ function ShowApplication() {
   const [authNum, setAuthNum] = useState("");
 
   const [applicationData, setApplicationData] = useState([]);
+
+  useEffect(() => {
+    if (!!sessionId.id) {
+      const nowTime = new Date();
+      const difference = nowTime.getTime() - sessionId.time.getTime();
+      if (difference < 300000) {
+        setIsAuth(true);
+        handleFindApplication(sessionId.id);
+      } else {
+        setIsAuth(false);
+        resetSessionId();
+      }
+    }
+
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
@@ -79,24 +100,30 @@ function ShowApplication() {
     } else if (!!!authNum || !onlyNumbers.test(authNum)) {
       setInputCheck("authCode");
     } else if (isActiveTimer && timeLeft > 0) {
-      const result = await verifyAuthCodeAPI(authNum, phoneNumber);
-      if (result) {
+      const newSessionId = await verifyAuthCodeAPI(authNum, phoneNumber);
+      setSessionId({
+        id: newSessionId,
+        time: new Date(),
+        phoneNumber: phoneNumber,
+      });
+      if (newSessionId) {
         setIsAuth(true);
         setIsActiveTimer(false);
-        const findApplicationResult = await findApplicationAPI(
-          phoneNumber,
-          result
-        );
-        if (findApplicationResult) {
-          setApplicationData(findApplicationResult);
-        }
+        handleFindApplication(newSessionId);
       }
     } else if (!isActiveTimer) {
       setIsClickBeforeSendAuthCode(true);
     }
   };
 
-  /** 게시판 항목 UI 컴포넌트 */
+  const handleFindApplication = async (newSessionId: string) => {
+    const findApplicationResult = await findApplicationAPI(newSessionId);
+    if (findApplicationResult) {
+      setApplicationData(findApplicationResult);
+    }
+  };
+
+  /** 교육 신청 항목 UI 컴포넌트 */
   const ApplicationsUI = ({ application, idx }: ApplicationsUIProps) => {
     const data = application;
     return (
@@ -105,10 +132,15 @@ function ShowApplication() {
         onClick={() => navigate("/update-application", { state: data })}
       >
         <div className="flex items-center">
-          <p className="w-[78px] text-center button text-rodu-grey mr-[20px]">
-            {idx}
+          <p className="w-[78px] text-center text-rodu-grey mr-[20px] text-[16px]">
+            {idx + 1}
           </p>
-          <p className="body1 mr-[14px]">{`${data.institutionName}, ${data.name}님께서 신청하신 교육 내역입니다.`}</p>
+          <div className="flex text-[18px]">
+            <p className="text-rodu-medium font-bold">{data.institutionName}</p>
+            <p>,&nbsp;</p>
+            <p className="text-rodu-medium font-bold">{data.name}</p>
+            <p>님께서 신청하신 교육 내역입니다.</p>
+          </div>
         </div>
         <div className="flex items-center">
           <button className="w-[146px] text-center text-rodu-black text-[18px]">
@@ -169,10 +201,7 @@ function ShowApplication() {
         {/* <ApplyButton /> */}
 
         <div className="CreateEdu-title">교육 신청 내역 확인하기</div>
-        <div
-          className="Create-post-form"
-          // onSubmit={handleSubmit(onSubmit_create, onInvalid_create)}
-        >
+        <div className="Create-post-form">
           <div className="Create-post-input-parent border-t border-t-[#d9d9d9]">
             <div className="Create-post-input-description-box">
               <span className="Create-post-input-description-text">
@@ -194,6 +223,7 @@ function ShowApplication() {
                   setInputCheck("");
                 }}
                 maxLength={11}
+                {...(isAuth ? { value: sessionId.phoneNumber } : {})}
               />
               <button
                 type="button"
@@ -289,10 +319,10 @@ function ShowApplication() {
             <span style={{ fontWeight: "600" }}>건</span>
           </div>
         </div>
+        {applicationData.map((item, i) => {
+          return <ApplicationsUI application={item} idx={i} />;
+        })}
       </div>
-      {applicationData.map((item, i) => {
-        return <ApplicationsUI application={item} idx={i} />;
-      })}
     </div>
   );
 }

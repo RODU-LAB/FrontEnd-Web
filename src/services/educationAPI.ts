@@ -1,5 +1,5 @@
-import { URL } from "../utils/config";
 import axios from "axios";
+import { URL } from "../utils/config";
 
 interface ApplyTypes {
   sessionId: string;
@@ -94,10 +94,18 @@ export async function applyAPI(applyData: ApplyTypes) {
     );
     return res.data.data.id;
   } catch (error) {
-    alert("교육 신청에 실패하였습니다.");
-    console.error(error);
+    if (
+      axios.isAxiosError(error) &&
+      error.response?.data.errorCode === "SESSION_ID_NOT_VALID"
+    ) {
+      alert("휴대폰 인증번호가 만료되었습니다.\n다시 시도해주세요.");
+      return "SESSION_ID_NOT_VALID";
+    } else {
+      alert("교육 신청에 실패하였습니다.");
+      // console.error(error);
+      return false;
+    }
     // throw error;
-    return false;
   }
 }
 
@@ -130,8 +138,8 @@ export async function addClassesDataAPI(classesData: ClassesDataTypes) {
         },
       }
     );
-    console.log("학급 추가 단계");
-    console.log(res);
+    // console.log("학급 추가 단계");
+    // console.log(res);
     return res.status;
   } catch (error) {
     alert("교육 신청에 실패하였습니다.");
@@ -170,17 +178,15 @@ export async function deleteApplicationAPI(
 }
 
 /** 교육 신청 조회 */
-export async function findApplicationAPI(phoneNum: string, sessionId: string) {
+export async function findApplicationAPI(sessionId: string) {
   try {
     const response = await axios.get(URL + "/education-application", {
-      params: {
-        phoneNumber: phoneNum,
-      },
       headers: {
         "session-id": sessionId,
       },
     });
     const result = response.data.data;
+    console.log(result);
     return result;
   } catch (error) {
     alert("교육 신청 조회에 실패하셨습니다.");
