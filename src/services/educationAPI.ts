@@ -5,8 +5,8 @@ interface ApplyTypes {
   sessionId: string;
   name: string;
   institutionName: string;
-  budget: number;
-  numberOfStudents: number;
+  budget: string;
+  numberOfStudents: string;
   overallRemark: string;
   phoneNumber: string;
   position: string;
@@ -20,7 +20,7 @@ interface ClassesDataTypes {
   className: string;
   educationConcept: string;
   educationDates: string[] | null[];
-  numberOfStudents: number | undefined;
+  numberOfStudents: string;
   remark: string;
   unfixed: boolean;
 }
@@ -186,11 +186,11 @@ export async function findApplicationAPI(sessionId: string) {
       },
     });
     const result = response.data.data;
-    console.log(result);
+    // console.log(result);
     return result;
   } catch (error) {
     alert("교육 신청 조회에 실패하셨습니다.");
-    console.error(error);
+    // console.error(error);
     return false;
   }
 }
