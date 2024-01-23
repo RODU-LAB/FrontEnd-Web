@@ -464,7 +464,7 @@ export const HomePage = () => {
                     className="Main5-data1-number"
                     // {...main5Count1Animation}
                   >
-                    0명
+                    60명
                   </span>
                 </div>
                 <div className="Main5-data2-container">
@@ -473,7 +473,7 @@ export const HomePage = () => {
                     className="Main5-data2-number"
                     // {...main5Count2Animation}
                   >
-                    0개
+                    130개
                   </span>
                 </div>
                 <div className="Main5-data3-container">
@@ -482,16 +482,16 @@ export const HomePage = () => {
                     className="Main5-data3-number"
                     // {...main5Count3Animation}
                   >
-                    0시간
+                    320시간
                   </span>
                 </div>
                 <div className="Main5-data4-container">
-                  <span className="Main5-data4-letter">강의 출강 학교 수</span>
+                  <span className="Main5-data4-letter">강의 출강</span>
                   <span
                     className="Main5-data4-number"
                     // {...main5Count4Animation}
                   >
-                    0개교
+                    6회
                   </span>
                 </div>
                 <div className="Main5-data5-container">
