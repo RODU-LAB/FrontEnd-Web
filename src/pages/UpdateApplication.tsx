@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSetRecoilState, useResetRecoilState } from "recoil";
+import { sessionIdState } from "../recoil/atoms/sessionIdState";
 // import { Helmet } from "react-helmet-async";
 
 import {
@@ -29,6 +31,9 @@ export const UpdateApplication = () => {
   const location = useLocation();
   const locationData = location.state;
   const updateStatus = location.state ? "update" : "create";
+
+  const setSessionId = useSetRecoilState(sessionIdState);
+  const resetSessionId = useResetRecoilState(sessionIdState);
 
   // 렌더링 이후인지 확인
   const [isAfterRender, setIsAfterRender] = useState(true);
@@ -86,9 +91,9 @@ export const UpdateApplication = () => {
   );
 
   // Form 2 - 학급별 교육 일정
-  const [classGroup, setClassGroup] = useState<ClassGroupTypes[]>(
+  const [classGroups, setClassGroups] = useState<ClassGroupTypes[]>(
     updateStatus === "update"
-      ? locationData.classGroup
+      ? locationData.classGroups
       : [
           {
             className: "",
@@ -168,6 +173,7 @@ export const UpdateApplication = () => {
 
   /** 카카오톡 인증 (인증번호 발송) 버튼 클릭 시 */
   const handleSendAuthCode = async () => {
+    setInputCheck("");
     // 숫자만 포함, 11자리 이상
     const condition = /^\d{11}$/;
     const checkResult = condition.test(phoneNumber);
@@ -195,12 +201,17 @@ export const UpdateApplication = () => {
     } else if (!!!authNum || !onlyNumbers.test(authNum)) {
       setInputCheck("authCode");
     } else if (isActiveTimer && timeLeft > 0) {
-      const result = await verifyAuthCodeAPI(authNum, phoneNumber);
-      if (result) {
+      const newSessionId = await verifyAuthCodeAPI(authNum, phoneNumber);
+      if (newSessionId) {
         setFinishAuthModal(true);
         setIsAuth(true);
         setIsActiveTimer(false);
-        setAuthSessionId(result);
+        setAuthSessionId(newSessionId);
+        setSessionId({
+          id: newSessionId,
+          time: new Date(),
+          phoneNumber: phoneNumber,
+        });
       }
     } else if (!isActiveTimer) {
       setIsClickBeforeSendAuthCode(true);
@@ -213,7 +224,7 @@ export const UpdateApplication = () => {
     key: keyof ClassGroupTypes,
     value: ClassGroupTypes[keyof ClassGroupTypes]
   ) => {
-    setClassGroup((prev) => {
+    setClassGroups((prev) => {
       const updatedData: any = [...prev];
 
       // 특정 인덱스의 객체에 접근하여 값을 업데이트
@@ -227,7 +238,7 @@ export const UpdateApplication = () => {
 
   /** 학급 추가 버튼 클릭 시 (Form 2 - 학급별 교육 일정) */
   const handleAddClass = () => {
-    setClassGroup((prev) => [
+    setClassGroups((prev) => [
       ...prev,
       {
         className: "",
@@ -247,8 +258,8 @@ export const UpdateApplication = () => {
 
   /** 학급 삭제 (Form 2 - 학급별 교육 일정) */
   const handleRemoveClass = (idx: number) => {
-    if (classGroup.length > 1) {
-      setClassGroup((prev) => {
+    if (classGroups.length > 1) {
+      setClassGroups((prev) => {
         const prevDate = [...prev];
         prevDate.splice(idx, 1);
         return prevDate;
@@ -281,6 +292,10 @@ export const UpdateApplication = () => {
         // 이메일이 공백이 아니라면 이메일 유효성 검사 실행
         check: !!email && !emailRegex.test(email),
         item: "emailRegex",
+      },
+      {
+        check: !isAuth && !isActiveTimer,
+        item: "sendCode",
       },
       {
         check: !isAuth,
@@ -351,8 +366,8 @@ export const UpdateApplication = () => {
 
   /** Form 2 - 학급별 교육 정보 에서 다음 버튼 클릭 */
   const handleThirdNextBtn = () => {
-    for (let i = 0; i < classGroup.length; i++) {
-      if (!!!classGroup[i].className) {
+    for (let i = 0; i < classGroups.length; i++) {
+      if (!!!classGroups[i].className) {
         alert("'학급 이름' 입력란을 다시 확인해 주세요.");
         return false;
       }
@@ -384,6 +399,7 @@ export const UpdateApplication = () => {
     });
   };
 
+  /** 교육 신청 폼 제출 */
   const handleSummit = async () => {
     try {
       setIsLoading(true);
@@ -402,12 +418,20 @@ export const UpdateApplication = () => {
 
       const applicationId = await applyAPI(applyData);
       if (applicationId) {
-        for (let i = 0; i < classGroup.length; i++) {
+        if (applicationId === "SESSION_ID_NOT_VALID") {
+          setFormNum(0);
+          setIsAuth(false);
+          resetSessionId();
+          setSubmitModal(false);
+          setAuthNum("");
+          return;
+        }
+        for (let i = 0; i < classGroups.length; i++) {
           const classesData = {
-            ...classGroup[i],
+            ...classGroups[i],
             sessionId: authSessionId,
             educationDates:
-              educationDates[i].length === 0 ? [null] : educationDates[i],
+              educationDates[i]?.length === 0 ? [null] : educationDates[i],
             applicationId: applicationId,
           };
 
@@ -755,7 +779,11 @@ export const UpdateApplication = () => {
                   />
                   <button
                     type="button"
-                    className="Create-post-input-phoneNum-button"
+                    className={
+                      inputCheck === "sendCode"
+                        ? "Create-post-input-phoneNum-button horizontal-shaking border-red"
+                        : "Create-post-input-phoneNum-button"
+                    }
                     style={
                       isActiveTimer
                         ? { color: "#777777", fontSize: "0.859rem" }
@@ -778,17 +806,14 @@ export const UpdateApplication = () => {
                 <div className="Create-post-input-description-flex">
                   <input
                     placeholder="인증번호 입력"
-                    className={
-                      inputCheck === "authCode"
-                        ? "Create-post-input-phoneNum horizontal-shaking border-red"
-                        : "Create-post-input-phoneNum"
-                    }
+                    className="Create-post-input-phoneNum"
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setAuthNum(target.value);
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4 || isAuth || !isActiveTimer}
+                    value={authNum}
                   />
                   <button
                     type="button"
@@ -976,7 +1001,7 @@ export const UpdateApplication = () => {
             >
               <div className="CreateEdu-title">학급별 교육 일정</div>
               <div className="classInfo-container">
-                {classGroup.map((item, i) => {
+                {classGroups.map((item, i) => {
                   return (
                     <div className="classInfo-box">
                       <section className={"section"}>
@@ -1008,7 +1033,7 @@ export const UpdateApplication = () => {
                               );
                               setInputCheck("");
                             }}
-                            value={classGroup[i].className}
+                            value={classGroups[i].className}
                             readOnly={formNum === 4}
                           />
                         </div>
@@ -1028,7 +1053,7 @@ export const UpdateApplication = () => {
                               );
                               setInputCheck("");
                             }}
-                            value={classGroup[i].educationConcept}
+                            value={classGroups[i].educationConcept}
                             readOnly={formNum === 4}
                           />
                         </div>
@@ -1048,7 +1073,7 @@ export const UpdateApplication = () => {
                               );
                               setInputCheck("");
                             }}
-                            value={classGroup[i].numberOfStudents}
+                            value={classGroups[i].numberOfStudents}
                             type="number"
                             readOnly={formNum === 4}
                           />
@@ -1083,7 +1108,7 @@ export const UpdateApplication = () => {
                               handleClassGroupInput(i, "remark", target);
                               setInputCheck("");
                             }}
-                            value={classGroup[i].remark}
+                            value={classGroups[i].remark}
                             readOnly={formNum === 4}
                           />
                         </div>
@@ -1092,7 +1117,7 @@ export const UpdateApplication = () => {
                             className="classInfo-checkbox"
                             type="checkbox"
                             readOnly={formNum === 4}
-                            {...(classGroup[i].unfixed
+                            {...(classGroups[i].unfixed
                               ? { checked: true }
                               : {})}
                           />
