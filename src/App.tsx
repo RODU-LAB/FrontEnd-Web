@@ -8,7 +8,6 @@ import "./styles/postsStyles.css";
 import "./styles/commonStyles.css";
 import "./styles/createStyles.css";
 import "./styles/postStyles.css";
-import "./styles/headerStyles.css";
 import "./styles/footStyles.css";
 import "./styles/bannerStyles.css";
 import "./styles/modalStyles.css";
@@ -76,46 +75,36 @@ export const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/post/updatepost" element={<UpdatePost />} />
           <Route path="/posts" element={<Posts />} />
-          {/* <Route path="/post/:id/edit" element={<EditPost />} /> */}
           <Route path="/post" element={<Post />} />
-          <Route path="*" element={<NotFound />}></Route>
-          <Route path="/applyEdu" element={<ApplyEdu />}></Route>
-          <Route
-            path="/update-application"
-            element={<UpdateApplication />}
-          ></Route>
-          <Route path="/showApplication" element={<ShowApplication />}></Route>
-          <Route
-            path="/showDetailContent"
-            element={<ShowDetailContent />}
-          ></Route>
-          <Route path="/login" element={<Login />}></Route>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/applyEdu" element={<ApplyEdu />} />
+          <Route path="/update-application" element={<UpdateApplication />} />
+          <Route path="/showApplication" element={<ShowApplication />} />
+          <Route path="/showDetailContent" element={<ShowDetailContent />} />
+          <Route path="/login" element={<Login />} />
 
-          <Route path="/otto" element={<Otto />}></Route>
-          <Route path="/hourGlass" element={<HourGlass />}></Route>
-          <Route path="/spider" element={<Spider />}></Route>
-          <Route path="/snake" element={<Snake />}></Route>
-          <Route path="/smallPuppy" element={<SmallPuppy />}></Route>
-          <Route path="/human" element={<Human />}></Route>
-          <Route path="/security" element={<Security />}></Route>
-          <Route path="/logistics" element={<Logistics />}></Route>
-          <Route path="/securityDog" element={<SecurityDog />}></Route>
-          <Route path="/yolo" element={<Yolo />}></Route>
-          <Route path="/deepLearning" element={<DeepLearning />}></Route>
+          <Route path="/otto" element={<Otto />} />
+          <Route path="/hourGlass" element={<HourGlass />} />
+          <Route path="/spider" element={<Spider />} />
+          <Route path="/snake" element={<Snake />} />
+          <Route path="/smallPuppy" element={<SmallPuppy />} />
+          <Route path="/human" element={<Human />} />
+          <Route path="/security" element={<Security />} />
+          <Route path="/logistics" element={<Logistics />} />
+          <Route path="/securityDog" element={<SecurityDog />} />
+          <Route path="/yolo" element={<Yolo />} />
+          <Route path="/deepLearning" element={<DeepLearning />} />
           <Route
             path="/reinforcementLearning"
             element={<ReinforcementLearning />}
-          ></Route>
-          <Route path="/printer" element={<Printer />}></Route>
-          <Route path="/plc" element={<Plc />}></Route>
-          <Route path="/kicad" element={<Kicad />}></Route>
-          <Route path="/embedded" element={<Embedded />}></Route>
-          <Route path="/ros2" element={<Ros2 />}></Route>
-          <Route path="/manipulator" element={<Manipulator />}></Route>
-          <Route
-            path="/appPrivacyPolicy"
-            element={<AppPrivacyPolicy />}
-          ></Route>
+          />
+          <Route path="/printer" element={<Printer />} />
+          <Route path="/plc" element={<Plc />} />
+          <Route path="/kicad" element={<Kicad />} />
+          <Route path="/embedded" element={<Embedded />} />
+          <Route path="/ros2" element={<Ros2 />} />
+          <Route path="/manipulator" element={<Manipulator />} />
+          <Route path="/appPrivacyPolicy" element={<AppPrivacyPolicy />} />
         </Routes>
         <Foot />
       </RecoilRoot>
