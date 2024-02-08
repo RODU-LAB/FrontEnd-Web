@@ -1,7 +1,3 @@
-.Main-Container {
-  z-index: 1;
-}
-
 .Main1 {
   background-image: url("/src/images/main1.png");
   background-position: center center;
@@ -22,10 +18,10 @@
 }
 
 .Main1-title {
-  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-  font-family: Pretendard;
-  font-size: 2.667rem;
-  font-weight: bold;
+  /* text-shadow: 0 4px 4px rgba(0, 0, 0, 0.4); */
+  /* font-family: Pretendard; */
+  /* font-size: 2.667rem; */
+  /* font-weight: bold; */
   font-stretch: normal;
   font-style: normal;
   line-height: 1.21;

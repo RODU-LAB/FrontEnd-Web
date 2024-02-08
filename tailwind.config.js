@@ -13,6 +13,37 @@ module.exports = {
       fontSize: {
         body2: "14px",
       },
+      keyframes: {
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        fadeInUp: "fadeInUp 1s ease-out forwards",
+      },
+    },
+    screens: {
+      tablet: "640px",
+      // => @media (min-width: 640px) { ... }
+
+      laptop: "1024px",
+      // => @media (min-width: 1024px) { ... }
+
+      desktop: "1280px",
+      // => @media (min-width: 1280px) { ... }
+
+      sm: "640px",
+      // => @media (min-width: 640px) { ... }
+
+      md: "768px",
+      // => @media (min-width: 768px) { ... }
+
+      lg: "1024px",
+      // => @media (min-width: 1024px) { ... }
+
+      "2xl": "1536px",
+      // => @media (min-width: 1536px) { ... }
     },
   },
   plugins: [
