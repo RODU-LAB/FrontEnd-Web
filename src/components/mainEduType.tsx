@@ -83,17 +83,17 @@ const Container = styled.button`
   width: 26.667rem;
   height: 17.556rem;
   border-radius: 9.9px;
-  background-color: var(--rodu-super-light-grey);
+  background-color: var(--super-light-grey);
   text-align: left;
   position: relative;
   // visibility: visible;
   &:hover {
-    background-color: var(--rodu-super-light-grey);
+    background-color: var(--super-light-grey);
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
     border: 2px solid transparent;
     background-image: linear-gradient(
-        var(--rodu-super-light-grey),
-        var(--rodu-super-light-grey)
+        var(--super-light-grey),
+        var(--super-light-grey)
       ),
       linear-gradient(to bottom right, #ffd857, #f9911e);
     background-clip: content-box, border-box;
@@ -186,7 +186,7 @@ const Container = styled.button`
     line-height: 1.45;
     letter-spacing: normal;
     text-align: left;
-    color: var(--rodu-super-light-grey);
+    color: var(--super-light-grey);
     animation: ${FadeIn} 1s ease;
   }
 `;

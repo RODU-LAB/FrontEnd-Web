@@ -4,6 +4,11 @@ import { Helmet } from "react-helmet-async";
 
 import bannerVideo from "../images/home-banner.mp4";
 
+import robot from "../images/icon_robot.png";
+import software from "../images/icon_ros2.png";
+import printer from "../images/icon_embedded.png";
+import ai from "../images/icon_ai.png";
+
 import leftButton from "../images/left-button.png";
 import rightButton from "../images/right-button.png";
 import otto from "../images/otto.png";
@@ -38,10 +43,11 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 
 import styled from "styled-components";
-import MainEduContent from "../components/mainEduContent";
 import MainEduType from "../components/mainEduType";
 import RoduInstructor from "../components/RoduInstructor";
 import ModalMap from "../components/ModalMap";
+import { Title } from "../components/home/Title";
+import { ContentsBox } from "../components/home/ContentsBox";
 
 const DialogButton = styled.button`
   height: 3.222rem;
@@ -104,46 +110,100 @@ export const Home = () => {
   // const main5Count3Animation = useScrollCount(488, 463, 1500, "시간");
   // const main5Count4Animation = useScrollCount(27, 10, 1500, "개교");
 
+  const mainContentsData = [
+    {
+      img: robot,
+      name: "ROBOT",
+      firstText: "로봇의 기본 원리부터 설계 및 제작에 대해 학습하고 ",
+      secondText: "로봇의 기계적 구조, 제어로직을 사용해 실제 로봇을 구축",
+      LastText: "하는 프로젝트를 수행합니다.",
+    },
+    {
+      img: software,
+      name: "ROS2",
+      firstText: "로봇의 기본 원리부터 설계 및 제작에 대해 학습하고 ",
+      secondText: "로봇의 기계적 구조, 제어로직을 사용해 실제 로봇을 구축",
+      LastText: "하는 프로젝트를 수행합니다.",
+    },
+    {
+      img: printer,
+      name: "Embedded",
+      firstText: "로봇의 기본 원리부터 설계 및 제작에 대해 학습하고 ",
+      secondText: "로봇의 기계적 구조, 제어로직을 사용해 실제 로봇을 구축",
+      LastText: "하는 프로젝트를 수행합니다.",
+    },
+    {
+      img: ai,
+      name: "AI",
+      firstText: "로봇의 기본 원리부터 설계 및 제작에 대해 학습하고 ",
+      secondText: "로봇의 기계적 구조, 제어로직을 사용해 실제 로봇을 구축",
+      LastText: "하는 프로젝트를 수행합니다.",
+    },
+  ];
+
   return (
     <>
       <Helmet>
         <title>RODU</title>
       </Helmet>
       <>
-        <div className="w-full h-[100vh] relative overflow-hidden">
-          <video
-            className="w-full h-full object-cover"
-            style={{ objectPosition: "center top" }}
-            autoPlay
-            muted
-            loop
+        <div className="w-full flex flex-col items-center">
+          <div className="w-full h-[100vh] relative overflow-hidden">
+            <video
+              className="w-full h-full object-cover"
+              style={{ objectPosition: "center top" }}
+              autoPlay
+              muted
+              loop
+            >
+              <source src={bannerVideo} type="video/mp4" />
+            </video>
+            <div className="absolute top-0 left-0 w-full h-full bg-black opacity-55">
+              <div className="absolute w-full flex flex-col gap-[30px] text-center top-[39vh] tablet:top-[38vh]  px-5">
+                <p className="font-bold text-white text-[20px] tablet:text-[24px] md:text-[33px] lg:text-[44px] ">
+                  "로봇 기술의 미래를 이끌어가다"
+                </p>
+                <p className="text-white text-[16px] tablet:text-[20px] md:text-[28px] lg:text-[36px]">
+                  전문성을 갖춘 로봇 직무교육의 선두주자 RODU
+                </p>
+                <p className="text-white text-[12px] tablet:text-[14px] md:text-[18px] lg:text-[22px]">
+                  로봇을 전공하는 대학생들과 전문가들에게 맞춤형 커리큘럼과
+                  실질적 기술을 제공합니다.
+                </p>
+              </div>
+            </div>
+            <Link to="/post/updatepost">
+              <button className="absolute border border-white rounded-[26px] text-[12px] tablet:text-[18px] text-white top-[82vh] max-lg:transform max-lg:-translate-x-1/2 max-lg:left-[50%] lg:right-[160px] py-3 px-5 hover:bg-white hover:text-black transition-colors duration-500 opacity-80">
+                교육 문의하기
+              </button>
+            </Link>
+          </div>
+
+          {/* RODU 대표 교육 콘텐츠 */}
+          <div
+            className="md-home:h-[100vh] lg-home:w-[1090px] px-[20px] tablet:px-[44px]
+                  py-[15vh] max-md-home:flex max-md-home:flex-col max-md-home:item-center"
           >
-            <source src={bannerVideo} type="video/mp4" />
-          </video>
-          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-60">
-            <div className="absolute w-full flex flex-col gap-[30px] text-center top-[39vh] tablet:top-[38vh]  px-5">
-              <p className="font-bold text-white text-[20px] tablet:text-[24px] md:text-[33px] lg:text-[44px] ">
-                "로봇 기술의 미래를 이끌어가다"
-              </p>
-              <p className="text-white text-[16px] tablet:text-[20px] md:text-[28px] lg:text-[36px]">
-                전문성을 갖춘 로봇 직무교육의 선두주자 RODU
-              </p>
-              <p className="text-white text-[12px] tablet:text-[14px] md:text-[18px] lg:text-[22px]">
-                로봇을 전공하는 대학생들과 전문가들에게 맞춤형 커리큘럼과 실질적
-                기술을 제공합니다.
-              </p>
+            <Title
+              text="RODU의 대표 콘텐츠"
+              subText="고객들에게 최적의 교육과정을 제공합니다."
+            />
+            <div className="h-full grid grid-cols-2 md-home:grid-cols-4 gap-6 md-home:gap-4">
+              {mainContentsData.map((item, i) => {
+                return (
+                  <ContentsBox
+                    key={item.name}
+                    img={item.img}
+                    name={item.name}
+                    firstText={item.firstText}
+                    secondText={item.secondText}
+                    LastText={item.LastText}
+                    routerIndex={i + 11}
+                  />
+                );
+              })}
             </div>
           </div>
-          <Link to="/post/updatepost">
-            <button className="absolute border border-white rounded-[26px] text-[12px] tablet:text-[18px] text-white top-[82vh] max-lg:transform max-lg:-translate-x-1/2 max-lg:left-[50%] lg:right-[160px] py-3 px-5 hover:bg-white hover:text-black transition-colors duration-500 opacity-80">
-              교육 문의하기
-            </button>
-          </Link>
-        </div>
-
-        {/* RODU 대표 교육 콘텐츠 */}
-        <div className="Item-center">
-          <MainEduContent />
         </div>
 
         {/* RODU 교육 수행 유형 */}
@@ -673,7 +733,10 @@ export const Home = () => {
               <br />
               AI 로보틱스 교육을 제공합니다.
             </p>
-            <Link to="/post/updatepost" className="Main8-button-frame">
+            <Link
+              to="/post/updatepost"
+              className="Main8-button-frame bg-white rounded-[25px]"
+            >
               <button className="Main8-button Main8-button:hover">
                 교육 문의하기
               </button>

@@ -4,12 +4,9 @@ import { HelmetProvider } from "react-helmet-async";
 
 import "./index.css";
 
-import "./styles/styles.css";
 import "./styles/postsStyles.css";
 import "./styles/commonStyles.css";
-import "./styles/createStyles.css";
 import "./styles/postStyles.css";
-import "./styles/footStyles.css";
 import "./styles/bannerStyles.css";
 import "./styles/modalStyles.css";
 import "./styles/main1Styles.css";

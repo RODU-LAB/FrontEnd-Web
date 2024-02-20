@@ -86,7 +86,7 @@ const Container = styled.div`
     flex-grow: 0;
     border-radius: 10px;
     margin-top: 1rem;
-    background-color: var(--rodu-super-light-grey);
+    background-color: var(--super-light-grey);
     text-align: center;
     justify-content: center;
     position: relative;

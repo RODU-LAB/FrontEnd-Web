@@ -54,7 +54,7 @@
   width: 10rem;
   height: 2.833rem;
   border-radius: 25px;
-  background-color: var(--rodu-super-light-grey);
+  background-color: var(--super-light-grey);
 }
 .Main8-button:hover {
   font-weight: bold;

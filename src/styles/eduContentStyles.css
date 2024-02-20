@@ -45,7 +45,6 @@
   display: flex;
   align-items: center;
   height: 2.278rem;
-  font-family: Pretendard;
   padding: 0.833rem;
   font-size: 0.833rem;
   background: #f9911e;
@@ -57,7 +56,6 @@
   display: flex;
   align-items: center;
   height: 2.278rem;
-  font-family: Pretendard;
   padding: 0.833rem;
   font-size: 0.833rem;
   background: #d9d9d9;
@@ -82,10 +80,9 @@
 .EduDetail-content-container {
   display: flex;
   flex-direction: column;
-  /* padding-bottom: 0.1rem; */
   height: 21.111rem;
   background: #f8f9fd;
-  border: 0.15rem solid var(--rodu-super-light-grey);
+  border: 0.15rem solid var(--super-light-grey);
   border-radius: 10px;
 }
 
@@ -95,34 +92,22 @@
 }
 
 .EduDetail-content-container:hover {
-  /* background-color: #dddaff; */
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
   border: 0.15rem solid transparent;
   background-image: linear-gradient(
-      var(--rodu-super-light-grey),
-      var(--rodu-super-light-grey)
+      var(--super-light-grey),
+      var(--super-light-grey)
     ),
     linear-gradient(to bottom right, #ffd857, #f9911e);
   background-clip: content-box, border-box;
-  /* transition-duration: 0.5s; */
   transition: all 0.5s;
 }
 
 .EduDetail-content-container:hover img {
   transition: all 0.5s;
-  /* transition-duration: 0.5s; */
   height: calc(239.988 * 1.08px);
-  /* height: 263.9868px; */
   width: calc(337.775 * 1.08px);
-  /* width: 371.5525px; */
   object-fit: cover;
-}
-
-.EduDetail-content-container:hover .Title-text {
-  /* font-size: 1.5rem; */
-  /* line-height: 1.8rem; */
-  /* transition-duration: 0.5s; */
-  /* transition: all 0.5s; */
 }
 
 .EduDetail-content-container:hover .HashTag-text {
@@ -132,40 +117,32 @@
 
 .HashTag-text {
   display: flex;
-  /* margin-top: 0.5rem; */
   margin-left: 1.111rem;
   font-family: Pretendard;
   font-size: 0.778rem;
 }
 
 .Title-text {
-  /* display: flex; */
   margin-top: 0.2rem;
   text-align: start;
   margin-left: 1.111rem;
   line-height: 2rem;
   font-family: Pretendard;
   font-size: 1.889rem;
-  /* font-size: 1.889rem; */
   font-weight: Bold;
 }
 
 .TwoLineTitle {
-  /* display: flex; */
   margin-top: 0.2rem;
   text-align: start;
   margin-left: 1.111rem;
   line-height: 2rem;
-  font-family: Pretendard;
   font-size: 1.889rem;
-  /* font-size: 1.889rem; */
   font-weight: Bold;
 }
 
 .EduDetail-content-container:hover .TwoLineTitle {
-    /* 1.889rem; */
-    font-size: 1.5rem;
-    line-height: 1.8rem;
-    /* transition-duration: 0.5s; */
-    transition: all 0.5s;
-  }
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  transition: all 0.5s;
+}
