@@ -49,6 +49,7 @@ module.exports = {
       "lg-home": "1090px",
       "md-home": "960px",
 
+      "max-tablet": { max: "640px" },
       "max-lg-home": { max: "1089px" },
       "max-md-home": { max: "959px" },
     },

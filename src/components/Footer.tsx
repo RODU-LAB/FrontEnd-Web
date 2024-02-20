@@ -11,14 +11,19 @@ export const Footer = () => {
           <Link to="/">
             <img src={logo} className="h-[80px]" alt="logo" />
           </Link>
-          <p className="text-rodu-grey text-[0.778rem] leading-5 max-md-home:text-center">
-            RODU(로듀) | 대표 : 한대희 | 사업자 등록번호:211-19-41243
-            <br />
-            경기도 안산시 상록구 한양대학로 55 학연산클러스터 4층, KF-ROOM 4호
+          <p className="text-rodu-grey text-[13px] leading-5 max-md-home:text-center">
+            RODU(로듀) | 대표 : 한대희
+            <br className="inline-block tablet:hidden" />
+            <span className="hidden tablet:inline-block">|&nbsp;</span>
+            <span>사업자 등록번호:211-19-41243</span>
+            <div className="max-tablet:h-[4px]" />
+            경기도 안산시 상록구 한양대학로 55
+            <br className="inline-block tablet:hidden" />
+            학연산클러스터 4층, KF-ROOM 4호
           </p>
         </div>
         <div className="flex gap-[96px] h-full">
-          <div className="flex flex-col justify-between h-full">
+          <div className="flex flex-col justify-between h-full max-tablet:hidden">
             <div className="flex flex-col max-md-home:gap-4">
               <p className="text-[22px] text=[#212121] font-medium mb-[21px]">
                 Company
@@ -65,9 +70,9 @@ export const Footer = () => {
               </a>
             </div>
           </div>
-          <div className="flex flex-col justify-between max-md-home:gap-4">
-            <div>
-              <p className="text-[22px] text=[#212121] font-medium mb-[21px]">
+          <div className="flex flex-col justify-between max-md-home:gap-4 max-tablet:items-center">
+            <div className="max-tablet:flex max-tablet:flex-col max-tablet:items-center max-tablet:text-center">
+              <p className="text-[22px] text=[#212121] font-medium mb-2 tablet:mb-[21px]">
                 교육 문의
               </p>
               <div className="flex flex-col gap-2">
