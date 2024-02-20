@@ -28,7 +28,7 @@ export function ContentsBox({
   return (
     <button
       className="transition-all duration-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.15)] hover:border-[#f8c58a] 
-            w-[220px] h-[350px] laptop:w-[220px] laptop:h-[350px] desktop:w-[246px] desktop:h-[372px] 
+            w-[250px] tablet:w-[220px] h-[350px] laptop:w-[220px] laptop:h-[350px] desktop:w-[246px] desktop:h-[372px] 
             rounded-[10px] border-[2px] border-super-light-grey bg-super-light-grey 
             flex flex-col items-center justify-between 
             pt-[30px] desktop:pt-[32px] 
