@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { sessionIdState } from "../recoil/atoms/sessionIdState";
+import { sessionIdAtom } from "../recoil/atoms/sessionIdAtom";
 
 import {
   sendAuthCodeAPI,
@@ -20,8 +20,8 @@ interface ApplicationsUIProps {
 function ShowApplication() {
   const navigate = useNavigate();
 
-  const [sessionId, setSessionId] = useRecoilState(sessionIdState);
-  const resetSessionId = useResetRecoilState(sessionIdState);
+  const [sessionId, setSessionId] = useRecoilState(sessionIdAtom);
+  const resetSessionId = useResetRecoilState(sessionIdAtom);
   const [isAuth, setIsAuth] = useState(false);
 
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);

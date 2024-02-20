@@ -12,14 +12,13 @@ const Instance = axios.create({
 // 인터셉터 설정
 Instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken");
+    const token = sessionStorage.getItem("accessToken");
     if (token) {
       config.headers["authorization"] = `Bearer ${token}`;
     }
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
@@ -37,7 +36,7 @@ Instance.interceptors.response.use(
       originalRequest._retry = true;
       // console.log(error);
       try {
-        const accessToken = localStorage.getItem("accessToken");
+        const accessToken = sessionStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
         // 새 토큰 요청 로직
         const response = await axios.post(`${URL}/reissue`, {
@@ -47,7 +46,7 @@ Instance.interceptors.response.use(
         const newAccessToken = response.headers["authorization"];
 
         // 로컬 스토리지에 새 토큰 저장
-        localStorage.setItem("accessToken", newAccessToken);
+        sessionStorage.setItem("accessToken", newAccessToken);
 
         // 원래 요청의 토큰을 새 토큰으로 업데이트
         originalRequest.headers["authorization"] = `Bearer ${newAccessToken}`;
