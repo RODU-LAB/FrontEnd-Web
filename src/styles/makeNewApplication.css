@@ -63,7 +63,6 @@
 .Create-post-submit-modal-bottom {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   height: 10rem;
   padding: 1.6rem 1.056rem 0 1.1rem;
@@ -146,7 +145,6 @@
 
 .Progress-text {
   margin-left: 0.847rem;
-  font-family: Pretendard;
   color: #777777;
   font-size: 14px;
   font-weight: 600;
@@ -165,7 +163,6 @@
   height: 1.611rem;
   margin-bottom: 1.167rem;
   flex-grow: 0;
-  font-family: Pretendard;
   font-size: 1.333rem;
   font-weight: 500;
   font-stretch: normal;
@@ -210,7 +207,7 @@
   margin: 1.167rem, 20.556rem;
   gap: 8px;
   padding: 1.111rem 1.389rem;
-  background-color: var(--rodu-super-light-grey);
+  background-color: var(--super-light-grey);
   border-bottom: solid 1px var(--rodu-light-grey);
   border-left: solid 1px var(--rodu-light-grey);
   border-right: solid 1px var(--rodu-light-grey);
@@ -335,7 +332,7 @@
   border-bottom: solid 1px var(--rodu-light-grey);
   border-left: solid 1px var(--rodu-light-grey);
   border-right: solid 1px var(--rodu-light-grey);
-  background-color: var(--rodu-super-light-grey);
+  background-color: var(--super-light-grey);
 }
 
 .Create-post-input-textarea-div {
@@ -414,11 +411,6 @@
   font-family: Pretendard;
   font-size: 1rem;
 }
-
-/* .Create-post-submit-button-on:hover {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25),
-    0 0.35rem 0.35rem rgba(0, 0, 0, 0.22);
-} */
 
 .Create-post-submit-button-off {
   width: 9.944rem;
@@ -593,7 +585,6 @@
 }
 
 .classInfo-bottomInfo-input::placeholder {
-  font-family: Pretendard;
   font-size: 0.833rem;
   font-weight: 600;
   color: #d9d9d9;
@@ -611,7 +602,6 @@
 }
 
 .classInfo-checkbox-text {
-  font-family: Pretendard;
   font-size: 0.832rem;
   color: #777;
 }
@@ -623,7 +613,6 @@
   width: 8rem;
   height: 3.28rem;
   background-color: #f9911e;
-  font-family: Pretendard;
   color: #f8f9fd;
   font-size: 1.14rem;
   font-weight: 600;

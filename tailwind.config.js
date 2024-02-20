@@ -9,6 +9,7 @@ module.exports = {
         "rodu-medium": "#f9911e",
         "rodu-black": "#212121",
         "rodu-grey": "#777777",
+        "super-light-grey": "#f8f9fd",
       },
       fontSize: {
         body2: "14px",
@@ -44,6 +45,12 @@ module.exports = {
 
       "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
+
+      "lg-home": "1090px",
+      "md-home": "960px",
+
+      "max-lg-home": { max: "1089px" },
+      "max-md-home": { max: "959px" },
     },
   },
   plugins: [

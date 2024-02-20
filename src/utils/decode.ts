@@ -5,7 +5,7 @@ interface CustomJwtPayload extends JwtPayload {
 }
 
 export function useAdminCheck() {
-  const token = localStorage.getItem("accessToken");
+  const token = sessionStorage.getItem("accessToken");
   const decoded = token ? (jwtDecode(token) as CustomJwtPayload) : undefined;
   return decoded && decoded.roles[0].authority === "ROLE_ADMIN";
 }

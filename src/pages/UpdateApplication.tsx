@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSetRecoilState, useResetRecoilState } from "recoil";
-import { sessionIdState } from "../recoil/atoms/sessionIdState";
+import { sessionIdAtom } from "../recoil/atoms/sessionIdAtom";
 import emailjs from "emailjs-com";
 // import { Helmet } from "react-helmet-async";
 
@@ -34,8 +34,8 @@ export const UpdateApplication = () => {
   const locationData = location.state;
   const updateStatus = location.state ? "update" : "create";
 
-  const setSessionId = useSetRecoilState(sessionIdState);
-  const resetSessionId = useResetRecoilState(sessionIdState);
+  const setSessionId = useSetRecoilState(sessionIdAtom);
+  const resetSessionId = useResetRecoilState(sessionIdAtom);
 
   // 렌더링 이후인지 확인
   const [isAfterRender, setIsAfterRender] = useState(true);
