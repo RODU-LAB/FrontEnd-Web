@@ -173,7 +173,7 @@ export const Home = () => {
               </div>
             </div>
             <Link to="/post/updatepost">
-              <button className="absolute border border-white rounded-[26px] text-[12px] tablet:text-[18px] text-white top-[82vh] max-lg:transform max-lg:-translate-x-1/2 max-lg:left-[50%] lg:right-[160px] py-3 px-5 hover:bg-white hover:text-black transition-colors duration-500 opacity-80">
+              <button className="absolute border border-white rounded-[26px] text-[12px] tablet:text-[18px] text-white top-[73vh] tablet:top-[82vh] max-md-home:transform max-md-home:-translate-x-1/2 max-md-home:left-[50%] md-home:right-[160px] py-3 px-5 hover:bg-white hover:text-black transition-colors duration-500 opacity-80">
                 교육 문의하기
               </button>
             </Link>
@@ -182,13 +182,13 @@ export const Home = () => {
           {/* RODU 대표 교육 콘텐츠 */}
           <div
             className="md-home:h-[100vh] lg-home:w-[1090px] px-[20px] tablet:px-[44px]
-                  py-[15vh] max-md-home:flex max-md-home:flex-col max-md-home:item-center"
+                  py-[40px] tablet:py-[15vh] max-md-home:flex max-md-home:flex-col max-md-home:item-center"
           >
             <Title
               text="RODU의 대표 콘텐츠"
               subText="고객들에게 최적의 교육과정을 제공합니다."
             />
-            <div className="h-full grid grid-cols-2 md-home:grid-cols-4 gap-6 md-home:gap-4">
+            <div className="h-full grid grid-cols-1 tablet:grid-cols-2 md-home:grid-cols-4 gap-6 md-home:gap-4 justify-items-center">
               {mainContentsData.map((item, i) => {
                 return (
                   <ContentsBox

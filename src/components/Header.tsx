@@ -34,7 +34,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`h-[42px] tablet:h-[120px] pt-4 tablet:pt-0  w-full px-[20px] tablet:px-[44px] lg:px-[120px] max-tablet:pt-6 flex items-center justify-between z-[49] ${position}`}
+        className={`h-[42px] tablet:h-[120px] pt-5 tablet:pt-0  w-full px-[20px] tablet:px-[44px] lg:px-[120px] max-tablet:pt-6 flex items-center justify-between z-[49] ${position}`}
       >
         <Link to="/" className="flex items-center gap-[14px] tablet:gap-[16px]">
           <img src={logo} className="h-[26px] tablet:h-[38px]" alt="logo" />
