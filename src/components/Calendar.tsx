@@ -212,6 +212,7 @@ export function Calendar({
                       setSelectedDates((prev) => {
                         const prevCopy = [...prev];
                         prevCopy.splice(i, 1);
+                        handleSelectDates(prevCopy);
                         return prevCopy;
                       })
                     }
