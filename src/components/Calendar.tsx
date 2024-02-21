@@ -24,33 +24,57 @@ export function Calendar({
     Array.isArray(selectedDatesProps) ? selectedDatesProps : []
   );
 
-  const getCalendarData = (year: number, month: number) => {
-    // 현재 달의 첫 날과 마지막 날
+  /** 날짜 데이터를 생성하고 주 단위로 그룹화하는 함수 */
+  const getCalendarData = () => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
+    // 현재 달의 첫 날
     const firstDayOfMonth = new Date(year, month, 1);
-    const lastDayOfMonth = new Date(year, month + 1, 0);
-
-    // 달력 시작 날짜: 현재 달의 첫 날보다 이전의 가장 가까운 일요일
+    // 달력 시작 날짜를 현재 달의 첫 날의 주의 일요일로 설정
     const startDay = new Date(firstDayOfMonth);
-    startDay.setDate(startDay.getDate() - startDay.getDay());
+    startDay.setDate(1 - firstDayOfMonth.getDay());
 
-    // 달력 끝 날짜: 현재 달의 마지막 날 다음의 가장 가까운 토요일
+    // 현재 달의 마지막 날
+    const lastDayOfMonth = new Date(year, month + 1, 0);
+    // 달력 끝 날짜를 현재 달의 마지막 날의 주의 토요일로 설정
     const endDay = new Date(lastDayOfMonth);
-    endDay.setDate(endDay.getDate() + (6 - endDay.getDay()));
+    endDay.setDate(lastDayOfMonth.getDate() + (6 - lastDayOfMonth.getDay()));
 
-    // 날짜 데이터를 담을 배열
-    const dates = [];
+    /** startDay부터 endDay까지의 날짜를 주 단위로 그룹화하는 함수 */
+    const groupDatesByWeek = (startDay: Date, endDay: Date) => {
+      const weeks = []; // 최종적으로 주 단위로 그룹화된 날짜 배열들을 저장할 배열
+      let currentWeek = []; // 현재 처리 중인 주를 나타내는 배열
+      let currentDate = new Date(startDay); // 반복 처리를 위한 현재 날짜 변수, 시작 날짜로 초기화
 
-    // 시작 날짜부터 끝 날짜까지 순회하며 날짜 배열에 추가
-    for (
-      let date = new Date(startDay);
-      date <= endDay;
-      date.setDate(date.getDate() + 1)
-    ) {
-      dates.push(new Date(date));
-    }
+      // 시작 날짜부터 끝 날짜까지 반복
+      while (currentDate <= endDay) {
+        currentWeek.push(new Date(currentDate)); // 현재 날짜를 현재 주에 추가
+        // 현재 주가 7일을 모두 채웠거나 현재 날짜가 토요일인 경우
+        if (currentWeek.length === 7 || currentDate.getDay() === 6) {
+          weeks.push(currentWeek); // 완성된 주를 weeks 배열에 추가
+          currentWeek = []; // 새로운 주를 시작하기 위해 currentWeek을 재초기화
+        }
+        currentDate.setDate(currentDate.getDate() + 1); // 현재 날짜를 다음 날로 변경
+      }
 
-    return dates;
+      // 마지막 주 처리 (만약 남아있다면)
+      if (currentWeek.length > 0) {
+        weeks.push(currentWeek); // 남아 있는 날짜가 있다면 마지막 주로 weeks에 추가
+      }
+
+      return weeks; // 주 단위로 그룹화된 날짜 배열들을 반환
+    };
+
+    return groupDatesByWeek(startDay, endDay);
   };
+
+  const weeks = getCalendarData();
+
+  const currentMonth =
+    currentDate.getMonth() + 1 >= 10
+      ? currentDate.getMonth() + 1
+      : "0" + (currentDate.getMonth() + 1);
 
   const isCurrentMonth = (date: any) => {
     if (date.getMonth() === currentDate.getMonth()) {
@@ -88,39 +112,6 @@ export function Calendar({
     );
   };
 
-  // 주 단위로 날짜를 그룹화하기 위한 함수
-  const getWeeks = (dates: Date[]) => {
-    const weeks = [];
-    let week: Date[] = [];
-
-    dates.forEach((date) => {
-      if (week.length < 7) {
-        week.push(date);
-      } else {
-        weeks.push(week);
-        week = [date];
-      }
-    });
-
-    if (week.length) {
-      weeks.push(week); // 마지막 주 추가
-    }
-
-    return weeks;
-  };
-
-  const dates = getCalendarData(
-    currentDate.getFullYear(),
-    currentDate.getMonth()
-  );
-
-  const weeks = getWeeks(dates);
-
-  const CurrentMonth =
-    currentDate.getMonth() + 1 >= 10
-      ? currentDate.getMonth() + 1
-      : "0" + (currentDate.getMonth() + 1);
-
   return (
     <div
       className="w-[100vw] h-[100vh] top-0 left-0 fixed"
@@ -137,7 +128,7 @@ export function Calendar({
                 />
               </button>
               <p className="font-medium text-[16px] text-darkGrey">
-                {currentDate.getFullYear()}.{CurrentMonth}.
+                {currentDate.getFullYear()}.{currentMonth}.
               </p>
               <button onClick={handleNextMonth}>
                 <FontAwesomeIcon
