@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 import bannerVideo from "../images/home-banner.mp4";
@@ -8,6 +8,11 @@ import robot from "../images/icon_robot.png";
 import software from "../images/icon_ros2.png";
 import printer from "../images/icon_embedded.png";
 import ai from "../images/icon_ai.png";
+
+import school from "../images/icon_people1.png";
+import teach from "../images/icon_people2.png";
+import challenge from "../images/icon_people3.png";
+import videoConference from "../images/icon_people4.png";
 
 import leftButton from "../images/left-button.png";
 import rightButton from "../images/right-button.png";
@@ -43,7 +48,6 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 
 import styled from "styled-components";
-import MainEduType from "../components/mainEduType";
 import RoduInstructor from "../components/RoduInstructor";
 import ModalMap from "../components/ModalMap";
 import { Title } from "../components/home/Title";
@@ -71,6 +75,7 @@ const DialogButton = styled.button`
 `;
 
 export const Home = () => {
+  const navigate = useNavigate();
   const [isOpenModal, setOpenModal] = useState<boolean>(false);
 
   useEffect(() => {
@@ -141,6 +146,50 @@ export const Home = () => {
     },
   ];
 
+  const trainingPerformanceType = [
+    {
+      icon: school,
+      subTitle: "양질의 교육 공간에서 진행하는",
+      title: "집합 교육",
+      firstText: "대면 형식으로 진행하며, ",
+      boldText:
+        "RODU가 보유한 교육 공간과 장비를 통한 실습 중심의 학습과 직접적인 강사와의 상호작용",
+      lastText: "으로 실시간 피드백과 질의응답을 가능하게 합니다.",
+    },
+    {
+      icon: teach,
+      subTitle: "찾아가는 맞춤형 교육 서비스",
+      title: "방문 교육",
+      firstText:
+        "RODU의 전문 강사가 직접 고객이나 기관의 위치로 방문하여 교육을 진행합니다. ",
+      boldText: "기관이나 기업의 실제 환경에서 직접 로봇 기술을 적용하는 기회",
+      lastText: "를 제공합니다.",
+    },
+    {
+      icon: challenge,
+      subTitle: "창의성과 기술적 능력 향상",
+      title: "RODU 챌린지",
+      firstText:
+        "특정 주제나 프로젝트에 대한 대회를 통해 참가자들이 경쟁하고 기술을 익힙니다. ",
+      boldText:
+        "창의적인 문제 해결, 팀워크를 기를 수 있으며 실무적인 경험과 경쟁을 통한 성장",
+      lastText: "을 이루어냅니다.",
+    },
+    {
+      icon: videoConference,
+      subTitle: "언제 어디서나 함께하는",
+      title: "온라인 교육",
+      firstText: "웹 기반 플랫폼을 통해 로봇 교육 코스를 제공합니다. ",
+      boldText:
+        "동영상 강의, 언터랙티브 콘텐츠, 온라인 퀴즈를 통해 자기주도적 학습",
+      lastText: "이 가능합니다.",
+    },
+  ];
+
+  const detailContentsRoutes = (index: number) => {
+    navigate("/showDetailContent", { state: index });
+  };
+
   return (
     <>
       <Helmet>
@@ -204,11 +253,42 @@ export const Home = () => {
               })}
             </div>
           </div>
-        </div>
 
-        {/* RODU 교육 수행 유형 */}
-        <div className="Item-center">
-          <MainEduType />
+          {/* RODU 교육 수행 유형 */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] tablet:py-[15vh] flex flex-col items-center"
+          >
+            <Title text="RODU 교육 수행 유형" textCenter />
+            <div className="grid grid-cols-1 md-home:grid-cols-2 gap-[18px]">
+              {trainingPerformanceType.map((item, i) => {
+                return (
+                  <div
+                    className="max-tablet:py-[20px] tablet:h-[276px] w-full tablet:w-[427px] border border-[#eaeaea] rounded-md p-[35px]
+                            transition-all duration-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.15)] cursor-pointer"
+                    onClick={() => detailContentsRoutes(i)}
+                  >
+                    <img
+                      src={item.icon}
+                      alt="icon"
+                      className="h-[60px] w-14 mb-[30px]"
+                    />
+                    <p className="text-[14px] text-rodu-medium font-medium">
+                      {item.subTitle}
+                    </p>
+                    <p className="text-[30px] font-semibold leading-[34px] mb-4">
+                      {item.title}
+                    </p>
+                    <p className="text-[14px] text-rodu-grey">
+                      {item.firstText}
+                      <strong>{item.boldText}</strong>
+                      {item.lastText}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         {/* RODU 메이킹 키트 */}
