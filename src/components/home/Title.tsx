@@ -2,19 +2,27 @@ interface TitleProps {
   text: string;
   textCenter?: boolean;
   subText?: string;
+  noMarginBottom?: boolean;
+  width?: string;
 }
 
-export function Title({ text, textCenter, subText }: TitleProps) {
+export function Title({
+  text,
+  textCenter,
+  subText,
+  noMarginBottom,
+  width,
+}: TitleProps) {
   return (
     <div
-      className={`inline-flex flex-col mb-[46px] max-md-home:flex max-md-home:items-center ${
+      className={`inline-flex flex-col max-md-home:flex max-md-home:items-center ${
         textCenter && "flex items-center"
-      }`}
+      } ${!noMarginBottom && "mb-[46px]"}`}
     >
       <p
-        className={`text-[30px] tablet:text-[42px] font-bold border-b-[3.5px] border-rodu-medium leading-[1.24] max-md-home:px-1 ${
+        className={`max-tablet:text-center text-[30px] tablet:text-[42px] font-bold border-b-[3.5px] border-rodu-medium leading-[1.24] max-md-home:px-1 ${
           textCenter ? "text-center px-1" : "pr-1"
-        }`}
+        } ${width}`}
       >
         {text}
       </p>
