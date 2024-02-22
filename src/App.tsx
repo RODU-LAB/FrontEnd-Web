@@ -9,7 +9,6 @@ import "./styles/commonStyles.css";
 import "./styles/postStyles.css";
 import "./styles/bannerStyles.css";
 import "./styles/modalStyles.css";
-import "./styles/main2Styles.css";
 import "./styles/main6Styles.css";
 import "./styles/main5Styles.css";
 import "./styles/main7Styles.css";

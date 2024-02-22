@@ -24,6 +24,16 @@ import mood from "../images/home-slider/smallpuppy.png";
 import human from "../images/home-slider/human.png";
 import security from "../images/home-slider/security.png";
 
+import instructor1 from "../images/instructor1.jpg";
+import instructor2 from "../images/instructor2.jpg";
+import instructor3 from "../images/instructor3.jpg";
+import instructor4 from "../images/instructor4.jpg";
+
+import instructor1_box from "../images/instructor1_box.png";
+import instructor2_box from "../images/instructor2_box.png";
+import instructor3_box from "../images/instructor3_box.png";
+import instructor4_box from "../images/instructor4_box.png";
+
 import child1 from "../images/main6-1.png";
 import child2 from "../images/main6-2.png";
 import child3 from "../images/main6-3.png";
@@ -48,7 +58,6 @@ import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
 
 import styled from "styled-components";
-import RoduInstructor from "../components/RoduInstructor";
 import ModalMap from "../components/ModalMap";
 import { Title } from "../components/home/Title";
 import { ContentsBox } from "../components/home/ContentsBox";
@@ -96,7 +105,7 @@ export const Home = () => {
   // const main1BottomAnimation = useScrollFadeIn(1, "100%", "0.3s");
 
   // const main2TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  const main2BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main2BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
   const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
   const main4BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
@@ -231,6 +240,13 @@ export const Home = () => {
     },
   ];
 
+  const instructorsData = [
+    { imgURL: instructor1, boxURL: instructor1_box },
+    { imgURL: instructor2, boxURL: instructor2_box },
+    { imgURL: instructor3, boxURL: instructor3_box },
+    { imgURL: instructor4, boxURL: instructor4_box },
+  ];
+
   const detailContentsRoutes = (index: number) => {
     navigate("/showDetailContent", { state: index });
   };
@@ -334,11 +350,11 @@ export const Home = () => {
               })}
             </div>
           </div>
-          {/* RODU 메이킹 키트 */}
 
+          {/* RODU의 고유 로봇 */}
           <div
             className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
-                  py-[40px]"
+                  py-[40px] flex flex-col justify-center "
           >
             <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
               <Title
@@ -396,13 +412,35 @@ export const Home = () => {
               })}
             </Swiper>
           </div>
-        </div>
 
-        {/* 전문 강사에게 배우는 직무 맞춤형 교육 */}
-        <div className="Main2">
-          <div className="Main2-content-container">
-            <div className="Item-center" {...main2BottomAnimation}>
-              <RoduInstructor />
+          {/* 전문 강사에게 배우는 직무 맞춤형 교육 */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center"
+          >
+            <Title
+              text="전문 장비를 갖춘 다양한 시설"
+              subText="RODU는 고객들에게 높은 수준의 교육을 제공하기 위해 자동화,
+                      기계가공, 산업용 로봇과 같은 다양한 장비와 공간을 갖추고 있습니다."
+              textCenter
+            />
+            <div className="grid grid-cols-1 md-home:grid-cols-2 gap-[18px] w-full justify-items-center">
+              {instructorsData.map((item) => {
+                return (
+                  <div
+                    className="group w-full tablet:w-[470px] max-tablet:max-w-[360px] h-[200px] tablet:h-[288px] rounded-[10px] overflow-hidden bg-cover relative"
+                    style={{ backgroundImage: `url(${item.imgURL})` }}
+                  >
+                    <div className="absolute inset-0 transition-transform duration-[700ms] tablet:group-hover:translate-y-[-290px] rounded-[10px]">
+                      <img
+                        src={item.boxURL}
+                        alt="instructor"
+                        className="w-full h-full tablet:translate-y-[290px] bg-black bg-opacity-45"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
