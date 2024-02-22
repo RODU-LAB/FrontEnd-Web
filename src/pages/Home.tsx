@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
@@ -45,7 +45,7 @@ import child7 from "../images/main6-7.png";
 import roduLogoGray from "../images/roduLogoGray.png";
 import process from "../images/process.png";
 import main8Logo from "../images/main8Logo.png";
-import rodumap from "../images/rodumap.png";
+import roduMap from "../images/rodumap.png";
 
 import company from "../images/company.png";
 import rodueducation from "../images/rodueducation.png";
@@ -57,43 +57,17 @@ import { Navigation } from "swiper/modules";
 
 import "swiper/css/bundle";
 
-import styled from "styled-components";
-import ModalMap from "../components/ModalMap";
 import { Title } from "../components/home/Title";
 import { ContentsBox } from "../components/home/ContentsBox";
 
-const DialogButton = styled.button`
-  height: 3.222rem;
-  flex-grow: 0;
-  cursor: pointer;
-  font-family: Pretendard;
-  font-size: 2.667rem;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.21;
-  letter-spacing: normal;
-  text-align: center;
-
-  &:hover {
-    width: 10.833rem;
-    height: 3.222rem;
-    font-size: 2.767rem;
-    align-items: center;
-  }
-`;
-
 export const Home = () => {
   const navigate = useNavigate();
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const [isOpenMap, setIsOpenMap] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
 
   // const horizontalScrollRef = useRef<HTMLInputElement>(null);
   // const main6ScrollRef = useRef<HTMLInputElement>(null);
@@ -110,11 +84,11 @@ export const Home = () => {
   const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
   const main4BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main9TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  const main9BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main9TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
+  // const main9BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main5TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
-  const main5BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main5TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
+  // const main5BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
   const main7TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
   const main7BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
@@ -245,6 +219,14 @@ export const Home = () => {
     { imgURL: instructor2, boxURL: instructor2_box },
     { imgURL: instructor3, boxURL: instructor3_box },
     { imgURL: instructor4, boxURL: instructor4_box },
+  ];
+
+  const roduData = [
+    { left: "강의 누적 교육생", right: "60명" },
+    { left: "누적 키트 판매수", right: "130개" },
+    { left: "강의 누적 시간", right: "320시간" },
+    { left: "강의 출강", right: "6회" },
+    { left: "강의 출강 지도", right: "지도 보기" },
   ];
 
   const detailContentsRoutes = (index: number) => {
@@ -428,7 +410,7 @@ export const Home = () => {
               {instructorsData.map((item) => {
                 return (
                   <div
-                    className="group w-full tablet:w-[470px] max-tablet:max-w-[360px] h-[200px] tablet:h-[288px] rounded-[10px] overflow-hidden bg-cover relative"
+                    className="group w-full tablet:w-[420px] max-tablet:max-w-[360px] h-[200px] tablet:h-[230px] rounded-[10px] overflow-hidden bg-cover relative"
                     style={{ backgroundImage: `url(${item.imgURL})` }}
                   >
                     <div className="absolute inset-0 transition-transform duration-[700ms] tablet:group-hover:translate-y-[-290px] rounded-[10px]">
@@ -443,98 +425,67 @@ export const Home = () => {
               })}
             </div>
           </div>
-        </div>
 
-        <div className="Main9">
-          <div className="Main9-content-container">
-            <div className="Main9-letter-container" {...main9TopAnimation}>
-              <p className="Main9-title">
-                전문 강사에게 배우는 직무 맞춤형 교육
-              </p>
-              <p className="Main9-subtitle">
-                RODU의 직무역량 강화를 위한 맞춤 교육을 제공합니다.
-              </p>
+          {/* 전문 강사에게 배우는 직무 맞춤형 교육 */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center"
+          >
+            <Title
+              text="전문 강사에게 배우는 직무 맞춤형 교육"
+              subText="RODU의 직무역량 강화를 위한 맞춤 교육을 제공합니다."
+              textCenter
+              smallTitle
+            />
+            <img
+              src={rodueducation}
+              alt="rodu-education"
+              className="w-[702px]"
+            />
+          </div>
+
+          {/* RODU를 신뢰할 수 있는 이유! */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center w-full"
+          >
+            <p className="text-[26px] tablet:text-[42px] font-bold text-[#212121] mb-[46px]">
+              RODU를 신뢰할 수 있는 이유!
+            </p>
+            <div className="w-full max-w-[696px] border-y-[3px] border-[#d9d9d9] mb-2">
+              {roduData.map((item, i) => {
+                return (
+                  <div
+                    className={`${
+                      i === 4 ? "cursor-pointer" : "border-b"
+                    } border-[#d9d9d9] flex justify-between items-center h-[76px]`}
+                    onClick={() => i === 4 && setIsOpenMap(true)}
+                  >
+                    <p className="text-[21px] font-medium">{item.left}</p>
+                    <p className="text-[38px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ffd857] to-rodu-medium">
+                      {item.right}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
-            <div className="Main9-image-container" {...main9BottomAnimation}>
-              <img
-                src={rodueducation}
-                alt="rodueducation"
-                className="Main9-image"
-              ></img>
+            <div className="flex justify-end w-full max-w-[696px]">
+              <img src={roduLogoGray} alt="logo-gray" className="h-[34px]" />
             </div>
           </div>
-        </div>
 
-        <div className="Main5">
-          <div className="Main5-content-container">
-            <div className="Main5-letter-container" {...main5TopAnimation}>
-              <p className="Main5-title">RODU를 신뢰할 수 있는 이유!</p>
-            </div>
-            <div {...main5BottomAnimation}>
-              <div className="Main5-datas-container">
-                <div className="Main5-data1-container">
-                  <span className="Main5-data1-letter">강의 누적 교육생</span>
-                  <span
-                    className="Main5-data1-number"
-                    // {...main5Count1Animation}
-                  >
-                    60명
-                  </span>
-                </div>
-                <div className="Main5-data2-container">
-                  <span className="Main5-data2-letter">누적 키트 판매수</span>
-                  <span
-                    className="Main5-data2-number"
-                    // {...main5Count2Animation}
-                  >
-                    130개
-                  </span>
-                </div>
-                <div className="Main5-data3-container">
-                  <span className="Main5-data3-letter">강의 누적 시간</span>
-                  <span
-                    className="Main5-data3-number"
-                    // {...main5Count3Animation}
-                  >
-                    320시간
-                  </span>
-                </div>
-                <div className="Main5-data4-container">
-                  <span className="Main5-data4-letter">강의 출강</span>
-                  <span
-                    className="Main5-data4-number"
-                    // {...main5Count4Animation}
-                  >
-                    6회
-                  </span>
-                </div>
-                <div className="Main5-data5-container">
-                  <span className="Main5-data5-letter">강의 출강 지도</span>
-                  <span
-                    className="Main5-data5-number"
-                    // {...main5Count4Animation}
-                  >
-                    <DialogButton onClick={onClickToggleModal}>
-                      지도 보기
-                    </DialogButton>
-                  </span>
-                </div>
-              </div>
-              <div className="Main5-rodu-logo-gray-container">
-                <img
-                  src={roduLogoGray}
-                  alt="roduLogoGray"
-                  className="Main5-rodu-logo-gray"
-                ></img>
-              </div>
-            </div>
-          </div>
+          {/* 지도 */}
+
+          {isOpenMap && (
+            <button
+              className="h-full w-full fixed cursor-pointer flex justify-center items-center"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
+              onClick={() => setIsOpenMap(false)}
+            >
+              <img src={roduMap} alt="rodu-map" className="h-[90vh]" />
+            </button>
+          )}
         </div>
-        {isOpenModal && (
-          <ModalMap onClickToggleModal={onClickToggleModal}>
-            <img src={rodumap} alt="rodu-map" />
-          </ModalMap>
-        )}
 
         <div className="Main4">
           <div className="Main4-content-container">
