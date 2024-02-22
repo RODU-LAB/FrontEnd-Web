@@ -16,13 +16,13 @@ import videoConference from "../images/icon_people4.png";
 
 import leftButton from "../images/left-button.png";
 import rightButton from "../images/right-button.png";
-import otto from "../images/otto.png";
-import hourGlass from "../images/hourGlass.png";
-import spider from "../images/spider.png";
-import snake from "../images/snake.png";
-import mood from "../images/smallpuppy.png";
-import human from "../images/human.png";
-import security from "../images/security.png";
+import otto from "../images/home-slider/otto.png";
+import hourGlass from "../images/home-slider/hourGlass.png";
+import spider from "../images/home-slider/spider.png";
+import snake from "../images/home-slider/snake.png";
+import mood from "../images/home-slider/smallpuppy.png";
+import human from "../images/home-slider/human.png";
+import security from "../images/home-slider/security.png";
 
 import child1 from "../images/main6-1.png";
 import child2 from "../images/main6-2.png";
@@ -186,6 +186,51 @@ export const Home = () => {
     },
   ];
 
+  const swiperData = [
+    {
+      route: "/otto",
+      img: otto,
+      name: "뚜벅이 로봇",
+      hashTag: "#DIY #이족보행 #보행알고리즘",
+    },
+    {
+      route: "/hourGlass",
+      img: hourGlass,
+      name: "LED 모래시계",
+      hashTag: "#도트 매트릭스 #밸런스센서 #코딩",
+    },
+    {
+      route: "/spider",
+      img: spider,
+      name: "거미 로봇",
+      hashTag: "#자율탐색 #다족보행 #고정밀제어",
+    },
+    {
+      route: "/snake",
+      img: snake,
+      name: "뱀 로봇",
+      hashTag: "#모듈형 #다관절 제어 #생체모방",
+    },
+    {
+      route: "/smallPuppy",
+      img: mood,
+      name: "작은 강아지 로봇",
+      hashTag: "#사족보행 #로봇 동역학 #인터랙티브",
+    },
+    {
+      route: "/human",
+      img: human,
+      name: "인간형 로봇",
+      hashTag: "#인체모방 #모션제어 #연구개발",
+    },
+    {
+      route: "/security",
+      img: security,
+      name: "경비 로봇",
+      hashTag: "#레이더 #자율주행 #보안솔루션",
+    },
+  ];
+
   const detailContentsRoutes = (index: number) => {
     navigate("/showDetailContent", { state: index });
   };
@@ -257,21 +302,21 @@ export const Home = () => {
           {/* RODU 교육 수행 유형 */}
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
-                  py-[40px] tablet:py-[15vh] flex flex-col items-center"
+                  py-[40px] flex flex-col items-center justify-center"
           >
             <Title text="RODU 교육 수행 유형" textCenter />
             <div className="grid grid-cols-1 md-home:grid-cols-2 gap-[18px]">
               {trainingPerformanceType.map((item, i) => {
                 return (
                   <div
-                    className="max-tablet:py-[20px] tablet:h-[276px] w-full tablet:w-[427px] border border-[#eaeaea] rounded-md p-[35px]
+                    className="py-[20px] w-full tablet:w-[427px] border border-[#eaeaea] rounded-md px-[35px]
                             transition-all duration-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.15)] cursor-pointer"
                     onClick={() => detailContentsRoutes(i)}
                   >
                     <img
                       src={item.icon}
                       alt="icon"
-                      className="h-[60px] w-14 mb-[30px]"
+                      className="h-[60px] w-14 mb-[20px]"
                     />
                     <p className="text-[14px] text-rodu-medium font-medium">
                       {item.subTitle}
@@ -289,33 +334,25 @@ export const Home = () => {
               })}
             </div>
           </div>
-        </div>
+          {/* RODU 메이킹 키트 */}
 
-        {/* RODU 메이킹 키트 */}
-        <div className="Main3">
-          <div className="Main3-content-container">
-            <div className="Main3-top-container">
-              <div className="Main3-top-letter-container">
-                <p className="Main3-title">RODU의 고유 로봇</p>
-                <p className="Main3-subtitle">
-                  RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다.
-                </p>
-              </div>
-
-              <div className="Main3-top-button-container">
-                <button className="Main3-top-left-button">
-                  <img
-                    src={leftButton}
-                    alt="Left"
-                    className="Main3-top-left-image"
-                  />
+          <div
+            className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
+                  py-[40px]"
+          >
+            <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
+              <Title
+                text="RODU의 고유 로봇"
+                subText="RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다."
+                noMarginBottom
+                width="w-[330px]"
+              />
+              <div className="flex gap-[18px] max-md-home:hidden">
+                <button className="move-left">
+                  <img src={leftButton} alt="Left" className="h-[36px]" />
                 </button>
-                <button className="Main3-top-right-button">
-                  <img
-                    src={rightButton}
-                    alt="Right"
-                    className="Main3-top-right-image"
-                  />
+                <button className="move-right">
+                  <img src={rightButton} alt="Right" className="h-[36px]" />
                 </button>
               </div>
             </div>
@@ -325,232 +362,38 @@ export const Home = () => {
               spaceBetween={20}
               modules={[Navigation]}
               navigation={{
-                prevEl: ".Main3-top-left-button",
-                nextEl: ".Main3-top-right-button",
+                prevEl: ".move-left",
+                nextEl: ".move-right",
               }}
-              className="Main3-bottom-container overflow-visible"
+              className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
             >
-              <SwiperSlide>
-                <div className="Main3-bottom-image1-container">
-                  <Link to="/otto">
-                    <img
-                      src={otto}
-                      alt="Program"
-                      className="Main3-bottom-image1"
-                    />
-                  </Link>
-                  <div className="Main3-bottom-image1-letters">
-                    <Link to="/otto">
-                      <p className="Main3-bottom-image-title">뚜벅이 로봇</p>
+              {swiperData.map((item) => {
+                return (
+                  <SwiperSlide>
+                    <Link to={item.route}>
+                      <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
+                        <div>
+                          <div className="flex justify-center items-center w-full h-[196px]">
+                            <img
+                              src={item.img}
+                              alt="program"
+                              className="h-[130px]"
+                            />
+                          </div>
+                          <p className="text-[22px] font-bold">{item.name}</p>
+                          <p className="text-[12px] font-medium">
+                            {item.hashTag}
+                          </p>
+                        </div>
+                        <div className="flex w-full justify-between">
+                          <p className="text-[14px]">자세히 보기</p>
+                          <p className="text-[20px]">&rsaquo;</p>
+                        </div>
+                      </div>
                     </Link>
-                    <p className="Main3-bottom-image-subtitle">
-                      #DIY #이족보행 #보행 알고리즘
-                    </p>
-
-                    <Link to="/otto" className="Main3-bottom-image-button">
-                      <button className="Main3-bottom-image-button">
-                        <span className="Main3-bottom-image-inquiry">
-                          자세히 보기
-                        </span>
-                        <span className="Main3-bottom-image-arrow">
-                          &rsaquo;
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main3-bottom-image3-container">
-                  <Link to="/hourGlass">
-                    <img
-                      src={hourGlass}
-                      alt="Program"
-                      className="Main3-bottom-image3"
-                    />
-                  </Link>
-                  <div className="Main3-bottom-image3-letters">
-                    <Link to="/hourGlass">
-                      <p className="Main3-bottom-image-title">LED 모래시계</p>
-                    </Link>
-                    <p className="Main3-bottom-image-subtitle">
-                      #도트 매트릭스 #밸런스 센서 #코딩
-                    </p>
-
-                    <Link to="/hourGlass" className="Main3-bottom-image-button">
-                      <button className="Main3-bottom-image-button">
-                        <span className="Main3-bottom-image-inquiry">
-                          자세히 보기
-                        </span>
-                        <span className="Main3-bottom-image-arrow">
-                          &rsaquo;
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main3-bottom-spider-container">
-                  <Link to="/spider">
-                    <img
-                      src={spider}
-                      alt="Program"
-                      className="Main3-bottom-spider"
-                    />
-                  </Link>
-                  <div className="Main3-bottom-spider-letters">
-                    <Link to="/spider">
-                      <p className="Main3-bottom-image-title">거미 로봇</p>
-                    </Link>
-                    <p className="Main3-bottom-image-subtitle">
-                      #자율탐색 #다족보행 #고정밀 제어
-                    </p>
-
-                    <Link to="/spider" className="Main3-bottom-image-button">
-                      <button className="Main3-bottom-image-button">
-                        <span className="Main3-bottom-image-inquiry">
-                          자세히 보기
-                        </span>
-                        <span className="Main3-bottom-image-arrow">
-                          &rsaquo;
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main3-bottom-image4-container">
-                  <Link to="/snake">
-                    <img
-                      src={snake}
-                      alt="Program"
-                      className="Main3-bottom-image4"
-                    />
-                  </Link>
-                  <div className="Main3-bottom-image4-letters">
-                    <Link to="/snake">
-                      <p className="Main3-bottom-image-title">뱀 로봇</p>
-                    </Link>
-                    <p className="Main3-bottom-image-subtitle">
-                      #모듈형 #다관절 제어 #생체모방
-                    </p>
-
-                    <Link to="/snake" className="Main3-bottom-image-button">
-                      <button className="Main3-bottom-image-button">
-                        <span className="Main3-bottom-image-inquiry">
-                          자세히 보기
-                        </span>
-                        <span className="Main3-bottom-image-arrow">
-                          &rsaquo;
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main3-bottom-image2-container">
-                  <Link to="/smallPuppy">
-                    <img
-                      src={mood}
-                      alt="Program"
-                      className="Main3-bottom-image2"
-                    />
-                  </Link>
-                  <div className="Main3-bottom-image2-letters">
-                    <Link to="/smallPuppy">
-                      <p className="Main3-bottom-image-title">
-                        작은 강아지 로봇
-                      </p>
-                    </Link>
-                    <p className="Main3-bottom-image-subtitle">
-                      #사족보행 #로봇 동역학 #인터랙티브
-                    </p>
-
-                    <Link
-                      to="/smallPuppy"
-                      className="Main3-bottom-image-button"
-                    >
-                      <button className="Main3-bottom-image-button">
-                        <span className="Main3-bottom-image-inquiry">
-                          자세히 보기
-                        </span>
-                        <span className="Main3-bottom-image-arrow">
-                          &rsaquo;
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main3-bottom-car-container">
-                  <Link to="/human">
-                    <img
-                      src={human}
-                      alt="Program"
-                      className="Main3-bottom-car"
-                    />
-                  </Link>
-                  <div className="Main3-bottom-car-letters">
-                    <Link to="/human">
-                      <p className="Main3-bottom-image-title">인간형 로봇</p>
-                    </Link>
-                    <p className="Main3-bottom-image-subtitle">
-                      #인체모방 #모션제어 #연구개발
-                    </p>
-
-                    <Link to="/human" className="Main3-bottom-image-button">
-                      <button className="Main3-bottom-image-button">
-                        <span className="Main3-bottom-image-inquiry">
-                          자세히 보기
-                        </span>
-                        <span className="Main3-bottom-image-arrow">
-                          &rsaquo;
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main3-bottom-security-container">
-                  <Link to="/security">
-                    <img
-                      src={security}
-                      alt="Program"
-                      className="Main3-bottom-security"
-                    />
-                  </Link>
-                  <div className="Main3-bottom-security-letters">
-                    <Link to="/security">
-                      <p className="Main3-bottom-image-title">경비 로봇</p>
-                    </Link>
-                    <p className="Main3-bottom-image-subtitle">
-                      #레이더 #자율주행 #보안 솔루션
-                    </p>
-
-                    <Link to="/security" className="Main3-bottom-image-button">
-                      <button className="Main3-bottom-image-button">
-                        <span className="Main3-bottom-image-inquiry">
-                          자세히 보기
-                        </span>
-                        <span className="Main3-bottom-image-arrow">
-                          &rsaquo;
-                        </span>
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </SwiperSlide>
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
           </div>
         </div>

@@ -12,6 +12,10 @@
   --standard: 0.222rem;
 }
 
+.swiper-slide {
+  width: auto !important;
+}
+
 @font-face {
   font-family: "Pretendard";
   font-weight: 100;
