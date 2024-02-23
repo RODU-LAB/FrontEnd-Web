@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useFadeInOnScroll } from "../hooks/useFadeInOnScroll";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
+import "swiper/css";
+
+import { Title } from "../components/home/Title";
+import { ContentsBox } from "../components/home/ContentsBox";
 
 import bannerVideo from "../images/home-banner.mp4";
 
@@ -52,16 +61,19 @@ import rodueducation from "../images/rodueducation.png";
 // import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
 // import { useScrollCount } from "../hooks/useScrollCountup";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-
-import "swiper/css";
-
-import { Title } from "../components/home/Title";
-import { ContentsBox } from "../components/home/ContentsBox";
-
 export const Home = () => {
   const navigate = useNavigate();
+
+  const fadeInProps1 = useFadeInOnScroll();
+  const fadeInProps2 = useFadeInOnScroll();
+  const fadeInProps3 = useFadeInOnScroll();
+  const fadeInProps4 = useFadeInOnScroll();
+  const fadeInProps5 = useFadeInOnScroll();
+  const fadeInProps6 = useFadeInOnScroll();
+  const fadeInProps7 = useFadeInOnScroll();
+  const fadeInProps8 = useFadeInOnScroll();
+  const fadeInProps9 = useFadeInOnScroll();
+  const fadeInProps10 = useFadeInOnScroll();
 
   const [isOpenMap, setIsOpenMap] = useState(false);
 
@@ -74,9 +86,6 @@ export const Home = () => {
 
   // let main3_current_translate = 0;
   // let main6_current_translate = 0;
-
-  // const main1TopAnimation = useScrollFadeIn(1, "25%", "0s");
-  // const main1BottomAnimation = useScrollFadeIn(1, "100%", "0.3s");
 
   // const main2TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
   // const main2BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
@@ -282,9 +291,11 @@ export const Home = () => {
           </div>
 
           {/* RODU 대표 교육 콘텐츠 */}
+
           <div
             className="md-home:h-[100vh] lg-home:w-[1090px] px-[20px] tablet:px-[44px]
                   py-[40px] tablet:py-[15vh] max-md-home:flex max-md-home:flex-col max-md-home:item-center"
+            {...fadeInProps1}
           >
             <Title
               text="RODU의 대표 콘텐츠"
@@ -311,6 +322,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps2}
           >
             <Title text="RODU 교육 수행 유형" textCenter />
             <div className="grid grid-cols-1 md-home:grid-cols-2 gap-[18px]">
@@ -347,6 +359,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col justify-center"
+            {...fadeInProps3}
           >
             <div>
               <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
@@ -411,6 +424,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps4}
           >
             <Title
               text="전문 장비를 갖춘 다양한 시설"
@@ -442,6 +456,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps5}
           >
             <Title
               text="전문 강사에게 배우는 직무 맞춤형 교육"
@@ -460,6 +475,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center w-full"
+            {...fadeInProps6}
           >
             <p className="text-[26px] tablet:text-[42px] font-bold text-[#212121] mb-[46px]">
               RODU를 신뢰할 수 있는 이유!
@@ -501,6 +517,7 @@ export const Home = () => {
           <div
             className=" px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center w-full"
+            {...fadeInProps7}
           >
             <Title
               text="RODU는 다양한 기업과 협력합니다."
@@ -514,6 +531,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col justify-center"
+            {...fadeInProps8}
           >
             <div>
               <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
@@ -566,6 +584,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps9}
           >
             <Title text="RODU 교육 프로세스" textCenter />
             <img
@@ -577,7 +596,10 @@ export const Home = () => {
         </div>
 
         <div className="h-[100vh] w-full bg-rodu-medium flex justify-center items-center px-[20px] tablet:px-[44px]">
-          <div className="flex flex-col max-tablet:items-center gap-28">
+          <div
+            className="flex flex-col max-tablet:items-center gap-28"
+            {...fadeInProps10}
+          >
             <div className="w-full lg-home:w-[1090px]">
               <img
                 src={logoWhite}
