@@ -44,18 +44,18 @@ import child7 from "../images/main6-7.png";
 
 import roduLogoGray from "../images/roduLogoGray.png";
 import process from "../images/process.png";
-import main8Logo from "../images/main8Logo.png";
+import logoWhite from "../images/logo/logo-white.png";
 import roduMap from "../images/rodumap.png";
 
 import company from "../images/company.png";
 import rodueducation from "../images/rodueducation.png";
-import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
+// import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
 // import { useScrollCount } from "../hooks/useScrollCountup";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
-import "swiper/css/bundle";
+import "swiper/css";
 
 import { Title } from "../components/home/Title";
 import { ContentsBox } from "../components/home/ContentsBox";
@@ -81,8 +81,8 @@ export const Home = () => {
   // const main2TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
   // const main2BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  const main4BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
+  // const main4BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
   // const main9TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
   // const main9BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
@@ -90,8 +90,8 @@ export const Home = () => {
   // const main5TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
   // const main5BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main7TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
-  const main7BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main7TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
+  // const main7BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
   // const main5Count1Animation = useScrollCount(10834, 10400, 1500, "명");
   // const main5Count2Animation = useScrollCount(3312, 3000, 1500, "개");
@@ -229,6 +229,16 @@ export const Home = () => {
     { left: "강의 출강 지도", right: "지도 보기" },
   ];
 
+  const teachingItemData = [
+    child1,
+    child2,
+    child3,
+    child4,
+    child5,
+    child6,
+    child7,
+  ];
+
   const detailContentsRoutes = (index: number) => {
     navigate("/showDetailContent", { state: index });
   };
@@ -336,63 +346,65 @@ export const Home = () => {
           {/* RODU의 고유 로봇 */}
           <div
             className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
-                  py-[40px] flex flex-col justify-center "
+                  py-[40px] flex flex-col justify-center"
           >
-            <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
-              <Title
-                text="RODU의 고유 로봇"
-                subText="RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다."
-                noMarginBottom
-                width="w-[330px]"
-              />
-              <div className="flex gap-[18px] max-md-home:hidden">
-                <button className="move-left">
-                  <img src={leftButton} alt="Left" className="h-[36px]" />
-                </button>
-                <button className="move-right">
-                  <img src={rightButton} alt="Right" className="h-[36px]" />
-                </button>
+            <div>
+              <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
+                <Title
+                  text="RODU의 고유 로봇"
+                  subText="RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다."
+                  noMarginBottom
+                  width="w-[280px]"
+                />
+                <div className="flex gap-[18px] max-md-home:hidden">
+                  <button className="move-left-robot">
+                    <img src={leftButton} alt="Left" className="h-[36px]" />
+                  </button>
+                  <button className="move-right-robot">
+                    <img src={rightButton} alt="Right" className="h-[36px]" />
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <Swiper
-              slidesPerView="auto"
-              spaceBetween={20}
-              modules={[Navigation]}
-              navigation={{
-                prevEl: ".move-left",
-                nextEl: ".move-right",
-              }}
-              className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
-            >
-              {swiperData.map((item) => {
-                return (
-                  <SwiperSlide>
-                    <Link to={item.route}>
-                      <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
-                        <div>
-                          <div className="flex justify-center items-center w-full h-[196px]">
-                            <img
-                              src={item.img}
-                              alt="program"
-                              className="h-[130px]"
-                            />
+              <Swiper
+                slidesPerView="auto"
+                spaceBetween={20}
+                modules={[Navigation]}
+                navigation={{
+                  prevEl: ".move-left-robot",
+                  nextEl: ".move-right-robot",
+                }}
+                className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
+              >
+                {swiperData.map((item) => {
+                  return (
+                    <SwiperSlide>
+                      <Link to={item.route}>
+                        <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
+                          <div>
+                            <div className="flex justify-center items-center w-full h-[196px]">
+                              <img
+                                src={item.img}
+                                alt="program"
+                                className="h-[130px]"
+                              />
+                            </div>
+                            <p className="text-[22px] font-bold">{item.name}</p>
+                            <p className="text-[12px] font-medium">
+                              {item.hashTag}
+                            </p>
                           </div>
-                          <p className="text-[22px] font-bold">{item.name}</p>
-                          <p className="text-[12px] font-medium">
-                            {item.hashTag}
-                          </p>
+                          <div className="flex w-full justify-between">
+                            <p className="text-[14px]">자세히 보기</p>
+                            <p className="text-[20px]">&rsaquo;</p>
+                          </div>
                         </div>
-                        <div className="flex w-full justify-between">
-                          <p className="text-[14px]">자세히 보기</p>
-                          <p className="text-[20px]">&rsaquo;</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
+                      </Link>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
           </div>
 
           {/* 전문 강사에게 배우는 직무 맞춤형 교육 */}
@@ -475,7 +487,6 @@ export const Home = () => {
           </div>
 
           {/* 지도 */}
-
           {isOpenMap && (
             <button
               className="h-full w-full fixed cursor-pointer flex justify-center items-center"
@@ -485,171 +496,102 @@ export const Home = () => {
               <img src={roduMap} alt="rodu-map" className="h-[90vh]" />
             </button>
           )}
+
+          {/* RODU는 다양한 기업과 협력합니다. */}
+          <div
+            className=" px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center w-full"
+          >
+            <Title
+              text="RODU는 다양한 기업과 협력합니다."
+              subText={`RODU는 다양한 기업과의 협력을 통해 양질의 제품을 합리적인 가격에 제공합니다.\n예상 지원 정부사업 : 국민내일 배움카드, 디지털새싹 취업성공패키지, 늘봄학교`}
+              smallTitle
+            />
+            <img src={company} alt="Company x RODU" className="Main4-image" />
+          </div>
+
+          {/* RODU에서 이런것들로 배워요. */}
+          <div
+            className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col justify-center"
+          >
+            <div>
+              <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
+                <Title
+                  text="RODU에서 이런것들로 배워요."
+                  subText="로봇의 원리를 이해하고 직접 조작할 수 있는 최상의 H/W와 S/W, 교재를 지원합니다."
+                  noMarginBottom
+                  smallTitle
+                  width="tablet:w-[450px]"
+                  mobileWidth="w-[256px]"
+                />
+                <div className="flex gap-[18px] max-md-home:hidden">
+                  <button className="move-left-teach">
+                    <img src={leftButton} alt="Left" className="h-[36px]" />
+                  </button>
+                  <button className="move-right-teach">
+                    <img src={rightButton} alt="Right" className="h-[36px]" />
+                  </button>
+                </div>
+              </div>
+
+              <Swiper
+                slidesPerView="auto"
+                spaceBetween={20}
+                modules={[Navigation]}
+                navigation={{
+                  prevEl: ".move-left-teach",
+                  nextEl: ".move-right-teach",
+                }}
+                className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
+              >
+                {teachingItemData.map((item) => {
+                  return (
+                    <SwiperSlide>
+                      <div className="rounded-[10px] border border-[#e4e4e4] overflow-hidden shadow-lg p-5">
+                        <img
+                          src={item}
+                          alt="program"
+                          className="h-[150px] target:h-[240px] w-[242px] tablet:w-[386px]"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
+          </div>
+
+          {/* RODU 교육 프로세스 */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center"
+          >
+            <Title text="RODU 교육 프로세스" textCenter />
+            <img
+              src={process}
+              alt="process"
+              className="w-full max-w-[1048px]"
+            />
+          </div>
         </div>
 
-        <div className="Main4">
-          <div className="Main4-content-container">
-            <div className="Main4-letter-container" {...main4TopAnimation}>
-              <p className="Main4-title">RODU는 다양한 기업과 협력합니다.</p>
-              <p className="Main4-subtitle">
-                RODU는 다양한 기업과의 협력을 통해 양질의 제품을 합리적인 가격에
-                제공합니다.
-                <br /> 예상 지원 정부사업 : 국민내일 배움카드, 디지털새싹
-                취업성공패키지, 늘봄학교
+        <div className="h-[100vh] w-full bg-rodu-medium flex justify-center items-center px-[20px] tablet:px-[44px]">
+          <div className="flex flex-col max-tablet:items-center gap-28">
+            <div className="w-full lg-home:w-[1090px]">
+              <img
+                src={logoWhite}
+                alt="logo-white"
+                className="h-[60px] mb-10"
+              />
+              <p className="text-[24px] tablet:text-[42px] font-bold text-white">
+                산업현장에 필요한 수준 높은
+                <br />
+                AI 로보틱스 교육을 제공합니다.
               </p>
             </div>
-            <div className="Main4-image-container" {...main4BottomAnimation}>
-              <img src={company} alt="Company x RODU" className="Main4-image" />
-            </div>
-          </div>
-        </div>
-
-        <div className="Main6">
-          <div className="Main6-content-container">
-            <div className="Main6-top-container">
-              <div className="Main6-top-letter-container">
-                <p className="Main6-title">RODU에서 이런것들로 배워요</p>
-                <p className="Main6-subtitle">
-                  로봇의 원리를 이해하고 직접 조작할 수 있는 최상의 H/W와 S/W,
-                  교재를 지원합니다.
-                </p>
-              </div>
-              <div className="Main6-top-button-container">
-                <button className="Main6-top-left-button">
-                  <img
-                    src={leftButton}
-                    alt="Left"
-                    className="Main6-top-left-image"
-                  ></img>
-                </button>
-                <button className="Main6-top-right-button">
-                  <img
-                    src={rightButton}
-                    alt="Right"
-                    className="Main6-top-right-image"
-                  ></img>
-                </button>
-              </div>
-            </div>
-            <Swiper
-              slidesPerView="auto"
-              spaceBetween={20}
-              navigation={{
-                prevEl: ".Main6-top-left-button",
-                nextEl: ".Main6-top-right-button",
-              }}
-              modules={[Navigation]}
-              className="Main6-bottom-container overflow-auto"
-            >
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child1}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child2}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child3}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child4}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child5}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child6}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child7}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-            </Swiper>
-          </div>
-        </div>
-
-        <div className="Main7">
-          <div className="Main7-content-container">
-            <div className="Main7-title-container" {...main7TopAnimation}>
-              <p className="Main7-title">RODU 교육 프로세스</p>
-            </div>
-
-            <div
-              className="Main7-process-images-container"
-              {...main7BottomAnimation}
-            >
-              <img
-                src={process}
-                alt="ProcessImage"
-                className="Main7-image"
-              ></img>
-            </div>
-          </div>
-        </div>
-
-        <div className="Main8">
-          <div className="Main8-content-container">
-            <img
-              src={main8Logo}
-              alt="rodulogo"
-              className="Main8-rodulogo"
-            ></img>
-            <p className="Main8-title">
-              산업현장에 필요한 수준 높은
-              <br />
-              AI 로보틱스 교육을 제공합니다.
-            </p>
-            <Link
-              to="/post/updatepost"
-              className="Main8-button-frame bg-white rounded-[25px]"
-            >
-              <button className="Main8-button Main8-button:hover">
+            <Link to="/post/updatepost">
+              <button className="h-[44px] w-[136px] text-[14px] font-medium bg-white rounded-[22px] hover:bg-[#ffe2c8]">
                 교육 문의하기
               </button>
             </Link>
