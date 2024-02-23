@@ -1,6 +1,15 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useFadeInOnScroll } from "../hooks/useFadeInOnScroll";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
+import "swiper/css";
+
+import { Title } from "../components/home/Title";
+import { ContentsBox } from "../components/home/ContentsBox";
 
 import bannerVideo from "../images/home-banner.mp4";
 
@@ -44,56 +53,33 @@ import child7 from "../images/main6-7.png";
 
 import roduLogoGray from "../images/roduLogoGray.png";
 import process from "../images/process.png";
-import main8Logo from "../images/main8Logo.png";
-import rodumap from "../images/rodumap.png";
+import logoWhite from "../images/logo/logo-white.png";
+import roduMap from "../images/rodumap.png";
 
 import company from "../images/company.png";
 import rodueducation from "../images/rodueducation.png";
-import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
+// import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
 // import { useScrollCount } from "../hooks/useScrollCountup";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-
-import "swiper/css/bundle";
-
-import styled from "styled-components";
-import ModalMap from "../components/ModalMap";
-import { Title } from "../components/home/Title";
-import { ContentsBox } from "../components/home/ContentsBox";
-
-const DialogButton = styled.button`
-  height: 3.222rem;
-  flex-grow: 0;
-  cursor: pointer;
-  font-family: Pretendard;
-  font-size: 2.667rem;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.21;
-  letter-spacing: normal;
-  text-align: center;
-
-  &:hover {
-    width: 10.833rem;
-    height: 3.222rem;
-    font-size: 2.767rem;
-    align-items: center;
-  }
-`;
 
 export const Home = () => {
   const navigate = useNavigate();
-  const [isOpenModal, setOpenModal] = useState<boolean>(false);
+
+  const fadeInProps1 = useFadeInOnScroll();
+  const fadeInProps2 = useFadeInOnScroll();
+  const fadeInProps3 = useFadeInOnScroll();
+  const fadeInProps4 = useFadeInOnScroll();
+  const fadeInProps5 = useFadeInOnScroll();
+  const fadeInProps6 = useFadeInOnScroll();
+  const fadeInProps7 = useFadeInOnScroll();
+  const fadeInProps8 = useFadeInOnScroll();
+  const fadeInProps9 = useFadeInOnScroll();
+  const fadeInProps10 = useFadeInOnScroll();
+
+  const [isOpenMap, setIsOpenMap] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
 
   // const horizontalScrollRef = useRef<HTMLInputElement>(null);
   // const main6ScrollRef = useRef<HTMLInputElement>(null);
@@ -101,23 +87,20 @@ export const Home = () => {
   // let main3_current_translate = 0;
   // let main6_current_translate = 0;
 
-  // const main1TopAnimation = useScrollFadeIn(1, "25%", "0s");
-  // const main1BottomAnimation = useScrollFadeIn(1, "100%", "0.3s");
-
   // const main2TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
   // const main2BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  const main4BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
+  // const main4BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main9TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  const main9BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main9TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
+  // const main9BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main5TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
-  const main5BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main5TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
+  // const main5BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
-  const main7TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
-  const main7BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
+  // const main7TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
+  // const main7BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
   // const main5Count1Animation = useScrollCount(10834, 10400, 1500, "명");
   // const main5Count2Animation = useScrollCount(3312, 3000, 1500, "개");
@@ -247,6 +230,24 @@ export const Home = () => {
     { imgURL: instructor4, boxURL: instructor4_box },
   ];
 
+  const roduData = [
+    { left: "강의 누적 교육생", right: "60명" },
+    { left: "누적 키트 판매수", right: "130개" },
+    { left: "강의 누적 시간", right: "320시간" },
+    { left: "강의 출강", right: "6회" },
+    { left: "강의 출강 지도", right: "지도 보기" },
+  ];
+
+  const teachingItemData = [
+    child1,
+    child2,
+    child3,
+    child4,
+    child5,
+    child6,
+    child7,
+  ];
+
   const detailContentsRoutes = (index: number) => {
     navigate("/showDetailContent", { state: index });
   };
@@ -290,9 +291,11 @@ export const Home = () => {
           </div>
 
           {/* RODU 대표 교육 콘텐츠 */}
+
           <div
             className="md-home:h-[100vh] lg-home:w-[1090px] px-[20px] tablet:px-[44px]
                   py-[40px] tablet:py-[15vh] max-md-home:flex max-md-home:flex-col max-md-home:item-center"
+            {...fadeInProps1}
           >
             <Title
               text="RODU의 대표 콘텐츠"
@@ -319,6 +322,7 @@ export const Home = () => {
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps2}
           >
             <Title text="RODU 교육 수행 유형" textCenter />
             <div className="grid grid-cols-1 md-home:grid-cols-2 gap-[18px]">
@@ -354,69 +358,73 @@ export const Home = () => {
           {/* RODU의 고유 로봇 */}
           <div
             className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
-                  py-[40px] flex flex-col justify-center "
+                  py-[40px] flex flex-col justify-center"
+            {...fadeInProps3}
           >
-            <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
-              <Title
-                text="RODU의 고유 로봇"
-                subText="RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다."
-                noMarginBottom
-                width="w-[330px]"
-              />
-              <div className="flex gap-[18px] max-md-home:hidden">
-                <button className="move-left">
-                  <img src={leftButton} alt="Left" className="h-[36px]" />
-                </button>
-                <button className="move-right">
-                  <img src={rightButton} alt="Right" className="h-[36px]" />
-                </button>
+            <div>
+              <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
+                <Title
+                  text="RODU의 고유 로봇"
+                  subText="RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다."
+                  noMarginBottom
+                  width="w-[280px]"
+                />
+                <div className="flex gap-[18px] max-md-home:hidden">
+                  <button className="move-left-robot">
+                    <img src={leftButton} alt="Left" className="h-[36px]" />
+                  </button>
+                  <button className="move-right-robot">
+                    <img src={rightButton} alt="Right" className="h-[36px]" />
+                  </button>
+                </div>
               </div>
-            </div>
 
-            <Swiper
-              slidesPerView="auto"
-              spaceBetween={20}
-              modules={[Navigation]}
-              navigation={{
-                prevEl: ".move-left",
-                nextEl: ".move-right",
-              }}
-              className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
-            >
-              {swiperData.map((item) => {
-                return (
-                  <SwiperSlide>
-                    <Link to={item.route}>
-                      <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
-                        <div>
-                          <div className="flex justify-center items-center w-full h-[196px]">
-                            <img
-                              src={item.img}
-                              alt="program"
-                              className="h-[130px]"
-                            />
+              <Swiper
+                slidesPerView="auto"
+                spaceBetween={20}
+                modules={[Navigation]}
+                navigation={{
+                  prevEl: ".move-left-robot",
+                  nextEl: ".move-right-robot",
+                }}
+                className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
+              >
+                {swiperData.map((item) => {
+                  return (
+                    <SwiperSlide>
+                      <Link to={item.route}>
+                        <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
+                          <div>
+                            <div className="flex justify-center items-center w-full h-[196px]">
+                              <img
+                                src={item.img}
+                                alt="program"
+                                className="h-[130px]"
+                              />
+                            </div>
+                            <p className="text-[22px] font-bold">{item.name}</p>
+                            <p className="text-[12px] font-medium">
+                              {item.hashTag}
+                            </p>
                           </div>
-                          <p className="text-[22px] font-bold">{item.name}</p>
-                          <p className="text-[12px] font-medium">
-                            {item.hashTag}
-                          </p>
+                          <div className="flex w-full justify-between">
+                            <p className="text-[14px]">자세히 보기</p>
+                            <p className="text-[20px]">&rsaquo;</p>
+                          </div>
                         </div>
-                        <div className="flex w-full justify-between">
-                          <p className="text-[14px]">자세히 보기</p>
-                          <p className="text-[20px]">&rsaquo;</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
+                      </Link>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
           </div>
 
           {/* 전문 강사에게 배우는 직무 맞춤형 교육 */}
           <div
             className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
                   py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps4}
           >
             <Title
               text="전문 장비를 갖춘 다양한 시설"
@@ -428,7 +436,7 @@ export const Home = () => {
               {instructorsData.map((item) => {
                 return (
                   <div
-                    className="group w-full tablet:w-[470px] max-tablet:max-w-[360px] h-[200px] tablet:h-[288px] rounded-[10px] overflow-hidden bg-cover relative"
+                    className="group w-full tablet:w-[420px] max-tablet:max-w-[360px] h-[200px] tablet:h-[230px] rounded-[10px] overflow-hidden bg-cover relative"
                     style={{ backgroundImage: `url(${item.imgURL})` }}
                   >
                     <div className="absolute inset-0 transition-transform duration-[700ms] tablet:group-hover:translate-y-[-290px] rounded-[10px]">
@@ -443,262 +451,169 @@ export const Home = () => {
               })}
             </div>
           </div>
-        </div>
 
-        <div className="Main9">
-          <div className="Main9-content-container">
-            <div className="Main9-letter-container" {...main9TopAnimation}>
-              <p className="Main9-title">
-                전문 강사에게 배우는 직무 맞춤형 교육
-              </p>
-              <p className="Main9-subtitle">
-                RODU의 직무역량 강화를 위한 맞춤 교육을 제공합니다.
-              </p>
-            </div>
-            <div className="Main9-image-container" {...main9BottomAnimation}>
-              <img
-                src={rodueducation}
-                alt="rodueducation"
-                className="Main9-image"
-              ></img>
-            </div>
-          </div>
-        </div>
-
-        <div className="Main5">
-          <div className="Main5-content-container">
-            <div className="Main5-letter-container" {...main5TopAnimation}>
-              <p className="Main5-title">RODU를 신뢰할 수 있는 이유!</p>
-            </div>
-            <div {...main5BottomAnimation}>
-              <div className="Main5-datas-container">
-                <div className="Main5-data1-container">
-                  <span className="Main5-data1-letter">강의 누적 교육생</span>
-                  <span
-                    className="Main5-data1-number"
-                    // {...main5Count1Animation}
-                  >
-                    60명
-                  </span>
-                </div>
-                <div className="Main5-data2-container">
-                  <span className="Main5-data2-letter">누적 키트 판매수</span>
-                  <span
-                    className="Main5-data2-number"
-                    // {...main5Count2Animation}
-                  >
-                    130개
-                  </span>
-                </div>
-                <div className="Main5-data3-container">
-                  <span className="Main5-data3-letter">강의 누적 시간</span>
-                  <span
-                    className="Main5-data3-number"
-                    // {...main5Count3Animation}
-                  >
-                    320시간
-                  </span>
-                </div>
-                <div className="Main5-data4-container">
-                  <span className="Main5-data4-letter">강의 출강</span>
-                  <span
-                    className="Main5-data4-number"
-                    // {...main5Count4Animation}
-                  >
-                    6회
-                  </span>
-                </div>
-                <div className="Main5-data5-container">
-                  <span className="Main5-data5-letter">강의 출강 지도</span>
-                  <span
-                    className="Main5-data5-number"
-                    // {...main5Count4Animation}
-                  >
-                    <DialogButton onClick={onClickToggleModal}>
-                      지도 보기
-                    </DialogButton>
-                  </span>
-                </div>
-              </div>
-              <div className="Main5-rodu-logo-gray-container">
-                <img
-                  src={roduLogoGray}
-                  alt="roduLogoGray"
-                  className="Main5-rodu-logo-gray"
-                ></img>
-              </div>
-            </div>
-          </div>
-        </div>
-        {isOpenModal && (
-          <ModalMap onClickToggleModal={onClickToggleModal}>
-            <img src={rodumap} alt="rodu-map" />
-          </ModalMap>
-        )}
-
-        <div className="Main4">
-          <div className="Main4-content-container">
-            <div className="Main4-letter-container" {...main4TopAnimation}>
-              <p className="Main4-title">RODU는 다양한 기업과 협력합니다.</p>
-              <p className="Main4-subtitle">
-                RODU는 다양한 기업과의 협력을 통해 양질의 제품을 합리적인 가격에
-                제공합니다.
-                <br /> 예상 지원 정부사업 : 국민내일 배움카드, 디지털새싹
-                취업성공패키지, 늘봄학교
-              </p>
-            </div>
-            <div className="Main4-image-container" {...main4BottomAnimation}>
-              <img src={company} alt="Company x RODU" className="Main4-image" />
-            </div>
-          </div>
-        </div>
-
-        <div className="Main6">
-          <div className="Main6-content-container">
-            <div className="Main6-top-container">
-              <div className="Main6-top-letter-container">
-                <p className="Main6-title">RODU에서 이런것들로 배워요</p>
-                <p className="Main6-subtitle">
-                  로봇의 원리를 이해하고 직접 조작할 수 있는 최상의 H/W와 S/W,
-                  교재를 지원합니다.
-                </p>
-              </div>
-              <div className="Main6-top-button-container">
-                <button className="Main6-top-left-button">
-                  <img
-                    src={leftButton}
-                    alt="Left"
-                    className="Main6-top-left-image"
-                  ></img>
-                </button>
-                <button className="Main6-top-right-button">
-                  <img
-                    src={rightButton}
-                    alt="Right"
-                    className="Main6-top-right-image"
-                  ></img>
-                </button>
-              </div>
-            </div>
-            <Swiper
-              slidesPerView="auto"
-              spaceBetween={20}
-              navigation={{
-                prevEl: ".Main6-top-left-button",
-                nextEl: ".Main6-top-right-button",
-              }}
-              modules={[Navigation]}
-              className="Main6-bottom-container overflow-auto"
-            >
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child1}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child2}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child3}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child4}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child5}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child6}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="Main6-bottom-image-container">
-                  <img
-                    src={child7}
-                    alt="Program"
-                    className="Main6-bottom-image"
-                  ></img>
-                </div>
-              </SwiperSlide>
-            </Swiper>
-          </div>
-        </div>
-
-        <div className="Main7">
-          <div className="Main7-content-container">
-            <div className="Main7-title-container" {...main7TopAnimation}>
-              <p className="Main7-title">RODU 교육 프로세스</p>
-            </div>
-
-            <div
-              className="Main7-process-images-container"
-              {...main7BottomAnimation}
-            >
-              <img
-                src={process}
-                alt="ProcessImage"
-                className="Main7-image"
-              ></img>
-            </div>
-          </div>
-        </div>
-
-        <div className="Main8">
-          <div className="Main8-content-container">
+          {/* 전문 강사에게 배우는 직무 맞춤형 교육 */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps5}
+          >
+            <Title
+              text="전문 강사에게 배우는 직무 맞춤형 교육"
+              subText="RODU의 직무역량 강화를 위한 맞춤 교육을 제공합니다."
+              textCenter
+              smallTitle
+            />
             <img
-              src={main8Logo}
-              alt="rodulogo"
-              className="Main8-rodulogo"
-            ></img>
-            <p className="Main8-title">
-              산업현장에 필요한 수준 높은
-              <br />
-              AI 로보틱스 교육을 제공합니다.
+              src={rodueducation}
+              alt="rodu-education"
+              className="w-[702px]"
+            />
+          </div>
+
+          {/* RODU를 신뢰할 수 있는 이유! */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center w-full"
+            {...fadeInProps6}
+          >
+            <p className="text-[26px] tablet:text-[42px] font-bold text-[#212121] mb-[46px]">
+              RODU를 신뢰할 수 있는 이유!
             </p>
-            <Link
-              to="/post/updatepost"
-              className="Main8-button-frame bg-white rounded-[25px]"
+            <div className="w-full max-w-[696px] border-y-[3px] border-[#d9d9d9] mb-2">
+              {roduData.map((item, i) => {
+                return (
+                  <div
+                    className={`${
+                      i === 4 ? "cursor-pointer" : "border-b"
+                    } border-[#d9d9d9] flex justify-between items-center h-[76px]`}
+                    onClick={() => i === 4 && setIsOpenMap(true)}
+                  >
+                    <p className="text-[21px] font-medium">{item.left}</p>
+                    <p className="text-[38px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ffd857] to-rodu-medium">
+                      {item.right}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex justify-end w-full max-w-[696px]">
+              <img src={roduLogoGray} alt="logo-gray" className="h-[34px]" />
+            </div>
+          </div>
+
+          {/* 지도 */}
+          {isOpenMap && (
+            <button
+              className="h-full w-full fixed cursor-pointer flex justify-center items-center"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
+              onClick={() => setIsOpenMap(false)}
             >
-              <button className="Main8-button Main8-button:hover">
+              <img src={roduMap} alt="rodu-map" className="h-[90vh]" />
+            </button>
+          )}
+
+          {/* RODU는 다양한 기업과 협력합니다. */}
+          <div
+            className=" px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center w-full"
+            {...fadeInProps7}
+          >
+            <Title
+              text="RODU는 다양한 기업과 협력합니다."
+              subText={`RODU는 다양한 기업과의 협력을 통해 양질의 제품을 합리적인 가격에 제공합니다.\n예상 지원 정부사업 : 국민내일 배움카드, 디지털새싹 취업성공패키지, 늘봄학교`}
+              smallTitle
+            />
+            <img src={company} alt="Company x RODU" className="Main4-image" />
+          </div>
+
+          {/* RODU에서 이런것들로 배워요. */}
+          <div
+            className="md-home:h-[100vh] w-full lg-home:w-[1090px] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col justify-center"
+            {...fadeInProps8}
+          >
+            <div>
+              <div className="flex justify-center md-home:justify-between md-home:items-end mb-[46px]">
+                <Title
+                  text="RODU에서 이런것들로 배워요."
+                  subText="로봇의 원리를 이해하고 직접 조작할 수 있는 최상의 H/W와 S/W, 교재를 지원합니다."
+                  noMarginBottom
+                  smallTitle
+                  width="tablet:w-[450px]"
+                  mobileWidth="w-[256px]"
+                />
+                <div className="flex gap-[18px] max-md-home:hidden">
+                  <button className="move-left-teach">
+                    <img src={leftButton} alt="Left" className="h-[36px]" />
+                  </button>
+                  <button className="move-right-teach">
+                    <img src={rightButton} alt="Right" className="h-[36px]" />
+                  </button>
+                </div>
+              </div>
+
+              <Swiper
+                slidesPerView="auto"
+                spaceBetween={20}
+                modules={[Navigation]}
+                navigation={{
+                  prevEl: ".move-left-teach",
+                  nextEl: ".move-right-teach",
+                }}
+                className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
+              >
+                {teachingItemData.map((item) => {
+                  return (
+                    <SwiperSlide>
+                      <div className="rounded-[10px] border border-[#e4e4e4] overflow-hidden shadow-lg p-5">
+                        <img
+                          src={item}
+                          alt="program"
+                          className="h-[150px] target:h-[240px] w-[242px] tablet:w-[386px]"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </div>
+          </div>
+
+          {/* RODU 교육 프로세스 */}
+          <div
+            className="md-home:h-[100vh] px-[20px] tablet:px-[44px]
+                  py-[40px] flex flex-col items-center justify-center"
+            {...fadeInProps9}
+          >
+            <Title text="RODU 교육 프로세스" textCenter />
+            <img
+              src={process}
+              alt="process"
+              className="w-full max-w-[1048px]"
+            />
+          </div>
+        </div>
+
+        <div className="h-[100vh] w-full bg-rodu-medium flex justify-center items-center px-[20px] tablet:px-[44px]">
+          <div
+            className="flex flex-col max-tablet:items-center gap-28"
+            {...fadeInProps10}
+          >
+            <div className="w-full lg-home:w-[1090px]">
+              <img
+                src={logoWhite}
+                alt="logo-white"
+                className="h-[60px] mb-10"
+              />
+              <p className="text-[24px] tablet:text-[42px] font-bold text-white">
+                산업현장에 필요한 수준 높은
+                <br />
+                AI 로보틱스 교육을 제공합니다.
+              </p>
+            </div>
+            <Link to="/post/updatepost">
+              <button className="h-[44px] w-[136px] text-[14px] font-medium bg-white rounded-[22px] hover:bg-[#ffe2c8]">
                 교육 문의하기
               </button>
             </Link>

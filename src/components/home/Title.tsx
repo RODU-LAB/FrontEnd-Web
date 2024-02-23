@@ -4,6 +4,8 @@ interface TitleProps {
   subText?: string;
   noMarginBottom?: boolean;
   width?: string;
+  smallTitle?: boolean;
+  mobileWidth?: string;
 }
 
 export function Title({
@@ -12,6 +14,8 @@ export function Title({
   subText,
   noMarginBottom,
   width,
+  mobileWidth,
+  smallTitle,
 }: TitleProps) {
   return (
     <div
@@ -20,13 +24,19 @@ export function Title({
       } ${!noMarginBottom && "mb-[46px]"}`}
     >
       <p
-        className={`max-tablet:text-center text-[30px] tablet:text-[42px] font-bold border-b-[3.5px] border-rodu-medium leading-[1.24] max-md-home:px-1 ${
+        className={`max-tablet:text-center ${
+          smallTitle ? "text-[20px]" : "text-[27px]"
+        }  tablet:text-[36px] font-bold border-b-[3.5px] border-rodu-medium leading-[1.24] max-md-home:px-1 ${
           textCenter ? "text-center px-1" : "pr-1"
-        } ${width}`}
+        } ${mobileWidth} ${width}`}
       >
         {text}
       </p>
-      {subText && <p className="mt-[15px] text-rodu-grey">{subText}</p>}
+      {subText && (
+        <p className="mt-[15px] text-rodu-grey whitespace-pre-line">
+          {subText}
+        </p>
+      )}
     </div>
   );
 }
