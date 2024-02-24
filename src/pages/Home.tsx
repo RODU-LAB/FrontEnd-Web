@@ -258,7 +258,7 @@ export const Home = () => {
         <title>RODU</title>
       </Helmet>
       <>
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full flex flex-col items-center overflow-hidden">
           <div className="w-full h-[100vh] relative overflow-hidden">
             <video
               className="w-full h-full object-cover"
