@@ -58,8 +58,6 @@ import roduMap from "../images/rodumap.png";
 
 import company from "../images/company.png";
 import rodueducation from "../images/rodueducation.png";
-// import { useScrollFadeIn } from "../hooks/useScrollFadeIn";
-// import { useScrollCount } from "../hooks/useScrollCountup";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -80,27 +78,6 @@ export const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // const horizontalScrollRef = useRef<HTMLInputElement>(null);
-  // const main6ScrollRef = useRef<HTMLInputElement>(null);
-
-  // let main3_current_translate = 0;
-  // let main6_current_translate = 0;
-
-  // const main2TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  // const main2BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
-
-  // const main4TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  // const main4BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
-
-  // const main9TopAnimation = useScrollFadeIn(0.7, "50%", "0s");
-  // const main9BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
-
-  // const main5TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
-  // const main5BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
-
-  // const main7TopAnimation = useScrollFadeIn(0.7, "100%", "0s");
-  // const main7BottomAnimation = useScrollFadeIn(0.1, "25%", "0s");
 
   // const main5Count1Animation = useScrollCount(10834, 10400, 1500, "명");
   // const main5Count2Animation = useScrollCount(3312, 3000, 1500, "개");
