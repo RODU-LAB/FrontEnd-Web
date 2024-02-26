@@ -15,9 +15,9 @@ export function YesNoModal({
 }: ModalTypes) {
   return (
     <Modal isOpen={isOpen} className="Posts-modal">
-      <div className="Posts-modal-container">
-        <div className="h-[3rem] flex items-center justify-center bg-rodu-medium rounded-t-[10px]">
-          <p className="text-white">{title}</p>
+      <div className="Posts-modal-container min-h-[106px]">
+        <div className="min-h-[3rem] flex items-center justify-center bg-rodu-medium rounded-t-[10px] p-5">
+          <p className="text-white whitespace-pre-line">{title}</p>
         </div>
         <div className="Posts-modal-form">
           <button

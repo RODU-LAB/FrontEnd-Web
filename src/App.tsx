@@ -28,7 +28,7 @@ import { Post } from "./pages/post/post";
 import { Posts } from "./pages/post/posts";
 import { ApplyEdu } from "./pages/applyEdu";
 import { UpdateApplication } from "./pages/UpdateApplication";
-import ShowApplication from "./pages/showApplication";
+import ShowApplication from "./pages/ShowApplication";
 import { ShowDetailContent } from "./pages/showDetailContent";
 import { Login } from "./pages/Login";
 

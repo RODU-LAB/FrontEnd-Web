@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSetRecoilState, useResetRecoilState } from "recoil";
+import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
 import { sessionIdAtom } from "../recoil/atoms/sessionIdAtom";
+import { applyFormAtom } from "../recoil/atoms/applyFormAtom";
 import emailjs from "emailjs-com";
 // import { Helmet } from "react-helmet-async";
 
@@ -13,19 +14,18 @@ import {
   deleteApplicationAPI,
 } from "../services/educationAPI";
 
+import { ClassGroupTypes, ApplyFormType } from "../types/applyFormTypes";
+
 import { Banner } from "../components/banner";
 import { Calendar } from "../components/Calendar";
+import { YesNoModal } from "../components/modal/YesNoModal";
 
 import { ReactComponent as Delete } from "../images/delete.svg";
 import { ReactComponent as Loading } from "../images/loading.svg";
 
-interface ClassGroupTypes {
-  className: string;
-  educationConcept: string;
-  numberOfStudents: string;
-  educationDates: string[] | null[];
-  remark: string;
-  unfixed: boolean;
+interface ReduceAccumulator {
+  classGroups: ClassGroupTypes[];
+  educationDates: string[][];
 }
 
 export const UpdateApplication = () => {
@@ -36,11 +36,12 @@ export const UpdateApplication = () => {
 
   const setSessionId = useSetRecoilState(sessionIdAtom);
   const resetSessionId = useResetRecoilState(sessionIdAtom);
+  const [reloadForm, setReloadForm] = useRecoilState(applyFormAtom);
 
   // 렌더링 이후인지 확인
-  const [isAfterRender, setIsAfterRender] = useState(true);
+  // const [isAfterRender, setIsAfterRender] = useState(true);
 
-  const [barPosition, setBarPosition] = useState(510);
+  const [barPosition, setBarPosition] = useState(570);
   const [isLoading, setIsLoading] = useState(false);
 
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
@@ -48,6 +49,7 @@ export const UpdateApplication = () => {
   const [submitModal, setSubmitModal] = useState(false);
   // 학급 정보 폼의 인덱스가 입력되면 modal이 띄워짐
   const [calendarModal, setCalendarModal] = useState(-1);
+  const [reloadFormModal, setReloadFormModal] = useState(false);
 
   const [formNum, setFormNum] = useState(0);
   const [inputCheck, setInputCheck] = useState("");
@@ -111,7 +113,7 @@ export const UpdateApplication = () => {
       ? locationData.classGroups.map(
           (item: ClassGroupTypes) => item.educationDates
         )
-      : [[]]
+      : []
   );
 
   // Form 3 - 교육 특이사항
@@ -120,12 +122,12 @@ export const UpdateApplication = () => {
   const leftBarRef = useRef<HTMLDivElement>(null);
   const mainFormRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setIsAfterRender(false);
-  }, []);
+  // useEffect(() => {
+  //   setIsAfterRender(false);
+  // }, []);
 
   const handleScroll = () => {
-    const basePosition = 510;
+    const basePosition = 570;
     const adjustedPosition = basePosition + window.scrollY;
     let newPosition = adjustedPosition - 90;
 
@@ -137,7 +139,6 @@ export const UpdateApplication = () => {
     }
 
     newPosition = Math.max(basePosition, Math.min(newPosition, 956));
-
     setBarPosition(newPosition);
   };
 
@@ -210,6 +211,8 @@ export const UpdateApplication = () => {
       setInputCheck("authCode");
     } else if (isActiveTimer && timeLeft > 0) {
       const newSessionId = await verifyAuthCodeAPI(authNum, phoneNumber);
+
+      // 인증 성공
       if (newSessionId) {
         setFinishAuthModal(true);
         setIsAuth(true);
@@ -232,7 +235,7 @@ export const UpdateApplication = () => {
     key: keyof ClassGroupTypes,
     value: ClassGroupTypes[keyof ClassGroupTypes]
   ) => {
-    setClassGroups((prev) => {
+    const handleState = (prev: ClassGroupTypes[]) => {
       const updatedData: any = [...prev];
 
       // 특정 인덱스의 객체에 접근하여 값을 업데이트
@@ -240,7 +243,18 @@ export const UpdateApplication = () => {
       updatedItem[key] = value;
       updatedData[idx] = updatedItem;
       return updatedData;
-    });
+    };
+
+    setClassGroups((prev) => handleState(prev));
+
+    if (isAuth) {
+      setReloadForm((prev) => {
+        console.log(prev);
+        const prevClassGroups = [...prev.classGroups];
+        const prevData = { ...prev, classGroups: handleState(prevClassGroups) };
+        return prevData;
+      });
+    }
   };
 
   /** 학급 추가 버튼 클릭 시 (Form 2 - 학급별 교육 일정) */
@@ -261,16 +275,46 @@ export const UpdateApplication = () => {
       prevData.push([]);
       return prevData;
     });
+    if (isAuth) {
+      setReloadForm((prev) => {
+        const newClassGroups = [
+          ...prev.classGroups,
+          {
+            className: "",
+            educationConcept: "",
+            numberOfStudents: "",
+            remark: "",
+            unfixed: false,
+            educationDates: [],
+          },
+        ];
+
+        const prevData = { ...prev, classGroups: newClassGroups };
+        return prevData;
+      });
+    }
   };
 
   /** 학급 삭제 (Form 2 - 학급별 교육 일정) */
   const handleRemoveClass = (idx: number) => {
+    const handleRemove = (prev: ClassGroupTypes[]) => {
+      const prevDate = [...prev];
+      prevDate.splice(idx, 1);
+      return prevDate;
+    };
+
     if (classGroups.length > 1) {
       setClassGroups((prev) => {
-        const prevDate = [...prev];
-        prevDate.splice(idx, 1);
-        return prevDate;
+        return handleRemove(prev);
       });
+      if (isAuth) {
+        setReloadForm((prev) => {
+          let prevClassGroups = [...prev.classGroups];
+          prevClassGroups = handleRemove(prevClassGroups);
+          const result = { ...prev, prevClassGroups };
+          return result;
+        });
+      }
     } else {
       alert("최소 한 개의 학급이 필요합니다.");
     }
@@ -396,13 +440,32 @@ export const UpdateApplication = () => {
 
   /** 캘린더 핸들링 */
   const handleCalendar = (dates: string[]) => {
-    setEducationDates((prev) => {
+    const handleChange = (prev: string[][]) => {
       if (calendarModal >= 0) {
         const prevDate = [...prev];
         prevDate.splice(calendarModal, 1, dates);
         return prevDate;
       }
       return prev;
+    };
+
+    setEducationDates((prev) => {
+      const result = handleChange(prev);
+      if (isAuth) {
+        setReloadForm((reloadPrev) => {
+          let newClassGroups = reloadPrev.classGroups.map((group, index) => {
+            if (index === calendarModal) {
+              return { ...group, educationDates: dates };
+            }
+            return group;
+          });
+
+          let prevData = { ...reloadPrev, classGroups: newClassGroups };
+          console.log(prevData);
+          return prevData;
+        });
+      }
+      return result;
     });
   };
 
@@ -487,15 +550,94 @@ export const UpdateApplication = () => {
     }
   };
 
+  /** classGroups을 제외한 Recoil 전역 Form 수정 */
+  const handleNormalReloadForm = (key: keyof ApplyFormType, data: string) => {
+    if (isAuth) {
+      setReloadForm((prev) => {
+        const prevData = { ...prev };
+        if (key !== "classGroups") {
+          prevData[key] = data;
+        }
+        return prevData;
+      });
+    }
+  };
+
+  const handleReloadForm = () => {
+    setReloadFormModal(false);
+
+    setName(reloadForm.name);
+    setInstitutionName(reloadForm.institutionName);
+    setPosition(reloadForm.position);
+    setPhoneNumber(reloadForm.phoneNumber);
+    setEmail(reloadForm.email);
+    setNumberOfStudents(reloadForm.numberOfStudents);
+    setStudentRank(reloadForm.studentRank);
+    setBudget(reloadForm.budget);
+    setOverallRemark(reloadForm.overallRemark);
+
+    const { classGroups, educationDates } =
+      reloadForm.classGroups.reduce<ReduceAccumulator>(
+        (acc, item) => {
+          const { educationDates, ...otherData } = item;
+          acc.classGroups.push(otherData);
+          acc.educationDates.push(educationDates || []);
+          return acc;
+        },
+        { classGroups: [], educationDates: [] } // 초기값 설정
+      );
+
+    setClassGroups(classGroups);
+    setEducationDates(educationDates);
+  };
+
+  /** 저장된 Form을 불러오지 않을 때, 현재 입력한 데이터를 Reload Form에 저장 */
+  const handleNoReloadForm = () => {
+    setReloadFormModal(false);
+
+    const classGroupsResult = classGroups.map((item, i) => {
+      return { ...item, educationDates: educationDates[i] };
+    });
+
+    const applyData = {
+      name: name,
+      institutionName: institutionName,
+      numberOfStudents: numberOfStudents,
+      overallRemark: overallRemark,
+      phoneNumber: phoneNumber,
+      position: position,
+      studentRank: studentRank,
+      budget: budget,
+      email: email,
+      classGroups: classGroupsResult,
+    };
+
+    setReloadForm(applyData);
+  };
+
+  /** 카카오톡 인증 완료 모달에서 확인 버튼 누를 시 작동 */
+  const handleFinishAuthModal = () => {
+    setFinishAuthModal(false);
+
+    // 현재 입력한 핸드폰 번호와 reload Form에 입력된 번호가 같고
+    // 두 번째 Form에 입력된 내용이 없을 때 작동
+    if (
+      reloadForm.phoneNumber === phoneNumber &&
+      (!!!numberOfStudents || !!!studentRank || !!!budget)
+    ) {
+      setReloadFormModal(true);
+    } else {
+      handleNoReloadForm();
+    }
+  };
+
   return (
     <>
-      {isLoading ? (
+      {isLoading && (
         <div className="fixed h-[100vh] w-[100vw] flex flex-col justify-center items-center bg-[#292929] z-10 top-0 opacity-60">
           <Loading />
           <p className="text-white">요청을 처리 중입니다.</p>
         </div>
-      ) : (
-        ""
       )}
       {/* 모달창 */}
       {finishAuthModal ? (
@@ -508,9 +650,7 @@ export const UpdateApplication = () => {
               </p>
               <button
                 className="Create-post-kakao-modal-button"
-                onClick={() => {
-                  setFinishAuthModal(false);
-                }}
+                onClick={handleFinishAuthModal}
               >
                 확인
               </button>
@@ -722,12 +862,14 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setName(target.value);
+                      handleNormalReloadForm("name", target.value);
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.name }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.name }
+                    //   : {})}
+                    value={name}
                   />
                 </div>
               </div>
@@ -749,12 +891,14 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setInstitutionName(target.value);
+                      handleNormalReloadForm("institutionName", target.value);
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.institutionName }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.institutionName }
+                    //   : {})}
+                    value={institutionName}
                   />
                 </div>
               </div>
@@ -776,12 +920,14 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setPosition(target.value);
+                      handleNormalReloadForm("position", target.value);
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.position }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.position }
+                    //   : {})}
+                    value={position}
                   />
                 </div>
               </div>
@@ -804,12 +950,14 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setPhoneNumber(target.value);
+                      handleNormalReloadForm("phoneNumber", target.value);
                       setInputCheck("");
                     }}
                     maxLength={11}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.phoneNumber }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.phoneNumber }
+                    //   : {})}
+                    value={phoneNumber}
                   />
                   <button
                     type="button"
@@ -914,12 +1062,14 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setEmail(target.value);
+                      handleNormalReloadForm("email", target.value);
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.email }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.email }
+                    //   : {})}
+                    value={email}
                   />
                 </div>
               </div>
@@ -954,14 +1104,16 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setNumberOfStudents(target.value);
+                      handleNormalReloadForm("numberOfStudents", target.value);
                       setInputCheck("");
                     }}
                     placeholder="총 학생 수를 입력해주세요."
                     type="number"
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.numberOfStudents }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.numberOfStudents }
+                    //   : {})}
+                    value={numberOfStudents}
                   />
                 </div>
               </div>
@@ -983,12 +1135,14 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setStudentRank(target.value);
+                      handleNormalReloadForm("studentRank", target.value);
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.studentRank }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.studentRank }
+                    //   : {})}
+                    value={studentRank}
                   />
                 </div>
               </div>
@@ -1010,13 +1164,15 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target as HTMLInputElement;
                       setBudget(target.value);
+                      handleNormalReloadForm("budget", target.value);
                       setInputCheck("");
                     }}
                     type="number"
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.budget }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.budget }
+                    //   : {})}
+                    value={budget}
                   />
                 </div>
               </div>
@@ -1205,12 +1361,14 @@ export const UpdateApplication = () => {
                     onChange={(e) => {
                       const target = e.target.value;
                       setOverallRemark(target);
+                      handleNormalReloadForm("overallRemark", target);
                       setInputCheck("");
                     }}
                     readOnly={formNum === 4}
-                    {...(isAfterRender && locationData
-                      ? { value: locationData.overallRemark }
-                      : {})}
+                    // {...(isAfterRender && locationData
+                    //   ? { value: locationData.overallRemark }
+                    //   : {})}
+                    value={overallRemark}
                   />
                 </div>
               </div>
@@ -1279,15 +1437,22 @@ export const UpdateApplication = () => {
           </div>
         </div>
       </div>
-      {calendarModal >= 0 ? (
+      {calendarModal >= 0 && (
         <Calendar
           handleXMark={() => setCalendarModal(-1)}
           handleSelectDates={handleCalendar}
           selectedDatesProps={educationDates[calendarModal]}
         />
-      ) : (
-        ""
       )}
+
+      <YesNoModal
+        title={
+          "저장된 교육 신청 내역을 불러와 이어서 작성하시겠습니까?\n선택하신 경우, 현재 입력하신 정보는 사라지고 이전에 저장된 내용으로 대체됩니다."
+        }
+        yesHandler={handleReloadForm}
+        noHandler={handleNoReloadForm}
+        isOpen={reloadFormModal && !!reloadForm.phoneNumber}
+      />
     </>
   );
 };

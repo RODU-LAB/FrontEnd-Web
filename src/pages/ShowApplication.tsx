@@ -101,12 +101,14 @@ function ShowApplication() {
       setInputCheck("authCode");
     } else if (isActiveTimer && timeLeft > 0) {
       const newSessionId = await verifyAuthCodeAPI(authNum, phoneNumber);
-      setSessionId({
-        id: newSessionId,
-        time: new Date(),
-        phoneNumber: phoneNumber,
-      });
+
+      // 인증 성공
       if (newSessionId) {
+        setSessionId({
+          id: newSessionId,
+          time: new Date(),
+          phoneNumber: phoneNumber,
+        });
         setIsAuth(true);
         setIsActiveTimer(false);
         handleFindApplication(newSessionId);
