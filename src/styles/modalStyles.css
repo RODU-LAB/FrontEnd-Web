@@ -3,14 +3,13 @@
   justify-content: center;
   margin-top: 14.278rem;
   width: 26.667rem;
-  height: 6.611rem;
+  /* height: 6.611rem; */
   margin-right: auto;
   margin-left: auto;
 }
 
 .Posts-modal-container {
   width: 26.667rem;
-  height: 6.611rem;
   background-color: #fff;
   display: flex;
   flex-direction: column;
