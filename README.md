@@ -42,7 +42,7 @@ RODU는 로봇 교육 전문 스타트업으로, 자체 솔루션을 통해 교�
 ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)        
 
 ### Development
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=Javascript&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Recoil](https://img.shields.io/badge/Recoil-F2F2F2?style=for-the-badge&logo=Recoil&logoColor=3578E5)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-0F1729?style=for-the-badge&logo=tailwindcss&logoColor=06B6D4)
