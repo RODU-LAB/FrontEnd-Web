@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useFadeInOnScroll } from "../hooks/useFadeInOnScroll";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -231,9 +230,6 @@ export const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>RODU</title>
-      </Helmet>
       <>
         <div className="w-full flex flex-col items-center overflow-hidden">
           <div className="w-full h-[100vh] relative overflow-hidden">
