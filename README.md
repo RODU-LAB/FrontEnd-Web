@@ -9,7 +9,7 @@
 
 ## 🚀 배포 주소 🚀
 
-> <a href="https://rodu.co.kr" target="_blank">https://rodu.co.kr</a>
+> <a href="https://www.rodu.co.kr" target="_blank">https://www.rodu.co.kr</a>
 <br/>
 
 ## 🖥️ 프론트엔드 개발팀 🖥️
