@@ -5,7 +5,7 @@ import { useFadeInOnScroll } from "../hooks/useFadeInOnScroll";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
-import "swiper/css";
+import "swiper/css/bundle";
 
 import { Title } from "../components/home/Title";
 import { ContentsBox } from "../components/home/ContentsBox";
