@@ -340,7 +340,6 @@ export const Home = () => {
                   text="RODU의 고유 로봇"
                   subText="RODU의 모든 로봇은 자체 개발 및 생산 과정을 통해 탄생합니다."
                   noMarginBottom
-                  width="w-[280px]"
                 />
                 <div className="flex gap-[18px] max-md-home:hidden">
                   <button className="move-left-robot">
@@ -513,8 +512,6 @@ export const Home = () => {
                   subText="로봇의 원리를 이해하고 직접 조작할 수 있는 최상의 H/W와 S/W, 교재를 지원합니다."
                   noMarginBottom
                   smallTitle
-                  width="tablet:w-[450px]"
-                  mobileWidth="w-[256px]"
                 />
                 <div className="flex gap-[18px] max-md-home:hidden">
                   <button className="move-left-teach">
