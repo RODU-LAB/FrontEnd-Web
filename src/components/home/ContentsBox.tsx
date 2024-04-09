@@ -22,7 +22,7 @@ export function ContentsBox({
   const navigate = useNavigate();
 
   const handleNav = () => {
-    navigate("/showDetailContent", { state: routerIndex + 11 });
+    navigate("/contents", { state: routerIndex + 11 });
   };
 
   return (

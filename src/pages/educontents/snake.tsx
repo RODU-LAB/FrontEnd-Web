@@ -20,7 +20,7 @@ export const Snake: React.FC = () => {
       <Banner
         routeDot1="•"
         routeName1="교육 콘텐츠"
-        route1="/showDetailContent"
+        route1="/contents"
         route1Opacity={0.7}
         routeDot2="•"
         routeName2="뱀 로봇"

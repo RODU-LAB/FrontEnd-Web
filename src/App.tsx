@@ -68,30 +68,31 @@ export const App = () => {
             <Route path="/applyEdu" element={<ApplyEdu />} />
             <Route path="/update-application" element={<UpdateApplication />} />
             <Route path="/showApplication" element={<ShowApplication />} />
-            <Route path="/showDetailContent" element={<ShowDetailContent />} />
+            <Route path="/contents" element={<ShowDetailContent />} />
             <Route path="/login" element={<Login />} />
 
-            <Route path="/otto" element={<Otto />} />
-            <Route path="/hourGlass" element={<HourGlass />} />
-            <Route path="/spider" element={<Spider />} />
-            <Route path="/snake" element={<Snake />} />
-            <Route path="/smallPuppy" element={<SmallPuppy />} />
-            <Route path="/human" element={<Human />} />
-            <Route path="/security" element={<Security />} />
-            <Route path="/logistics" element={<Logistics />} />
-            <Route path="/securityDog" element={<SecurityDog />} />
-            <Route path="/yolo" element={<Yolo />} />
-            <Route path="/deepLearning" element={<DeepLearning />} />
+            <Route path="/contents/otto" element={<Otto />} />
+            <Route path="/contents/hourGlass" element={<HourGlass />} />
+            <Route path="/contents/spider" element={<Spider />} />
+            <Route path="/contents/snake" element={<Snake />} />
+            <Route path="/contents/smallPuppy" element={<SmallPuppy />} />
+            <Route path="/contents/human" element={<Human />} />
+            <Route path="/contents/security" element={<Security />} />
+            <Route path="/contents/logistics" element={<Logistics />} />
+            <Route path="/contents/securityDog" element={<SecurityDog />} />
+            <Route path="/contents/yolo" element={<Yolo />} />
+            <Route path="/contents/deepLearning" element={<DeepLearning />} />
             <Route
-              path="/reinforcementLearning"
+              path="/contents/reinforcementLearning"
               element={<ReinforcementLearning />}
             />
-            <Route path="/printer" element={<Printer />} />
-            <Route path="/plc" element={<Plc />} />
-            <Route path="/kicad" element={<Kicad />} />
-            <Route path="/embedded" element={<Embedded />} />
-            <Route path="/ros2" element={<Ros2 />} />
-            <Route path="/manipulator" element={<Manipulator />} />
+            <Route path="/contents/printer" element={<Printer />} />
+            <Route path="/contents/plc" element={<Plc />} />
+            <Route path="/contents/kicad" element={<Kicad />} />
+            <Route path="/contents/embedded" element={<Embedded />} />
+            <Route path="/contents/ros2" element={<Ros2 />} />
+            <Route path="/contents/manipulator" element={<Manipulator />} />
+
             <Route path="/appPrivacyPolicy" element={<AppPrivacyPolicy />} />
           </Routes>
           <Footer />

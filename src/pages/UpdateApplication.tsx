@@ -620,7 +620,7 @@ export const UpdateApplication = () => {
     setFinishAuthModal(false);
 
     // 현재 입력한 핸드폰 번호와 reload Form에 입력된 번호가 같고
-    // 두 번째 Form에 입력된 내용이 없을 때 작동
+    // 두 번째 Form에 입력된 내용이 하나라도 없을 때 작동
     if (
       reloadForm.phoneNumber === phoneNumber &&
       (!!!numberOfStudents || !!!studentRank || !!!budget)
