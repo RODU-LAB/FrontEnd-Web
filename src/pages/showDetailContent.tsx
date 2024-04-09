@@ -9,7 +9,7 @@ export function ShowDetailContent() {
       <Banner
         routeName1="교육 콘텐츠"
         routeDot1="•"
-        route1="/showDetailContent"
+        route1="/contents"
         route1Opacity={1}
         title="교육 콘텐츠"
         subtitle="Education Contents"

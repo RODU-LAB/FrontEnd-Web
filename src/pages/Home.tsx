@@ -156,43 +156,43 @@ export const Home = () => {
 
   const swiperData = [
     {
-      route: "/otto",
+      route: "/contents/otto",
       img: otto,
       name: "뚜벅이 로봇",
       hashTag: "#DIY #이족보행 #보행알고리즘",
     },
     {
-      route: "/hourGlass",
+      route: "/contents/hourGlass",
       img: hourGlass,
       name: "LED 모래시계",
       hashTag: "#도트 매트릭스 #밸런스센서 #코딩",
     },
     {
-      route: "/spider",
+      route: "/contents/spider",
       img: spider,
       name: "거미 로봇",
       hashTag: "#자율탐색 #다족보행 #고정밀제어",
     },
     {
-      route: "/snake",
+      route: "/contents/snake",
       img: snake,
       name: "뱀 로봇",
       hashTag: "#모듈형 #다관절 제어 #생체모방",
     },
     {
-      route: "/smallPuppy",
+      route: "/contents/smallPuppy",
       img: mood,
       name: "작은 강아지 로봇",
       hashTag: "#사족보행 #로봇 동역학 #인터랙티브",
     },
     {
-      route: "/human",
+      route: "/contents/human",
       img: human,
       name: "인간형 로봇",
       hashTag: "#인체모방 #모션제어 #연구개발",
     },
     {
-      route: "/security",
+      route: "/contents/security",
       img: security,
       name: "경비 로봇",
       hashTag: "#레이더 #자율주행 #보안솔루션",
@@ -225,7 +225,7 @@ export const Home = () => {
   ];
 
   const detailContentsRoutes = (index: number) => {
-    navigate("/showDetailContent", { state: index });
+    navigate("/contents", { state: index });
   };
 
   return (

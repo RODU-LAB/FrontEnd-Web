@@ -89,31 +89,31 @@ const EduDetailContents = () => {
           img: "snake",
           hash: "#모듈형 #다관절 제어 #생체모방",
           title: "뱀 로봇",
-          link: "/snake",
+          link: "/contents/snake",
         },
         {
           img: "spider",
           hash: "#자율탐색 #다족보행 #고정밀 제어",
           title: "거미 로봇",
-          link: "/spider",
+          link: "/contents/spider",
         },
         {
           img: "security",
           hash: "#레이더 #자율주행 #보안 솔루션",
           title: "경비 로봇",
-          link: "/security",
+          link: "/contents/security",
         },
         {
           img: "logistics",
           hash: "#물류자동화 #로봇배송 #스마트 물류",
           title: "물류 로봇",
-          link: "/logistics",
+          link: "/contents/logistics",
         },
         {
           img: "smallPuppy",
           hash: "#사족보행 #로봇 동역학 #인터랙티브",
           title: "작은 강아지 로봇",
-          link: "/smallPuppy",
+          link: "/contents/smallPuppy",
         },
       ],
       a2: [
@@ -121,25 +121,25 @@ const EduDetailContents = () => {
           img: "hourGlass",
           hash: "#도트 매트릭스 #밸런스 센서 #코딩",
           title: "LED 모래시계",
-          link: "/hourGlass",
+          link: "/contents/hourGlass",
         },
         {
           img: "human",
           hash: "#인체모방 #모션제어 #연구개발",
           title: "인간형 로봇",
-          link: "/human",
+          link: "/contents/human",
         },
         {
           img: "otto",
           hash: "#DIY #이족보행 #보행 알고리즘",
           title: "뚜벅이 로봇",
-          link: "/otto",
+          link: "/contents/otto",
         },
         {
           img: "securityDog",
           hash: "#스마트경비 #보안로봇 #AI보안",
           title: "경비 로봇 강아지",
-          link: "/securityDog",
+          link: "/contents/securityDog",
         },
       ],
       a3: [
@@ -147,7 +147,7 @@ const EduDetailContents = () => {
         //   img: 'hourGlass',
         //   hash: '#도트 매트릭스 #밸런스 센서 #코딩',
         //   title: 'LED 모래시계',
-        //   link: "/hourGlass"
+        //   link: "/contents/hourGlass"
         // },
       ],
       a4: [
@@ -155,19 +155,19 @@ const EduDetailContents = () => {
           img: "yolo",
           hash: "#객체인식 #실시간객체인식 #YOLO알고리즘",
           title: "YOLO",
-          link: "/yolo",
+          link: "/contents/yolo",
         },
         {
           img: "deepLearning",
           hash: "#인공지능학습 #데이터과학 #AI딥러닝",
           title: "딥러닝",
-          link: "/deepLearning",
+          link: "/contents/deepLearning",
         },
         {
           img: "reinforcementLearning",
           hash: "#지능형알고리즘 #머신러닝강화 #AI",
           title: "강화학습",
-          link: "/reinforcementLearning",
+          link: "/contents/reinforcementLearning",
         },
       ],
       a5: [
@@ -175,19 +175,19 @@ const EduDetailContents = () => {
           img: "printer",
           hash: "#창작물 #3D모델링 #조형기술",
           title: "3D 프린터",
-          link: "/printer",
+          link: "/contents/printer",
         },
         {
           img: "plc",
           hash: "#제어시스템 #자동화 #컨트롤러",
           title: "PLC",
-          link: "/plc",
+          link: "/contents/plc",
         },
         {
           img: "kicad",
           hash: "#PCB디자인 #전자회로 #회로설계",
           title: "KiCad",
-          link: "/kicad",
+          link: "/contents/kicad",
         },
       ],
       a6: [
@@ -195,13 +195,13 @@ const EduDetailContents = () => {
           img: "embedded",
           hash: "#마이크로컨트롤러 #스마트시스템",
           title: "임베디드 시스템",
-          link: "/embedded",
+          link: "/contents/embedded",
         },
         {
           img: "ros2",
           hash: "#로봇개발 #프로그래밍 #로봇운영",
           title: "ROS2",
-          link: "/ros2",
+          link: "/contents/ros2",
         },
       ],
       b: [
@@ -209,25 +209,25 @@ const EduDetailContents = () => {
           img: "securityDog",
           hash: "#스마트경비 #보안로봇 #AI보안",
           title: "경비 로봇 강아지",
-          link: "/securityDog",
+          link: "/contents/securityDog",
         },
         {
           img: "security",
           hash: "#레이더 #자율주행 #보안 솔루션",
           title: "경비 로봇",
-          link: "/security",
+          link: "/contents/security",
         },
         {
           img: "logistics",
           hash: "#물류자동화 #로봇배송 #스마트 물류",
           title: "물류 로봇",
-          link: "/logistics",
+          link: "/contents/logistics",
         },
         {
           img: "manipulator",
           hash: "#6축 #정밀조작 #산업용로봇",
           title: "매니퓰레이터",
-          link: "/manipulator",
+          link: "/contents/manipulator",
         },
       ],
       c: [
@@ -235,7 +235,7 @@ const EduDetailContents = () => {
           img: "logistics",
           hash: "#물류자동화 #로봇배송 #스마트 물류",
           title: "물류 로봇",
-          link: "/logistics",
+          link: "/contents/logistics",
         },
       ],
       d: [
@@ -243,13 +243,13 @@ const EduDetailContents = () => {
         //   img: "manipulator",
         //   hash: "#6축 #정밀조작 #산업용로봇",
         //   title: "매니퓰레이터",
-        //   link: "/manipulator"
+        //   link: "/contents/manipulator"
         // },
         // {
         //   img: "kicad",
         //   hash: "#PCB디자인 #전자회로 #회로설계",
         //   title: "KiCad",
-        //   link: "/kicad"
+        //   link: "/contents/kicad"
         // },
       ],
     },

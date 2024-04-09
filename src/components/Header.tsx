@@ -49,7 +49,7 @@ export function Header() {
           >
             구매 링크
           </a>
-          <Link to="/showDetailContent" className={headerTextClass}>
+          <Link to="/contents" className={headerTextClass}>
             교육 콘텐츠
           </Link>
           <Link to="/applyEdu" className={headerTextClass}>
@@ -87,7 +87,7 @@ export function Header() {
                   />
                 </a>
                 <Link
-                  to="/showDetailContent"
+                  to="/contents"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
                 >
                   <p>교육 콘텐츠</p>
