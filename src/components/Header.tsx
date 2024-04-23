@@ -24,7 +24,7 @@ export function Header() {
 
   const pageStyles = {
     home: {
-      container: "pt-7",
+      container: "pt-7 absolute",
       logoTextColor: "#FFF",
       logo: logoSymbolWhite,
       headerText:
@@ -48,7 +48,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`py-5 w-full px-[20px] tablet:px-[44px] lg:px-[120px] flex items-center justify-between z-[49] absolute ${container}`}
+        className={`py-5 w-full px-[20px] tablet:px-[44px] lg:px-[120px] flex items-center justify-between z-[49] ${container}`}
       >
         <Link to="/" className="flex items-center gap-[14px] tablet:gap-[16px]">
           <img src={logo} className="h-[26px] tablet:h-[38px]" alt="logo" />
