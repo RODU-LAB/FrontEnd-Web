@@ -10,7 +10,7 @@ import {
 } from "../services/educationAPI";
 import { ApplicationDataTypes } from "../types/eduApplicationTypes";
 
-import { Banner } from "../components/banner";
+import { Banner } from "../components/Banner";
 
 interface ApplicationsUIProps {
   application: ApplicationDataTypes;

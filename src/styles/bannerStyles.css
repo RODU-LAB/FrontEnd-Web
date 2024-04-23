@@ -1,11 +1,3 @@
-.Banner-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 17.778rem;
-  background-color: var(--rodu-medium);
-}
-
 .Banner-content-container {
   display: flex;
   justify-content: space-between;
@@ -101,7 +93,6 @@
   font-size: 1.111rem;
   line-height: 1.833rem;
   color: #f8f9fd;
-  
 }
 
 /* .Banner-content {

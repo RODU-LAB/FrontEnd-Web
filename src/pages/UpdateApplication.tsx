@@ -16,7 +16,7 @@ import {
 
 import { ClassGroupTypes, ApplyFormType } from "../types/applyFormTypes";
 
-import { Banner } from "../components/banner";
+import { Banner } from "../components/Banner";
 import { Calendar } from "../components/Calendar";
 import { YesNoModal } from "../components/modal/YesNoModal";
 

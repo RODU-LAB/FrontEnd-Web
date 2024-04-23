@@ -1,4 +1,4 @@
-import { Banner } from "../../components/banner";
+import { Banner } from "../../components/Banner";
 import { EduTable } from "../../components/eduDetailContents/EduTable";
 import { LearningObjective } from "../../components/eduDetailContents/learningObjective";
 import { ContentsSlide } from "../../components/eduDetailContents/ContentsSlide";

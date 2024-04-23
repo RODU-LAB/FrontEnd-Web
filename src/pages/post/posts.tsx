@@ -10,7 +10,7 @@ import { getPostAdmin } from "../../services/post/postAdminAPI";
 import { useAdminCheck } from "../../utils/decode";
 import { PwInputModal } from "../../components/modal/PwInputModal";
 
-import { Banner } from "../../components/banner";
+import { Banner } from "../../components/Banner";
 
 import lock from "../../images/lock.png";
 // import postsRoute from "../images/postsRoute.png";

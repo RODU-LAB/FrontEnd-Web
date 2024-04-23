@@ -1,5 +1,5 @@
-import { Banner } from "../components/banner";
-import ApplyButton from "../components/applyButton";
+import { Banner } from "../components/Banner";
+import ApplyButton from "../components/ApplyButton";
 
 export const ApplyEdu: React.FC = () => {
   return (

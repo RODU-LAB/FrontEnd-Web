@@ -18,7 +18,7 @@ import "./styles/retrieveStyles.css";
 import "./styles/globalStyle.css";
 import "./styles/applyEdu.css";
 
-import ScrollToTop from "./components/scrollToTop"; // 페이지 렌더링 시 스크롤 최상단
+import ScrollToTop from "./components/ScrollToTop"; // 페이지 렌더링 시 스크롤 최상단
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
@@ -26,10 +26,10 @@ import { NotFound } from "./pages/404";
 import { UpdatePost } from "./pages/post/UpdatePost";
 import { Post } from "./pages/post/post";
 import { Posts } from "./pages/post/posts";
-import { ApplyEdu } from "./pages/applyEdu";
+import { ApplyEdu } from "./pages/ApplyEdu";
 import { UpdateApplication } from "./pages/UpdateApplication";
 import ShowApplication from "./pages/ShowApplication";
-import { ShowDetailContent } from "./pages/showDetailContent";
+import { Contents } from "./pages/Contents";
 import { Login } from "./pages/Login";
 
 import { Otto } from "././pages/educontents/otto";
@@ -50,7 +50,6 @@ import { Kicad } from "./pages/educontents/kicad";
 import { Embedded } from "./pages/educontents/embedded";
 import { Ros2 } from "./pages/educontents/ros2";
 import { Manipulator } from "./pages/educontents/manipulator";
-import AppPrivacyPolicy from "./pages/appPrivacyPolicy";
 
 export const App = () => {
   return (
@@ -61,6 +60,8 @@ export const App = () => {
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/contents" element={<Contents />} />
+
             <Route path="/post/updatepost" element={<UpdatePost />} />
             <Route path="/posts" element={<Posts />} />
             <Route path="/post" element={<Post />} />
@@ -68,7 +69,6 @@ export const App = () => {
             <Route path="/applyEdu" element={<ApplyEdu />} />
             <Route path="/update-application" element={<UpdateApplication />} />
             <Route path="/showApplication" element={<ShowApplication />} />
-            <Route path="/contents" element={<ShowDetailContent />} />
             <Route path="/login" element={<Login />} />
 
             <Route path="/contents/otto" element={<Otto />} />
@@ -92,8 +92,6 @@ export const App = () => {
             <Route path="/contents/embedded" element={<Embedded />} />
             <Route path="/contents/ros2" element={<Ros2 />} />
             <Route path="/contents/manipulator" element={<Manipulator />} />
-
-            <Route path="/appPrivacyPolicy" element={<AppPrivacyPolicy />} />
           </Routes>
           <Footer />
         </RecoilRoot>

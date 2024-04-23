@@ -9,6 +9,7 @@ module.exports = {
         "rodu-medium": "#f9911e",
         "rodu-black": "#212121",
         "rodu-grey": "#777777",
+        "rodu-light-grey": "#D9D9D9",
         "super-light-grey": "#f8f9fd",
       },
       fontSize: {
