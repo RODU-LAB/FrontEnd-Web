@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as HomeIcon } from "../images/homeicon.svg";
 
-interface BannerProps {
+interface BannerTypes {
   routeName1?: string;
   routeName2?: string;
   routeDot1?: string;
@@ -20,7 +20,7 @@ interface BannerProps {
   rightImg?: string;
 }
 
-export const Banner: React.FC<BannerProps> = ({
+export const Banner: React.FC<BannerTypes> = ({
   routeName1,
   routeName2,
   routeDot1,
@@ -37,7 +37,7 @@ export const Banner: React.FC<BannerProps> = ({
   contentsImg,
   rightImg,
 }) => (
-  <div className="Banner-container">
+  <div className="flex justify-center w-full h-[17.778rem] bg-rodu-medium">
     <div className="Banner-content-container">
       <div className="Banner-contents">
         <div className="Banner-route-container">

@@ -16,25 +16,39 @@ import {
 
 export function Header() {
   const location = useLocation();
-  const position = location.pathname === "/" ? "absolute" : "";
-  const logoTextColor = location.pathname === "/" ? "#FFF" : "#333";
-  const logo = location.pathname === "/" ? logoSymbolWhite : logoSymbol;
-  const headerTextClass = `${
-    location.pathname === "/"
-      ? "text-white hover:text-[#faab66]"
-      : "text-rodu-grey hover:text-black"
-  } text-[18px] font-medium transition-colors duration-500`;
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const pageStyles = {
+    home: {
+      container: "pt-7",
+      logoTextColor: "#FFF",
+      logo: logoSymbolWhite,
+      headerText:
+        "text-white hover:text-[#faab66] text-[18px] font-medium transition-colors duration-500",
+      hamburgerButton: "text-while",
+    },
+    other: {
+      container: "bg-white",
+      logoTextColor: "#333",
+      logo: logoSymbol,
+      headerText:
+        "text-rodu-grey hover:text-black text-[18px] font-medium transition-colors duration-500",
+      hamburgerButton: "text-black",
+    },
+  };
+  const currentPage = location.pathname === "/" ? "home" : "other";
+
+  const { container, logoTextColor, logo, headerText, hamburgerButton } =
+    pageStyles[currentPage];
+
   return (
     <>
       <header
-        className={`h-[42px] tablet:h-[120px] pt-5 tablet:pt-0  w-full px-[20px] tablet:px-[44px] lg:px-[120px] max-tablet:pt-6 flex items-center justify-between z-[49] ${position}`}
+        className={`py-5 w-full px-[20px] tablet:px-[44px] lg:px-[120px] flex items-center justify-between z-[49] absolute ${container}`}
       >
         <Link to="/" className="flex items-center gap-[14px] tablet:gap-[16px]">
           <img src={logo} className="h-[26px] tablet:h-[38px]" alt="logo" />
@@ -45,22 +59,25 @@ export function Header() {
             href="https://smartstore.naver.com/robotedu"
             target="_blank"
             rel="noopener noreferrer"
-            className={headerTextClass}
+            className={headerText}
           >
             구매 링크
           </a>
-          <Link to="/contents" className={headerTextClass}>
+          <Link to="/contents" className={headerText}>
             교육 콘텐츠
           </Link>
-          <Link to="/applyEdu" className={headerTextClass}>
+          <Link to="/applyEdu" className={headerText}>
             교육 신청
           </Link>
-          <Link to="/posts" className={headerTextClass}>
+          <Link to="/posts" className={headerText}>
             커뮤니티 게시판
           </Link>
         </div>
         <button onClick={toggleMenu} className="md:hidden">
-          <FontAwesomeIcon icon={faBars} className="text-white text-[22px]" />
+          <FontAwesomeIcon
+            icon={faBars}
+            className={`text-white text-[22px] ${hamburgerButton}`}
+          />
         </button>
         {isOpen && (
           <div className="fixed top-0 left-0 h-full w-full bg-black bg-opacity-60 z-50">

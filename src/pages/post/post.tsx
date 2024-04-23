@@ -15,7 +15,7 @@ import { useAdminCheck } from "../../utils/decode";
 
 import { YesNoModal } from "../../components/modal/YesNoModal";
 import { PwInputModal } from "../../components/modal/PwInputModal";
-import { Banner } from "../../components/banner";
+import { Banner } from "../../components/Banner";
 import Delete from "../../images/delete.png";
 
 export function Post() {

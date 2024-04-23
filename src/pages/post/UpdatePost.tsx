@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from "react-router";
 import { createPostAPI, updatePostAPI } from "../../services/post/postAPI";
 import { PostDataTypes } from "../../types/postTypes";
 
-import { Banner } from "../../components/banner";
+import { Banner } from "../../components/Banner";
 
 import infoConfirm from "../../images/Frame68.svg";
 
