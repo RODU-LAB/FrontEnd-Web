@@ -26,7 +26,7 @@ import { NotFound } from "./pages/404";
 import { UpdatePost } from "./pages/post/UpdatePost";
 import { Post } from "./pages/post/post";
 import { Posts } from "./pages/post/posts";
-import { ApplyEdu } from "./pages/ApplyEdu";
+import { EduServiceOptions } from "./pages/EduServiceOptions";
 import { UpdateApplication } from "./pages/UpdateApplication";
 import ShowApplication from "./pages/ShowApplication";
 import { Contents } from "./pages/Contents";
@@ -66,7 +66,7 @@ export const App = () => {
             <Route path="/posts" element={<Posts />} />
             <Route path="/post" element={<Post />} />
             <Route path="*" element={<NotFound />} />
-            <Route path="/applyEdu" element={<ApplyEdu />} />
+            <Route path="/education" element={<EduServiceOptions />} />
             <Route path="/update-application" element={<UpdateApplication />} />
             <Route path="/showApplication" element={<ShowApplication />} />
             <Route path="/login" element={<Login />} />

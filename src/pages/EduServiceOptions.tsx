@@ -1,7 +1,7 @@
 import { Banner } from "../components/Banner";
 import ApplyButton from "../components/ApplyButton";
 
-export const ApplyEdu: React.FC = () => {
+export function EduServiceOptions() {
   return (
     <>
       <Banner
@@ -11,7 +11,7 @@ export const ApplyEdu: React.FC = () => {
         route1Opacity={0.7}
         routeDot2="•"
         routeName2="교육 신청"
-        route2="/applyEdu"
+        route2="/education"
         route2Opacity={1}
         title="교육 신청"
         subtitle="Education Application"
@@ -24,4 +24,4 @@ export const ApplyEdu: React.FC = () => {
       </div>
     </>
   );
-};
+}
