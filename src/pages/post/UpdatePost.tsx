@@ -101,7 +101,7 @@ export const UpdatePost = () => {
       const result = await createPostAPI(data);
       if (result === 200) {
         alert("문의가 성공적으로 접수되었습니다.");
-        navigate("/posts");
+        navigate("/community");
       }
     }
 
@@ -109,7 +109,7 @@ export const UpdatePost = () => {
       const result = await updatePostAPI(locationData.id, pw, data);
       if (result === 200) {
         alert("문의가 성공적으로 수정되었습니다.");
-        navigate("/posts");
+        navigate("/community");
       }
     }
   };

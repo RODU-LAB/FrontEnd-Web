@@ -25,10 +25,10 @@ import { Home } from "./pages/Home";
 import { NotFound } from "./pages/404";
 import { UpdatePost } from "./pages/post/UpdatePost";
 import { Post } from "./pages/post/post";
-import { Posts } from "./pages/post/posts";
-import { EduServiceOptions } from "./pages/EduServiceOptions";
-import { UpdateApplication } from "./pages/UpdateApplication";
-import ShowApplication from "./pages/ShowApplication";
+import { Community } from "./pages/post/Community";
+import { EduServiceOptions } from "./pages/education/EduServiceOptions";
+import { EduUpdateApplication } from "./pages/education/EduUpdateApplication";
+import { EduApplicationHistory } from "./pages/education/EduApplicationHistory";
 import { Contents } from "./pages/Contents";
 import { Login } from "./pages/Login";
 
@@ -63,12 +63,18 @@ export const App = () => {
             <Route path="/contents" element={<Contents />} />
 
             <Route path="/post/updatepost" element={<UpdatePost />} />
-            <Route path="/posts" element={<Posts />} />
+            <Route path="/community" element={<Community />} />
             <Route path="/post" element={<Post />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/education" element={<EduServiceOptions />} />
-            <Route path="/update-application" element={<UpdateApplication />} />
-            <Route path="/showApplication" element={<ShowApplication />} />
+            <Route
+              path="/education/update-application"
+              element={<EduUpdateApplication />}
+            />
+            <Route
+              path="/education/history"
+              element={<EduApplicationHistory />}
+            />
             <Route path="/login" element={<Login />} />
 
             <Route path="/contents/otto" element={<Otto />} />
