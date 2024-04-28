@@ -6,11 +6,11 @@ const ApplyButton = () => {
 
   const navigateToMakeNewApplication = () => {
     setApplyClick(false);
-    navigate("/update-application");
+    navigate("/education/update-application");
   };
 
-  const navigateToShowApplication = () => {
-    navigate("/showApplication");
+  const navigateToApplicationHistory = () => {
+    navigate("/education/history");
   };
 
   const [applyClick, setApplyClick] = useState<boolean>();
@@ -19,7 +19,7 @@ const ApplyButton = () => {
     <>
       {/* 모달창 */}
       {applyClick ? (
-        <div className="Create-post-kakao-modal-container">
+        <div className="Create-post-kakao-modal-container z-10">
           <div
             style={{ height: "13.368rem" }}
             className="Create-post-kakao-modal"
@@ -60,7 +60,7 @@ const ApplyButton = () => {
           교육 신청하기
         </button>
         <button
-          onClick={navigateToShowApplication}
+          onClick={navigateToApplicationHistory}
           className="typeSelect-button"
         >
           신청 내역 확인하기

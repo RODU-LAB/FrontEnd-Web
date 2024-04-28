@@ -66,10 +66,10 @@ export function Header() {
           <Link to="/contents" className={headerText}>
             교육 콘텐츠
           </Link>
-          <Link to="/applyEdu" className={headerText}>
+          <Link to="/education" className={headerText}>
             교육 신청
           </Link>
-          <Link to="/posts" className={headerText}>
+          <Link to="/community" className={headerText}>
             커뮤니티 게시판
           </Link>
         </div>
@@ -114,7 +114,7 @@ export function Header() {
                   />
                 </Link>
                 <Link
-                  to="/applyEdu"
+                  to="/education"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
                 >
                   <p>교육 신청</p>
@@ -124,7 +124,7 @@ export function Header() {
                   />
                 </Link>
                 <Link
-                  to="/posts"
+                  to="/community"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
                 >
                   <p>커뮤니티 게시판</p>

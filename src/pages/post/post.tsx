@@ -45,7 +45,7 @@ export function Post() {
   useEffect(() => {
     if (!locationData) {
       alert("잘못된 경로입니다.");
-      navigator("/posts");
+      navigator("/community");
     } else {
       if (!locationData.isAnswered && isAdmin) {
         const getPost = async () => {
@@ -97,7 +97,7 @@ export function Post() {
       setDeleteModal(false);
       setPwStatus("");
       setPw("");
-      navigator("/posts");
+      navigator("/community");
     }
   };
 
@@ -115,7 +115,7 @@ export function Post() {
         const result = await deletePostAdmin(data.id);
         if (result === 200) {
           alert("문의글을 삭제하였습니다.");
-          navigator("/posts");
+          navigator("/community");
         }
       } else {
         setPwStatus("delete");
@@ -143,7 +143,7 @@ export function Post() {
         route1Opacity={0.7}
         routeDot2="•"
         routeName2="커뮤니티 게시판"
-        route2="/posts"
+        route2="/community"
         route2Opacity={1}
         title="교육 신청"
         subtitle="Community bulletin board"

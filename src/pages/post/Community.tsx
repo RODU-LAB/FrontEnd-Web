@@ -10,8 +10,8 @@ import { getPostAdmin } from "../../services/post/postAdminAPI";
 import { useAdminCheck } from "../../utils/decode";
 import { PwInputModal } from "../../components/modal/PwInputModal";
 
-import { Banner } from "../../components/Banner";
-
+import { Banner } from "../../components/BackgroundBanner";
+import backgroundImg from "../../images/instructor3.jpg";
 import lock from "../../images/lock.png";
 // import postsRoute from "../images/postsRoute.png";
 // import { Foot } from "../components/foot";
@@ -26,7 +26,7 @@ interface PostsTypes {
   idx: number;
 }
 
-export function Posts() {
+export function Community() {
   const navigate = useNavigate();
   const isAdmin = useAdminCheck();
 
@@ -140,19 +140,10 @@ export function Posts() {
         <title>Board | RODU</title>
       </Helmet> */}
       <Banner
-        routeDot1="•"
-        routeName1="커뮤니티"
-        route1=""
-        route1Opacity={0.7}
-        routeDot2="•"
-        routeName2="커뮤니티 게시판"
-        route2="/posts"
-        route2Opacity={1}
+        backgroundImg={backgroundImg}
         title="커뮤니티 게시판"
-        subtitle="Community bulletin board"
-        content="로봇지식을 공유하는 커뮤니티 입니다 "
-        contentClass="Subtitle-bigFont"
-        rightImg="none"
+        subTitle="Community bulletin board"
+        content={"로봇지식을 공유하는 커뮤니티 입니다."}
       />
       <div className="w-full pt-[90px] flex items-center flex-col">
         <div className="max-w-[65.571rem] w-full">

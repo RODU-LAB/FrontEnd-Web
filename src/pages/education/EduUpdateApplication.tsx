@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
-import { sessionIdAtom } from "../recoil/atoms/sessionIdAtom";
-import { applyFormAtom } from "../recoil/atoms/applyFormAtom";
+import { sessionIdAtom } from "../../recoil/atoms/sessionIdAtom";
+import { applyFormAtom } from "../../recoil/atoms/applyFormAtom";
 import emailjs from "emailjs-com";
 // import { Helmet } from "react-helmet-async";
 
@@ -12,27 +12,31 @@ import {
   applyAPI,
   addClassesDataAPI,
   deleteApplicationAPI,
-} from "../services/educationAPI";
+} from "../../services/educationAPI";
 
-import { ClassGroupTypes, ApplyFormType } from "../types/applyFormTypes";
+import { ClassGroupTypes, ApplyFormType } from "../../types/applyFormTypes";
 
-import { Banner } from "../components/Banner";
-import { Calendar } from "../components/Calendar";
-import { YesNoModal } from "../components/modal/YesNoModal";
+import { Banner } from "../../components/BackgroundBanner";
+import { Calendar } from "../../components/Calendar";
+import { YesNoModal } from "../../components/modal/YesNoModal";
 
-import { ReactComponent as Delete } from "../images/delete.svg";
-import { ReactComponent as Loading } from "../images/loading.svg";
+import { ReactComponent as Delete } from "../../images/delete.svg";
+import { ReactComponent as Loading } from "../../images/loading.svg";
+import backgroundImg from "../../images/instructor2.jpg";
 
 interface ReduceAccumulator {
   classGroups: ClassGroupTypes[];
   educationDates: string[][];
 }
 
-export const UpdateApplication = () => {
+export const EduUpdateApplication = () => {
+  const windowHeight = window.innerHeight;
+  const basePosition = windowHeight + 250;
+
   const navigate = useNavigate();
   const location = useLocation();
   const locationData = location.state;
-  const updateStatus = location.state ? "update" : "create";
+  const updateStatus = locationData ? "update" : "create";
 
   const setSessionId = useSetRecoilState(sessionIdAtom);
   const resetSessionId = useResetRecoilState(sessionIdAtom);
@@ -41,7 +45,7 @@ export const UpdateApplication = () => {
   // 렌더링 이후인지 확인
   // const [isAfterRender, setIsAfterRender] = useState(true);
 
-  const [barPosition, setBarPosition] = useState(570);
+  const [barPosition, setBarPosition] = useState(basePosition);
   const [isLoading, setIsLoading] = useState(false);
 
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
@@ -122,23 +126,12 @@ export const UpdateApplication = () => {
   const leftBarRef = useRef<HTMLDivElement>(null);
   const mainFormRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   setIsAfterRender(false);
-  // }, []);
-
   const handleScroll = () => {
-    const basePosition = 570;
-    const adjustedPosition = basePosition + window.scrollY;
-    let newPosition = adjustedPosition - 90;
+    const scroll = Math.max(window.scrollY + 220 - windowHeight, 0);
+    const adjustedPosition = basePosition + scroll;
+    let newPosition = adjustedPosition;
 
-    if (window.innerHeight < 590) {
-      newPosition = Math.max(
-        basePosition,
-        adjustedPosition - (590 - window.innerHeight) - 30
-      );
-    }
-
-    newPosition = Math.max(basePosition, Math.min(newPosition, 956));
+    newPosition = Math.min(newPosition, windowHeight * 2 - 50);
     setBarPosition(newPosition);
   };
 
@@ -148,6 +141,7 @@ export const UpdateApplication = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -160,6 +154,7 @@ export const UpdateApplication = () => {
     return () => {
       window.removeEventListener("resize", handleScroll);
     };
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -543,7 +538,7 @@ export const UpdateApplication = () => {
           );
         }
         alert("교육 신청이 완료되었습니다.");
-        navigate("/applyEdu");
+        navigate("/education");
       }
     } finally {
       setIsLoading(false);
@@ -687,19 +682,16 @@ export const UpdateApplication = () => {
         <title>Create | RODU</title>
       </Helmet> */}
         <Banner
-          routeDot1="•"
-          routeName1="커뮤니티"
-          route1=""
-          route1Opacity={0.7}
-          routeDot2="•"
-          routeName2="교육 신청"
-          route2="/applyEdu"
-          route2Opacity={1}
-          title="교육 신청"
-          subtitle="Education Application"
-          content="희망 교육과 문의 사항을 작성해주시면 빠르게 답변해드리겠습니다."
-          contentClass="Subtitle-smallFont"
-          rightImg="none"
+          backgroundImg={backgroundImg}
+          title={`교육 신청${updateStatus === "update" ? "내역 수정" : ""}`}
+          subTitle={`${
+            updateStatus === "update"
+              ? "Edit Education Registration"
+              : "Education Registration"
+          }`}
+          content={
+            "희망 교육과 문의 사항을 작성해주시면 빠르게 답변해드리겠습니다."
+          }
         />
         {browserWidth > 1380 ? (
           <div

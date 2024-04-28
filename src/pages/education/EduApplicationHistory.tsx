@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { sessionIdAtom } from "../recoil/atoms/sessionIdAtom";
+import { sessionIdAtom } from "../../recoil/atoms/sessionIdAtom";
 
 import {
   sendAuthCodeAPI,
   verifyAuthCodeAPI,
   findApplicationAPI,
-} from "../services/educationAPI";
-import { ApplicationDataTypes } from "../types/eduApplicationTypes";
+} from "../../services/educationAPI";
+import { ApplicationDataTypes } from "../../types/eduApplicationTypes";
 
-import { Banner } from "../components/Banner";
+import { Banner } from "../../components/BackgroundBanner";
+
+import backgroundImg from "../../images/instructor2.jpg";
 
 interface ApplicationsUIProps {
   application: ApplicationDataTypes;
   idx: number;
 }
 
-function ShowApplication() {
+export function EduApplicationHistory() {
   const navigate = useNavigate();
 
   const [sessionId, setSessionId] = useRecoilState(sessionIdAtom);
@@ -131,7 +133,9 @@ function ShowApplication() {
     return (
       <div
         className="w-full h-[80px] flex justify-between pr-[20px] border-b-rodu-grey cursor-pointer border-b"
-        onClick={() => navigate("/update-application", { state: data })}
+        onClick={() =>
+          navigate("/education/update-application", { state: data })
+        }
       >
         <div className="flex items-center">
           <p className="w-[78px] text-center text-rodu-grey mr-[20px] text-[16px]">
@@ -184,19 +188,10 @@ function ShowApplication() {
         ""
       )}
       <Banner
-        routeDot1="•"
-        routeName1="커뮤니티"
-        route1=""
-        route1Opacity={0.7}
-        routeDot2="•"
-        routeName2="교육 신청"
-        route2="/applyEdu"
-        route2Opacity={1}
-        title="교육 신청"
-        subtitle="Education Application"
-        content="희망 교육과 문의 사항을 작성해주시면 빠르게 답변해드리겠습니다."
-        contentClass="Subtitle-smallFont"
-        rightImg="none"
+        backgroundImg={backgroundImg}
+        title="교육 신청내역조회"
+        subTitle="Check Education Enrollment History"
+        content={"신청하신 교육 내역을 조회를 할 수 있습니다."}
       />
 
       <div className="CreateEdu-content-root" style={{ marginBottom: "12rem" }}>
@@ -328,5 +323,3 @@ function ShowApplication() {
     </div>
   );
 }
-
-export default ShowApplication;
