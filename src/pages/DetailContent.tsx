@@ -167,12 +167,10 @@ export function DetailContent() {
     const elementRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-      if (elementRef.current) {
-        const width = elementRef.current.offsetWidth;
-        setSlideImgWidth(width);
-        setSlideMove(0); // Initialize to second slide position after width is set
-        setPrevSlidePos(0);
-      }
+      const width = elementRef.current!.offsetWidth;
+      setSlideImgWidth(width);
+      setSlideMove(0);
+      setPrevSlidePos(0);
       const handleResize = () => {
         if (elementRef.current) {
           const width = elementRef.current.offsetWidth;
