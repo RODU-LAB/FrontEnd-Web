@@ -20,6 +20,9 @@ import { Banner } from "../../components/BackgroundBanner";
 import { Calendar } from "../../components/Calendar";
 import { YesNoModal } from "../../components/modal/YesNoModal";
 
+import "../../styles/boxShaking.css";
+import "../../styles/makeNewApplication.css";
+
 import { ReactComponent as Delete } from "../../images/delete.svg";
 import { ReactComponent as Loading } from "../../images/loading.svg";
 import backgroundImg from "../../images/instructor2.jpg";

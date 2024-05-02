@@ -42,28 +42,27 @@ export function Calendar({
     endDay.setDate(lastDayOfMonth.getDate() + (6 - lastDayOfMonth.getDay()));
 
     /** startDay부터 endDay까지의 날짜를 주 단위로 그룹화하는 함수 */
-    const groupDatesByWeek = (startDay: Date, endDay: Date) => {
-      const weeks = []; // 최종적으로 주 단위로 그룹화된 날짜 배열들을 저장할 배열
-      let currentWeek = []; // 현재 처리 중인 주를 나타내는 배열
-      let currentDate = new Date(startDay); // 반복 처리를 위한 현재 날짜 변수, 시작 날짜로 초기화
+    const groupDatesByWeek = (startDay: Date, endDay: Date): Date[][] => {
+      const weeks: Date[][] = []; // 주 단위로 그룹화된 날짜 배열
+      let currentWeek: Date[] = []; // 현재 처리 중인 주
+      let date = new Date(startDay); // 시작 날짜로 초기화된 현재 날짜 변수
 
-      // 시작 날짜부터 끝 날짜까지 반복
-      while (currentDate <= endDay) {
-        currentWeek.push(new Date(currentDate)); // 현재 날짜를 현재 주에 추가
-        // 현재 주가 7일을 모두 채웠거나 현재 날짜가 토요일인 경우
-        if (currentWeek.length === 7 || currentDate.getDay() === 6) {
+      while (date <= endDay) {
+        currentWeek.push(new Date(date)); // 현재 날짜를 현재 주에 추가
+
+        if (currentWeek.length === 7 || date.getDay() === 6) {
           weeks.push(currentWeek); // 완성된 주를 weeks 배열에 추가
-          currentWeek = []; // 새로운 주를 시작하기 위해 currentWeek을 재초기화
+          currentWeek = []; // 새로운 주를 시작하기 위해 재초기화
         }
-        currentDate.setDate(currentDate.getDate() + 1); // 현재 날짜를 다음 날로 변경
+
+        date.setDate(date.getDate() + 1); // 현재 날짜를 다음 날로 변경
       }
 
-      // 마지막 주 처리 (만약 남아있다면)
       if (currentWeek.length > 0) {
-        weeks.push(currentWeek); // 남아 있는 날짜가 있다면 마지막 주로 weeks에 추가
+        weeks.push(currentWeek); // 마지막 주 처리
       }
 
-      return weeks; // 주 단위로 그룹화된 날짜 배열들을 반환
+      return weeks; // 주 단위로 그룹화된 날짜 배열 반환
     };
 
     return groupDatesByWeek(startDay, endDay);

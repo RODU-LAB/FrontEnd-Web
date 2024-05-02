@@ -12,6 +12,10 @@
   --standard: 0.222rem;
 }
 
+* {
+  font-family: "Pretendard";
+}
+
 .swiper-slide {
   width: auto !important;
 }

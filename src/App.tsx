@@ -5,17 +5,11 @@ import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
 
 import "./styles/postsStyles.css";
-import "./styles/commonStyles.css";
 import "./styles/postStyles.css";
 import "./styles/modalStyles.css";
-import "./styles/eduContentStyles.css";
-import "./styles/eduDetailContentsStyles.css";
-import "./styles/bodyStyles.css";
 import "./styles/makeNewApplication.css";
 import "./styles/retrieveStyles.css";
-import "./styles/globalStyle.css";
 
-import ScrollToTop from "./components/ScrollToTop"; // 페이지 렌더링 시 스크롤 최상단
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
@@ -30,12 +24,11 @@ import { Contents } from "./pages/Contents";
 import { Login } from "./pages/Login";
 import { DetailContent } from "./pages/DetailContent";
 
-export const App = () => {
+export default function App() {
   return (
     <BrowserRouter>
       <HelmetProvider>
         <RecoilRoot>
-          <ScrollToTop />
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -62,4 +55,4 @@ export const App = () => {
       </HelmetProvider>
     </BrowserRouter>
   );
-};
+}
