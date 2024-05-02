@@ -5,9 +5,10 @@ import { useNavigate, useLocation } from "react-router";
 import { createPostAPI, updatePostAPI } from "../../services/post/postAPI";
 import { PostDataTypes } from "../../types/postTypes";
 
-import { Banner } from "../../components/Banner";
+import { Banner } from "../../components/BackgroundBanner";
 
 import infoConfirm from "../../images/Frame68.svg";
+import backgroundImg from "../../images/instructor3.jpg";
 
 export const UpdatePost = () => {
   const navigate = useNavigate();
@@ -120,13 +121,14 @@ export const UpdatePost = () => {
         <title>Create | RODU</title>
       </Helmet> */}
       <Banner
-        routeName1="• 고객문의"
-        route1=""
-        title="고객문의"
-        subtitle="Customer inquiry"
+        backgroundImg={backgroundImg}
+        title={updateStatus === "update" ? "교육 신청" : "교육 신청내역 수정"}
+        subTitle={
+          updateStatus === "update"
+            ? "Education Registration"
+            : "Edit Education Registration"
+        }
         content="궁금하신 점이나 상담을 원하시는 부분은 언제든 문의주시면 신속하게 답변 드리도록 하겠습니다."
-        contentClass="Subtitle-bigFont"
-        rightImg="none"
       />
       <div className="Create-post-content-root">
         <div className="CreateEdu-content-root">
