@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { Banner } from "../components/ContentsBanner";
@@ -166,25 +166,26 @@ export function DetailContent() {
 
     const elementRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-      if (elementRef.current) {
-        const width = elementRef.current.offsetWidth;
-        setSlideImgWidth(width);
-        setSlideMove(0); // Initialize to second slide position after width is set
-        setPrevSlidePos(0);
-      }
-      const handleResize = () => {
-        if (elementRef.current) {
-          const width = elementRef.current.offsetWidth;
-          setSlideImgWidth(width);
-          setSlideMove(0);
-          setPrevSlidePos(0); // Adjust positions after resize
+    useLayoutEffect(() => {
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          if (entry.target === elementRef.current) {
+            const width = entry.contentRect.width;
+            setSlideImgWidth(width);
+          }
         }
-      };
-      window.addEventListener("resize", handleResize);
+      });
+
+      const currentElement = elementRef.current;
+
+      if (currentElement) {
+        resizeObserver.observe(currentElement);
+      }
 
       return () => {
-        window.removeEventListener("resize", handleResize);
+        if (currentElement) {
+          resizeObserver.unobserve(currentElement);
+        }
       };
     }, []);
 
