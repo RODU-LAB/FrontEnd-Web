@@ -7,16 +7,13 @@ import "./index.css";
 import "./styles/postsStyles.css";
 import "./styles/commonStyles.css";
 import "./styles/postStyles.css";
-import "./styles/bannerStyles.css";
 import "./styles/modalStyles.css";
 import "./styles/eduContentStyles.css";
 import "./styles/eduDetailContentsStyles.css";
-import "./styles/bannerStyles.css";
 import "./styles/bodyStyles.css";
 import "./styles/makeNewApplication.css";
 import "./styles/retrieveStyles.css";
 import "./styles/globalStyle.css";
-import "./styles/applyEdu.css";
 
 import ScrollToTop from "./components/ScrollToTop"; // 페이지 렌더링 시 스크롤 최상단
 import { Header } from "./components/Header";
