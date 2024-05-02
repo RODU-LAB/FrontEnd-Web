@@ -15,10 +15,11 @@ import { useAdminCheck } from "../../utils/decode";
 
 import { YesNoModal } from "../../components/modal/YesNoModal";
 import { PwInputModal } from "../../components/modal/PwInputModal";
-import { Banner } from "../../components/Banner";
+import { Banner } from "../../components/BackgroundBanner";
+import backgroundImg from "../../images/instructor3.jpg";
 import Delete from "../../images/delete.png";
 
-export function Post() {
+export function DetailPost() {
   const navigator = useNavigate();
   const location = useLocation();
   const locationData = location.state;
@@ -137,19 +138,10 @@ export function Post() {
         <title>커뮤니티 게시판 | RODU</title>
       </Helmet> */}
       <Banner
-        routeDot1="•"
-        routeName1="커뮤니티"
-        route1=""
-        route1Opacity={0.7}
-        routeDot2="•"
-        routeName2="커뮤니티 게시판"
-        route2="/community"
-        route2Opacity={1}
-        title="교육 신청"
-        subtitle="Community bulletin board"
-        content="로봇지식을 공유하는 커뮤니티 입니다 "
-        contentClass="Subtitle-smallFont"
-        rightImg="none"
+        title="커뮤니티 게시판"
+        subTitle="Community bulletin board"
+        content="로봇지식을 공유하는 커뮤니티 입니다."
+        backgroundImg={backgroundImg}
       />
       <div className="w-full py-[90px] flex items-center flex-col">
         <div className="max-w-[65.571rem] w-full">

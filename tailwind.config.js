@@ -15,6 +15,13 @@ module.exports = {
       fontSize: {
         body2: "14px",
       },
+      maxWidth: {
+        "1048px": "1048px",
+      },
+      boxShadow: {
+        custom: "0px 0px 15px rgba(0, 0, 0, 0.15)",
+        contents: "10px 10px 4px rgba(0, 0, 0, 0.25)",
+      },
       keyframes: {
         fadeInUp: {
           "0%": { opacity: "0", transform: "translateY(10px)" },

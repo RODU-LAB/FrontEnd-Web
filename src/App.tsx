@@ -24,32 +24,14 @@ import { Footer } from "./components/Footer";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/404";
 import { UpdatePost } from "./pages/post/UpdatePost";
-import { Post } from "./pages/post/post";
+import { DetailPost } from "./pages/post/DetailPost";
 import { Community } from "./pages/post/Community";
 import { EduServiceOptions } from "./pages/education/EduServiceOptions";
 import { EduUpdateApplication } from "./pages/education/EduUpdateApplication";
 import { EduApplicationHistory } from "./pages/education/EduApplicationHistory";
 import { Contents } from "./pages/Contents";
 import { Login } from "./pages/Login";
-
-import { Otto } from "././pages/educontents/otto";
-import { HourGlass } from "./pages/educontents/hourGlass";
-import { Spider } from "./pages/educontents/spider";
-import { Snake } from "./pages/educontents/snake";
-import { SmallPuppy } from "./pages/educontents/smallPuppy";
-import { Human } from "./pages/educontents/human";
-import { Security } from "./pages/educontents/security";
-import { Logistics } from "./pages/educontents/logistics";
-import { SecurityDog } from "./pages/educontents/securityDog";
-import { Yolo } from "./pages/educontents/yolo";
-import { DeepLearning } from "./pages/educontents/deepLearning";
-import { ReinforcementLearning } from "./pages/educontents/reinforcementLearning";
-import { Printer } from "././pages/educontents/printer";
-import { Plc } from "./pages/educontents/plc";
-import { Kicad } from "./pages/educontents/kicad";
-import { Embedded } from "./pages/educontents/embedded";
-import { Ros2 } from "./pages/educontents/ros2";
-import { Manipulator } from "./pages/educontents/manipulator";
+import { DetailContent } from "./pages/DetailContent";
 
 export const App = () => {
   return (
@@ -64,7 +46,7 @@ export const App = () => {
 
             <Route path="/post/updatepost" element={<UpdatePost />} />
             <Route path="/community" element={<Community />} />
-            <Route path="/post" element={<Post />} />
+            <Route path="/post" element={<DetailPost />} />
             <Route path="*" element={<NotFound />} />
             <Route path="/education" element={<EduServiceOptions />} />
             <Route
@@ -76,28 +58,7 @@ export const App = () => {
               element={<EduApplicationHistory />}
             />
             <Route path="/login" element={<Login />} />
-
-            <Route path="/contents/otto" element={<Otto />} />
-            <Route path="/contents/hourGlass" element={<HourGlass />} />
-            <Route path="/contents/spider" element={<Spider />} />
-            <Route path="/contents/snake" element={<Snake />} />
-            <Route path="/contents/smallPuppy" element={<SmallPuppy />} />
-            <Route path="/contents/human" element={<Human />} />
-            <Route path="/contents/security" element={<Security />} />
-            <Route path="/contents/logistics" element={<Logistics />} />
-            <Route path="/contents/securityDog" element={<SecurityDog />} />
-            <Route path="/contents/yolo" element={<Yolo />} />
-            <Route path="/contents/deepLearning" element={<DeepLearning />} />
-            <Route
-              path="/contents/reinforcementLearning"
-              element={<ReinforcementLearning />}
-            />
-            <Route path="/contents/printer" element={<Printer />} />
-            <Route path="/contents/plc" element={<Plc />} />
-            <Route path="/contents/kicad" element={<Kicad />} />
-            <Route path="/contents/embedded" element={<Embedded />} />
-            <Route path="/contents/ros2" element={<Ros2 />} />
-            <Route path="/contents/manipulator" element={<Manipulator />} />
+            <Route path="/contents/:contentType" element={<DetailContent />} />
           </Routes>
           <Footer />
         </RecoilRoot>

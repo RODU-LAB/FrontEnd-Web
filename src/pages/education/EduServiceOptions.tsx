@@ -57,7 +57,7 @@ export function EduServiceOptions() {
         />
         <OptionBox
           text="교육 신청내역 조회"
-          subText="Edit Education Registration"
+          subText="View Education Registration"
           icon={faFileCircleCheck}
           onClick={() => handleNavigate("/education/history")}
         />
