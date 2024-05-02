@@ -24,12 +24,12 @@ export function Header() {
 
   const pageStyles = {
     home: {
-      container: "pt-7 absolute",
+      container: "pt-7",
       logoTextColor: "#FFF",
       logo: logoSymbolWhite,
       headerText:
         "text-white hover:text-[#faab66] text-[18px] font-medium transition-colors duration-500",
-      hamburgerButton: "text-while",
+      hamburgerButton: "text-white",
     },
     other: {
       container: "bg-white",
@@ -48,7 +48,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`py-5 w-full px-[20px] tablet:px-[44px] lg:px-[120px] flex items-center justify-between z-[49] ${container}`}
+        className={`py-5 w-full px-[20px] tablet:px-[44px] lg:px-[120px] flex items-center justify-between z-[49] absolute ${container}`}
       >
         <Link to="/" className="flex items-center gap-[14px] tablet:gap-[16px]">
           <img src={logo} className="h-[26px] tablet:h-[38px]" alt="logo" />
@@ -76,7 +76,7 @@ export function Header() {
         <button onClick={toggleMenu} className="md:hidden">
           <FontAwesomeIcon
             icon={faBars}
-            className={`text-white text-[22px] ${hamburgerButton}`}
+            className={`text-[22px] ${hamburgerButton}`}
           />
         </button>
         {isOpen && (
@@ -96,6 +96,7 @@ export function Header() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
+                  onClick={() => setIsOpen(false)}
                 >
                   <p>구매 링크</p>
                   <FontAwesomeIcon
@@ -106,6 +107,7 @@ export function Header() {
                 <Link
                   to="/contents"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
+                  onClick={() => setIsOpen(false)}
                 >
                   <p>교육 콘텐츠</p>
                   <FontAwesomeIcon
@@ -116,6 +118,7 @@ export function Header() {
                 <Link
                   to="/education"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
+                  onClick={() => setIsOpen(false)}
                 >
                   <p>교육 신청</p>
                   <FontAwesomeIcon
@@ -126,6 +129,7 @@ export function Header() {
                 <Link
                   to="/community"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
+                  onClick={() => setIsOpen(false)}
                 >
                   <p>커뮤니티 게시판</p>
                   <FontAwesomeIcon

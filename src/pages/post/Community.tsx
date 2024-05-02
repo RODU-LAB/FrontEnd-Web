@@ -143,7 +143,7 @@ export function Community() {
         backgroundImg={backgroundImg}
         title="커뮤니티 게시판"
         subTitle="Community bulletin board"
-        content={"로봇지식을 공유하는 커뮤니티 입니다."}
+        content="로봇지식을 공유하는 커뮤니티 입니다."
       />
       <div className="w-full pt-[90px] flex items-center flex-col">
         <div className="max-w-[65.571rem] w-full">
