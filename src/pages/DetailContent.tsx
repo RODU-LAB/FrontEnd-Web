@@ -168,6 +168,7 @@ export function DetailContent() {
 
     useEffect(() => {
       const width = elementRef.current!.offsetWidth;
+      console.log(width);
       setSlideImgWidth(width);
       setSlideMove(0);
       setPrevSlidePos(0);
