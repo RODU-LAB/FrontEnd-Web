@@ -16,6 +16,11 @@
   width: auto !important;
 }
 
+html,
+body {
+  background-color: white;
+}
+
 @font-face {
   font-family: "Pretendard";
   font-weight: 100;
