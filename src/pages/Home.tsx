@@ -10,53 +10,53 @@ import "swiper/css/bundle";
 import { Title } from "../components/home/Title";
 import { ContentsBox } from "../components/home/ContentsBox";
 
-import bannerVideo from "../images/home-banner.mp4";
+import bannerVideo from "../../public/images/home-banner.mp4";
 
-import robot from "../images/icon_robot.png";
-import software from "../images/icon_ros2.png";
-import printer from "../images/icon_embedded.png";
-import ai from "../images/icon_ai.png";
+import robot from "../../public/images/icon_robot.png";
+import software from "../../public/images/icon_ros2.png";
+import printer from "../../public/images/icon_embedded.png";
+import ai from "../../public/images/icon_ai.png";
 
-import school from "../images/icon_people1.png";
-import teach from "../images/icon_people2.png";
-import challenge from "../images/icon_people3.png";
-import videoConference from "../images/icon_people4.png";
+import school from "../../public/images/icon_people1.png";
+import teach from "../../public/images/icon_people2.png";
+import challenge from "../../public/images/icon_people3.png";
+import videoConference from "../../public/images/icon_people4.png";
 
-import leftButton from "../images/left-button.png";
-import rightButton from "../images/right-button.png";
-import otto from "../images/home-slider/otto.png";
-import hourGlass from "../images/home-slider/hourGlass.png";
-import spider from "../images/home-slider/spider.png";
-import snake from "../images/home-slider/snake.png";
-import mood from "../images/home-slider/smallpuppy.png";
-import human from "../images/home-slider/human.png";
-import security from "../images/home-slider/security.png";
+import leftButton from "../../public/images/left-button.png";
+import rightButton from "../../public/images/right-button.png";
+import otto from "../../public/images/home-slider/otto.png";
+import hourGlass from "../../public/images/home-slider/hourGlass.png";
+import spider from "../../public/images/home-slider/spider.png";
+import snake from "../../public/images/home-slider/snake.png";
+import mood from "../../public/images/home-slider/smallpuppy.png";
+import human from "../../public/images/home-slider/human.png";
+import security from "../../public/images/home-slider/security.png";
 
-import instructor1 from "../images/instructor1.jpg";
-import instructor2 from "../images/instructor2.jpg";
-import instructor3 from "../images/instructor3.jpg";
-import instructor4 from "../images/instructor4.jpg";
+import instructor1 from "../../public/images/instructor1.jpg";
+import instructor2 from "../../public/images/instructor2.jpg";
+import instructor3 from "../../public/images/instructor3.jpg";
+import instructor4 from "../../public/images/instructor4.jpg";
 
-import instructor1_box from "../images/instructor1_box.png";
-import instructor2_box from "../images/instructor2_box.png";
-import instructor3_box from "../images/instructor3_box.png";
-import instructor4_box from "../images/instructor4_box.png";
+import instructor1_box from "../../public/images/instructor1_box.png";
+import instructor2_box from "../../public/images/instructor2_box.png";
+import instructor3_box from "../../public/images/instructor3_box.png";
+import instructor4_box from "../../public/images/instructor4_box.png";
 
-import child1 from "../images/main6-1.png";
-import child2 from "../images/main6-2.png";
-import child3 from "../images/main6-3.png";
-import child4 from "../images/main6-4.png";
-import child5 from "../images/main6-5.png";
-import child6 from "../images/main6-6.png";
-import child7 from "../images/main6-7.png";
+import child1 from "../../public/images/main6-1.png";
+import child2 from "../../public/images/main6-2.png";
+import child3 from "../../public/images/main6-3.png";
+import child4 from "../../public/images/main6-4.png";
+import child5 from "../../public/images/main6-5.png";
+import child6 from "../../public/images/main6-6.png";
+import child7 from "../../public/images/main6-7.png";
 
-import roduLogoGray from "../images/roduLogoGray.png";
-import process from "../images/process.png";
-import logoWhite from "../images/logo/logo-white.png";
-import roduMap from "../images/rodumap.png";
+import roduLogoGray from "../../public/images/roduLogoGray.png";
+import process from "../../public/images/process.png";
+import logoWhite from "../../public/images/logo/logo-white.png";
+import roduMap from "../../public/images/rodumap.png";
 
-import company from "../images/company.png";
-import rodueducation from "../images/rodueducation.png";
+import company from "../../public/images/company.png";
+import rodueducation from "../../public/images/rodueducation.png";
 
 export function Home() {
   const navigate = useNavigate();
@@ -278,7 +278,7 @@ export function Home() {
               return (
                 <ContentsBox
                   key={item.name}
-                  img={item.img}
+                  img={item.img.src}
                   name={item.name}
                   firstText={item.firstText}
                   secondText={item.secondText}
@@ -306,7 +306,7 @@ export function Home() {
                   onClick={() => detailContentsRoutes(i)}
                 >
                   <img
-                    src={item.icon}
+                    src={item.icon.src}
                     alt="icon"
                     className="h-[60px] w-14 mb-[20px]"
                   />
@@ -342,10 +342,10 @@ export function Home() {
               />
               <div className="flex gap-[18px] max-md-home:hidden">
                 <button className="move-left-robot">
-                  <img src={leftButton} alt="Left" className="h-[36px]" />
+                  <img src={leftButton.src} alt="Left" className="h-[36px]" />
                 </button>
                 <button className="move-right-robot">
-                  <img src={rightButton} alt="Right" className="h-[36px]" />
+                  <img src={rightButton.src} alt="Right" className="h-[36px]" />
                 </button>
               </div>
             </div>
@@ -368,7 +368,7 @@ export function Home() {
                         <div>
                           <div className="flex justify-center items-center w-full h-[196px]">
                             <img
-                              src={item.img}
+                              src={item.img.src}
                               alt="program"
                               className="h-[130px]"
                             />
@@ -412,7 +412,7 @@ export function Home() {
                 >
                   <div className="absolute inset-0 transition-transform duration-[700ms] tablet:group-hover:translate-y-[-290px] rounded-[10px]">
                     <img
-                      src={item.boxURL}
+                      src={item.boxURL.src}
                       alt="instructor"
                       className="w-full h-full tablet:translate-y-[290px] bg-black bg-opacity-45"
                     />
@@ -435,7 +435,11 @@ export function Home() {
             textCenter
             smallTitle
           />
-          <img src={rodueducation} alt="rodu-education" className="w-[702px]" />
+          <img
+            src={rodueducation.src}
+            alt="rodu-education"
+            className="w-[702px]"
+          />
         </div>
 
         {/* RODU를 신뢰할 수 있는 이유! */}
@@ -465,7 +469,7 @@ export function Home() {
             })}
           </div>
           <div className="flex justify-end w-full max-w-[696px]">
-            <img src={roduLogoGray} alt="logo-gray" className="h-[34px]" />
+            <img src={roduLogoGray.src} alt="logo-gray" className="h-[34px]" />
           </div>
         </div>
 
@@ -476,7 +480,7 @@ export function Home() {
             style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
             onClick={() => setIsOpenMap(false)}
           >
-            <img src={roduMap} alt="rodu-map" className="h-[90vh]" />
+            <img src={roduMap.src} alt="rodu-map" className="h-[90vh]" />
           </button>
         )}
 
@@ -491,7 +495,7 @@ export function Home() {
             subText={`RODU는 다양한 기업과의 협력을 통해 양질의 제품을 합리적인 가격에 제공합니다.\n예상 지원 정부사업 : 국민내일 배움카드, 디지털새싹 취업성공패키지, 늘봄학교`}
             smallTitle
           />
-          <img src={company} alt="Company x RODU" className="Main4-image" />
+          <img src={company.src} alt="Company x RODU" className="Main4-image" />
         </div>
 
         {/* RODU에서 이런것들로 배워요. */}
@@ -510,10 +514,10 @@ export function Home() {
               />
               <div className="flex gap-[18px] max-md-home:hidden">
                 <button className="move-left-teach">
-                  <img src={leftButton} alt="Left" className="h-[36px]" />
+                  <img src={leftButton.src} alt="Left" className="h-[36px]" />
                 </button>
                 <button className="move-right-teach">
-                  <img src={rightButton} alt="Right" className="h-[36px]" />
+                  <img src={rightButton.src} alt="Right" className="h-[36px]" />
                 </button>
               </div>
             </div>
@@ -533,7 +537,7 @@ export function Home() {
                   <SwiperSlide>
                     <div className="rounded-[10px] border border-[#e4e4e4] overflow-hidden shadow-lg p-5">
                       <img
-                        src={item}
+                        src={item.src}
                         alt="program"
                         className="h-[150px] target:h-[240px] w-[242px] tablet:w-[386px]"
                       />
@@ -552,7 +556,11 @@ export function Home() {
           {...fadeInProps9}
         >
           <Title text="RODU 교육 프로세스" textCenter />
-          <img src={process} alt="process" className="w-full max-w-[1048px]" />
+          <img
+            src={process.src}
+            alt="process"
+            className="w-full max-w-[1048px]"
+          />
         </div>
       </div>
 
@@ -562,7 +570,11 @@ export function Home() {
           {...fadeInProps10}
         >
           <div className="w-full lg-home:w-[1090px]">
-            <img src={logoWhite} alt="logo-white" className="h-[60px] mb-10" />
+            <img
+              src={logoWhite.src}
+              alt="logo-white"
+              className="h-[60px] mb-10"
+            />
             <p className="text-[24px] tablet:text-[42px] font-bold text-white">
               산업현장에 필요한 수준 높은
               <br />

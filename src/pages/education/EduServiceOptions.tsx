@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
-import backgroundImg from "../../images/instructor2.jpg";
+import backgroundImg from "../../../public/images/instructor2.jpg";
 
 interface OptionBoxTypes {
   text: string;
@@ -41,7 +41,7 @@ export function EduServiceOptions() {
   return (
     <>
       <Banner
-        backgroundImg={backgroundImg}
+        backgroundImg={backgroundImg.src}
         title="교육 서비스"
         subTitle="Education Service"
         content={

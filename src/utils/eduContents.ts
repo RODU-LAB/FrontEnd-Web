@@ -1,53 +1,53 @@
-import snake from "../images/detailContents/snake.png";
-import spider from "../images/detailContents/spider.png";
-import logistics from "../images/detailContents/logistics.png";
-import smallPuppy from "../images/detailContents/smallPuppy.png";
-import hourglass from "../images/detailContents/hourGlass.png";
-import human from "../images/detailContents/human.png";
-import deepLearning from "../images/detailContents/deepLearning.png";
-import embedded from "../images/detailContents/embedded.png";
-import kicad from "../images/detailContents/kicad.png";
-import manipulator from "../images/detailContents/manipulator.png";
-import otto from "../images/detailContents/otto.png";
-import plc from "../images/detailContents/plc.png";
-import printer from "../images/detailContents/printer.png";
-import reinforcementLearning from "../images/detailContents/reinforcementLearning.png";
-import ros2 from "../images/detailContents/ros2.png";
-import securityDog from "../images/detailContents/securityDog.png";
-import yolo from "../images/detailContents/yolo.png";
-import security from "../images/detailContents/security.png";
+import snake from "../../public/images/detailContents/snake.png";
+import spider from "../../public/images/detailContents/spider.png";
+import logistics from "../../public/images/detailContents/logistics.png";
+import smallPuppy from "../../public/images/detailContents/smallPuppy.png";
+import hourglass from "../../public/images/detailContents/hourGlass.png";
+import human from "../../public/images/detailContents/human.png";
+import deepLearning from "../../public/images/detailContents/deepLearning.png";
+import embedded from "../../public/images/detailContents/embedded.png";
+import kicad from "../../public/images/detailContents/kicad.png";
+import manipulator from "../../public/images/detailContents/manipulator.png";
+import otto from "../../public/images/detailContents/otto.png";
+import plc from "../../public/images/detailContents/plc.png";
+import printer from "../../public/images/detailContents/printer.png";
+import reinforcementLearning from "../../public/images/detailContents/reinforcementLearning.png";
+import ros2 from "../../public/images/detailContents/ros2.png";
+import securityDog from "../../public/images/detailContents/securityDog.png";
+import yolo from "../../public/images/detailContents/yolo.png";
+import security from "../../public/images/detailContents/security.png";
 
-import snakeKitImg1 from "../images/detailContents/slide/edu_detail_snake/snakeImage1.png";
-import snakeKitImg2 from "../images/detailContents/slide/edu_detail_snake/snakeImage2.png";
-import spiderKitImg1 from "../images/detailContents/slide/edu_detail_spider/spiderImage1.png";
-import spiderKitImg2 from "../images/detailContents/slide/edu_detail_spider/spiderImage2.png";
-import ottoKitImg1 from "../images/detailContents/slide/edu_detail_otto/ottoImage1.png";
-import ottoKitImg2 from "../images/detailContents/slide/edu_detail_otto/ottoImage2.png";
-import hourglassKitImg1 from "../images/detailContents/slide/edu_detail_hourGlass/hourGlassImage1.png";
-import hourglassKitImg2 from "../images/detailContents/slide/edu_detail_hourGlass/hourGlassImage2.png";
-import smallPuppyKitImg1 from "../images/detailContents/slide/edu_detail_smallPuppy/smallPuppyImage1.png";
-import smallPuppyKitImg2 from "../images/detailContents/slide/edu_detail_smallPuppy/smallPuppyImage2.png";
-import humanKitImg1 from "../images/detailContents/slide/edu_detail_human/humanImage1.png";
-import humanKitImg2 from "../images/detailContents/slide/edu_detail_human/humanImage2.png";
-import securityKitImg1 from "../images/detailContents/slide/edu_detail_security/securityImage1.png";
-import securityKitImg2 from "../images/detailContents/slide/edu_detail_security/securityImage2.png";
-import logisticsKitImg1 from "../images/detailContents/slide/edu_detail_logistics/logisticsImage1.png";
-import logisticsKitImg2 from "../images/detailContents/slide/edu_detail_logistics/logisticsImage2.png";
-import securityDogKitImg1 from "../images/detailContents/slide/edu_detail_securityDog/securityDogImage1.png";
-import securityDogKitImg2 from "../images/detailContents/slide/edu_detail_securityDog/securityDogImage2.png";
-import manipulatorKitImg1 from "../images/detailContents/slide/edu_detail_manipulator/manipulatorImage1.png";
-import manipulatorKitImg2 from "../images/detailContents/slide/edu_detail_manipulator/manipulatorImage2.png";
+import snakeKitImg1 from "../../public/images/detailContents/slide/edu_detail_snake/snakeImage1.png";
+import snakeKitImg2 from "../../public/images/detailContents/slide/edu_detail_snake/snakeImage2.png";
+import spiderKitImg1 from "../../public/images/detailContents/slide/edu_detail_spider/spiderImage1.png";
+import spiderKitImg2 from "../../public/images/detailContents/slide/edu_detail_spider/spiderImage2.png";
+import ottoKitImg1 from "../../public/images/detailContents/slide/edu_detail_otto/ottoImage1.png";
+import ottoKitImg2 from "../../public/images/detailContents/slide/edu_detail_otto/ottoImage2.png";
+import hourglassKitImg1 from "../../public/images/detailContents/slide/edu_detail_hourGlass/hourGlassImage1.png";
+import hourglassKitImg2 from "../../public/images/detailContents/slide/edu_detail_hourGlass/hourGlassImage2.png";
+import smallPuppyKitImg1 from "../../public/images/detailContents/slide/edu_detail_smallPuppy/smallPuppyImage1.png";
+import smallPuppyKitImg2 from "../../public/images/detailContents/slide/edu_detail_smallPuppy/smallPuppyImage2.png";
+import humanKitImg1 from "../../public/images/detailContents/slide/edu_detail_human/humanImage1.png";
+import humanKitImg2 from "../../public/images/detailContents/slide/edu_detail_human/humanImage2.png";
+import securityKitImg1 from "../../public/images/detailContents/slide/edu_detail_security/securityImage1.png";
+import securityKitImg2 from "../../public/images/detailContents/slide/edu_detail_security/securityImage2.png";
+import logisticsKitImg1 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsImage1.png";
+import logisticsKitImg2 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsImage2.png";
+import securityDogKitImg1 from "../../public/images/detailContents/slide/edu_detail_securityDog/securityDogImage1.png";
+import securityDogKitImg2 from "../../public/images/detailContents/slide/edu_detail_securityDog/securityDogImage2.png";
+import manipulatorKitImg1 from "../../public/images/detailContents/slide/edu_detail_manipulator/manipulatorImage1.png";
+import manipulatorKitImg2 from "../../public/images/detailContents/slide/edu_detail_manipulator/manipulatorImage2.png";
 
-import snakeEduPhoto1 from "../images/detailContents/slide/edu_detail_snake/snakeEduImage1.png";
-import snakeEduPhoto2 from "../images/detailContents/slide/edu_detail_snake/snakeEduImage2.png";
-import snakeEduPhoto3 from "../images/detailContents/slide/edu_detail_snake/snakeEduImage3.png";
-import snakeEduPhoto4 from "../images/detailContents/slide/edu_detail_snake/snakeEduImage4.png";
-import snakeEduPhoto5 from "../images/detailContents/slide/edu_detail_snake/snakeEduImage5.png";
-import logisticsClass1 from "../images/detailContents/slide/edu_detail_logistics/logisticsEduImage1.png";
-import logisticsClass2 from "../images/detailContents/slide/edu_detail_logistics/logisticsEduImage2.png";
-import logisticsClass3 from "../images/detailContents/slide/edu_detail_logistics/logisticsEduImage3.png";
-import logisticsClass4 from "../images/detailContents/slide/edu_detail_logistics/logisticsEduImage4.png";
-import logisticsClass5 from "../images/detailContents/slide/edu_detail_logistics/logisticsEduImage5.png";
+import snakeEduPhoto1 from "../../public/images/detailContents/slide/edu_detail_snake/snakeEduImage1.png";
+import snakeEduPhoto2 from "../../public/images/detailContents/slide/edu_detail_snake/snakeEduImage2.png";
+import snakeEduPhoto3 from "../../public/images/detailContents/slide/edu_detail_snake/snakeEduImage3.png";
+import snakeEduPhoto4 from "../../public/images/detailContents/slide/edu_detail_snake/snakeEduImage4.png";
+import snakeEduPhoto5 from "../../public/images/detailContents/slide/edu_detail_snake/snakeEduImage5.png";
+import logisticsClass1 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsEduImage1.png";
+import logisticsClass2 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsEduImage2.png";
+import logisticsClass3 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsEduImage3.png";
+import logisticsClass4 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsEduImage4.png";
+import logisticsClass5 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsEduImage5.png";
 
 interface EduInfo {
   singleText: string[];
@@ -80,7 +80,7 @@ export const eduContents: EduContents = {
     engName: "Snake Robot",
     bannerContent:
       "유연한 움직임과 블루투스 제어로 로봇 프로그래밍을 배우는 로봇",
-    img: snake,
+    img: snake.src,
     eduInfo: {
       singleText: ["중학생, 고등학생", "로봇 교육"],
       texts: [
@@ -110,13 +110,13 @@ export const eduContents: EduContents = {
       "SG90 모터, 블루투스 모듈과 같은 부품의 원리와 구성을 이해합니다.",
       "설계 및 프로그래밍 이론을 학습하고, 블루투스 통신을 통한 GUI 제어를 연습하여 로봇 공학적 사고력을 강화합니다.",
     ],
-    kitPicture: [snakeKitImg1, snakeKitImg2],
+    kitPicture: [snakeKitImg1.src, snakeKitImg2.src],
     eduPhoto: [
-      snakeEduPhoto1,
-      snakeEduPhoto2,
-      snakeEduPhoto3,
-      snakeEduPhoto4,
-      snakeEduPhoto5,
+      snakeEduPhoto1.src,
+      snakeEduPhoto2.src,
+      snakeEduPhoto3.src,
+      snakeEduPhoto4.src,
+      snakeEduPhoto5.src,
     ],
   },
   spider: {
@@ -124,7 +124,7 @@ export const eduContents: EduContents = {
     engName: "Spider Robot",
     bannerContent:
       "고유한 움직임을 가진 8개 모터를 활용하여 로봇 프로그래밍 실습",
-    img: spider,
+    img: spider.src,
     eduInfo: {
       singleText: ["중학생, 고등학생", "로봇 교육"],
       texts: [
@@ -154,13 +154,13 @@ export const eduContents: EduContents = {
       "SG90 모터, 블루투스 모듈, 감지 센서와 같은 부품의 원리와 구성을 이해합니다.",
       "모터 제어 알고리즘을 학습하고 로봇 움직임을 프로그래밍합니다.",
     ],
-    kitPicture: [spiderKitImg1, spiderKitImg2],
+    kitPicture: [spiderKitImg1.src, spiderKitImg2.src],
   },
   otto: {
     korName: "뚜벅이 로봇",
     engName: "OTTO BOT",
     bannerContent: "통신을 통해 다양한 움직임을 구현 가능한 2족 보행 로봇",
-    img: otto,
+    img: otto.src,
     eduInfo: {
       singleText: ["초등학생, 중학생", "소프트웨어 교육"],
       texts: [
@@ -187,14 +187,14 @@ export const eduContents: EduContents = {
       "모터와 센서를 통한 로봇 움직임의 기본 원리를 이해하고 부품을 조립합니다.",
       "모터 제어와 로봇 움직임 이론을 습득하여 로봇 공학 지식을 쌓습니다.",
     ],
-    kitPicture: [ottoKitImg1, ottoKitImg2],
+    kitPicture: [ottoKitImg1.src, ottoKitImg2.src],
   },
   hourglass: {
     korName: "LED 모래시계",
     engName: "LED Hourglass",
     bannerContent:
       "아두이노와 자이로 센서를 활용하여 기울기를 감지하고 도트 매트릭스로 모래시계를 표현하는 로봇",
-    img: hourglass,
+    img: hourglass.src,
     eduInfo: {
       singleText: ["초등학생, 중학생", "로봇 교육"],
       texts: [
@@ -225,13 +225,13 @@ export const eduContents: EduContents = {
       "아두이노 및 자이로 센서를 활용한 LED 모래시계 부품을 조립하고 구성합니다.",
       "아두이노 프로그래밍과 센서 활용 이론을 학습하고 LED 모래시계를 프로그래밍합니다.",
     ],
-    kitPicture: [hourglassKitImg1, hourglassKitImg2],
+    kitPicture: [hourglassKitImg1.src, hourglassKitImg2.src],
   },
   "small-puppy": {
     korName: "작은 강아지 로봇",
     engName: "Small Puppy Robot",
     bannerContent: "8개 모터로 강아지와 같은 움직임을 구현하는 로봇",
-    img: smallPuppy,
+    img: smallPuppy.src,
     eduInfo: {
       singleText: ["초등학생, 중학생", "로봇 교육"],
       texts: [
@@ -262,13 +262,13 @@ export const eduContents: EduContents = {
       "8개 모터를 활용하여 강아지와 비슷한 움직임을 구현 합니다.",
       "모터 제어와 로봇 움직임의 이론을 학습하고, 로봇의 생동감 있는 움직임을 프로그래밍합니다.",
     ],
-    kitPicture: [smallPuppyKitImg1, smallPuppyKitImg2],
+    kitPicture: [smallPuppyKitImg1.src, smallPuppyKitImg2.src],
   },
   human: {
     korName: "인간형 로봇",
     engName: "Humanoid Robot",
     bannerContent: "모터 14개로 사람의 움직임과 모션을 흉내내는 로봇",
-    img: human,
+    img: human.src,
     eduInfo: {
       singleText: ["중학생, 고등학생", "소프트웨어 교육"],
       texts: [
@@ -297,14 +297,14 @@ export const eduContents: EduContents = {
       "14개 모터를 사용하여 사람의 움직임과 모션을 구현하는 프로그래밍을 수행 합니다.",
       "모터 제어와 로봇 모션 모방 이론을 학습하고 로봇의 섬세한 제어를 연습합니다.",
     ],
-    kitPicture: [humanKitImg1, humanKitImg2],
+    kitPicture: [humanKitImg1.src, humanKitImg2.src],
   },
   security: {
     korName: "경비 로봇",
     engName: "SecurityBot",
     bannerContent:
       "레이더와 카메라로 자율주행하며 침입자를 감지하는 경비 역할 로봇",
-    img: security,
+    img: security.src,
     eduInfo: {
       singleText: ["고등학생", "로봇 교육"],
       texts: [
@@ -336,13 +336,13 @@ export const eduContents: EduContents = {
       "레이더 및 카메라를 활용한 경비 로봇의 자율주행 시스템을 이해하고 부품을 활용합니다.",
       "레이더 및 카메라를 활용한 로봇 자율주행 시스템 이론을 학습하고 경비 로봇을 프로그래밍합니다.",
     ],
-    kitPicture: [securityKitImg1, securityKitImg2],
+    kitPicture: [securityKitImg1.src, securityKitImg2.src],
   },
   logistics: {
     korName: "물류 로봇",
     engName: "Logistics Robot",
     bannerContent: "자동화된 창고를 위한 물류 로봇 제작, 물류 혁신의 시작점",
-    img: logistics,
+    img: logistics.src,
     eduInfo: {
       singleText: [
         "로봇 기업 종사자, 물류 관련 기업, 로봇 전공 대학생",
@@ -375,20 +375,20 @@ export const eduContents: EduContents = {
       "로봇의 동작 원리와 제어 방법을 이해하고, 물류 자동화 시스템에 적용하는 방법을 배운다.",
       "DC 모터, 센서 등의 부품을 활용하여 로봇을 제작하고 프로그래밍하는 능력을 향상시킨다.",
     ],
-    kitPicture: [logisticsKitImg1, logisticsKitImg2],
+    kitPicture: [logisticsKitImg1.src, logisticsKitImg2.src],
     eduPhoto: [
-      logisticsClass1,
-      logisticsClass2,
-      logisticsClass3,
-      logisticsClass4,
-      logisticsClass5,
+      logisticsClass1.src,
+      logisticsClass2.src,
+      logisticsClass3.src,
+      logisticsClass4.src,
+      logisticsClass5.src,
     ],
   },
   "security-dog": {
     korName: "경비 로봇 강아지",
     engName: "Security Robot Dog",
     bannerContent: "보안을 위한 네 발 친구, 경비 강아지 로봇 제작하기",
-    img: securityDog,
+    img: securityDog.src,
     eduInfo: {
       singleText: [
         "로봇 기업 종사자, 물류 관련 기업, 로봇 전공 대학생",
@@ -420,13 +420,13 @@ export const eduContents: EduContents = {
       "비즈니스의 원리와 창업 개념을 이해하며 기업가 정신을 함양한다.",
       "제조 기반 창업을 위한 프로토타입제작 방법을 습득한다.",
     ],
-    kitPicture: [securityDogKitImg1, securityDogKitImg2],
+    kitPicture: [securityDogKitImg1.src, securityDogKitImg2.src],
   },
   yolo: {
     korName: "YOLO",
     engName: "You Only Look Once",
     bannerContent: "실시간 객체 인식 기술 YOLO를 통한 첨단 시각 처리 학습",
-    img: yolo,
+    img: yolo.src,
     eduInfo: {
       singleText: ["로봇 전공 대학생, 인공지능 전공 대학생", "AI 교육"],
       texts: [
@@ -461,7 +461,7 @@ export const eduContents: EduContents = {
     korName: "딥러닝",
     engName: "Deep Learning",
     bannerContent: "딥러닝 기술로 인공지능의 미래를 탐색하는 심화 교육",
-    img: deepLearning,
+    img: deepLearning.src,
     eduInfo: {
       singleText: ["로봇 전공 대학생, 인공지능 전공 대학생", "AI 교육"],
       texts: [
@@ -496,7 +496,7 @@ export const eduContents: EduContents = {
     engName: "Reinforcement Learning",
     bannerContent:
       "지능형 시스템을 위한 강화학습 기술, 스마트한 의사결정 알고리즘 개발",
-    img: reinforcementLearning,
+    img: reinforcementLearning.src,
     eduInfo: {
       singleText: ["로봇 전공 대학생, 인공지능 전공 대학생", "AI 교육"],
       texts: [
@@ -529,7 +529,7 @@ export const eduContents: EduContents = {
     korName: "3D 프린터",
     engName: "3D Printer",
     bannerContent: "혁신적인 제작 기술, 3D 프린팅의 모든 것",
-    img: printer,
+    img: printer.src,
     eduInfo: {
       singleText: ["제조·디자인 관련 기업, 대학생", "장비 교육"],
       texts: [
@@ -566,7 +566,7 @@ export const eduContents: EduContents = {
     engName: "Programmable Logic Controller",
     bannerContent:
       "산업 자동화의 핵심, 프로그래머블 로직 컨트롤러(PLC) 마스터하기",
-    img: plc,
+    img: plc.src,
     eduInfo: {
       singleText: ["자동화 관련 기업, 자동화 전공 대학생", "장비 교육"],
       texts: [
@@ -602,7 +602,7 @@ export const eduContents: EduContents = {
     engName: "KiCad",
     bannerContent:
       "전자 회로 설계의 기초부터 고급 기술까지, KiCad로 시작하는 PCB 디자인",
-    img: kicad,
+    img: kicad.src,
     eduInfo: {
       singleText: [
         "전자공학 학생, 전자 회로 설계 및 PCB 디자인 지식을 가진 전공자",
@@ -640,7 +640,7 @@ export const eduContents: EduContents = {
     engName: "Embedded System",
     bannerContent:
       "임베디드 시스템의 세계, 마이크로컨트롤러부터 복잡한 시스템까지",
-    img: embedded,
+    img: embedded.src,
     eduInfo: {
       singleText: [
         "전자공학, 컴퓨터 공학, 소프트웨어 공학 학생 및 전문가",
@@ -678,7 +678,7 @@ export const eduContents: EduContents = {
     korName: "ROS2",
     engName: "Robot Operating System2",
     bannerContent: "차세대 로봇 개발을 위한 ROS2, 로봇 운영 시스템의 모든 것",
-    img: ros2,
+    img: ros2.src,
     eduInfo: {
       singleText: ["로봇 관련기업, 로봇을 전공하는 대학생", "OS 교육"],
       texts: [
@@ -714,7 +714,7 @@ export const eduContents: EduContents = {
     korName: "매니퓰레이터",
     engName: "Manipulator",
     bannerContent: "6축 매니퓰레이터, 정밀하고 다양한 작업을 수행하는 로봇 팔",
-    img: manipulator,
+    img: manipulator.src,
     eduInfo: {
       singleText: [
         "로봇 관련기업, 로봇을 전공하는 대학생, 자동화 전공 대학생",
@@ -747,6 +747,6 @@ export const eduContents: EduContents = {
       "6축 매니퓰레이터를 제어하고 프로그래밍하는 방법을 학습한다.",
       "로봇 팔 제어 및 로봇 아머처 프로젝트를 통해 로봇 공학 능력을 향상시킨다.",
     ],
-    kitPicture: [manipulatorKitImg1, manipulatorKitImg2],
+    kitPicture: [manipulatorKitImg1.src, manipulatorKitImg2.src],
   },
 };

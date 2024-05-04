@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import arrow from "../../images/right-arrow.png";
+import arrow from "../../../public/images/right-arrow.png";
 
 interface Props {
   img: string;
@@ -56,7 +56,7 @@ export function ContentsBox({
           교육 커리큘럼 보기
         </p>
         <img
-          src={arrow}
+          src={arrow.src}
           alt="arrow"
           className="h-3 tablet:h-2.5 laptop:h-2.8 desktop:h-3"
         />

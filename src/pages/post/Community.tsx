@@ -11,8 +11,8 @@ import { useAdminCheck } from "../../utils/decode";
 import { PwInputModal } from "../../components/modal/PwInputModal";
 
 import { Banner } from "../../components/BackgroundBanner";
-import backgroundImg from "../../images/instructor3.jpg";
-import lock from "../../images/lock.png";
+import backgroundImg from "../../../public/images/instructor3.jpg";
+import lock from "../../../public/images/lock.png";
 // import postsRoute from "../images/postsRoute.png";
 // import { Foot } from "../components/foot";
 
@@ -112,7 +112,7 @@ export function Community() {
           </p>
           <p className="body1 mr-[14px]">{title}</p>
           {isLocked ? (
-            <img src={lock} alt="lock" className="w-[1rem] h-[1rem]" />
+            <img src={lock.src} alt="lock" className="w-[1rem] h-[1rem]" />
           ) : (
             ""
           )}
@@ -140,7 +140,7 @@ export function Community() {
         <title>Board | RODU</title>
       </Helmet> */}
       <Banner
-        backgroundImg={backgroundImg}
+        backgroundImg={backgroundImg.src}
         title="커뮤니티 게시판"
         subTitle="Community bulletin board"
         content="로봇지식을 공유하는 커뮤니티 입니다."

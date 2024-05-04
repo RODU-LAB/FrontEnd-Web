@@ -10,8 +10,8 @@ import "./styles/modalStyles.css";
 import "./styles/makeNewApplication.css";
 import "./styles/retrieveStyles.css";
 
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+// import { Header } from "./components/header";
+// import { Footer } from "./components/footer";
 import { Home } from "./pages/Home";
 import { NotFound } from "./pages/404";
 import { UpdatePost } from "./pages/post/UpdatePost";
@@ -29,7 +29,7 @@ export default function App() {
     <BrowserRouter>
       <HelmetProvider>
         <RecoilRoot>
-          <Header />
+          {/* <Header /> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contents" element={<Contents />} />

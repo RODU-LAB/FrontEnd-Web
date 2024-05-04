@@ -6,9 +6,9 @@ import { eduContents } from "../utils/eduContents";
 
 import "../styles/customList.css";
 
-import whiteBackGroundLogo from "../images/detailContents/white-background-logo.png";
-import { ReactComponent as PrevBtn } from "../images/prev_button.svg";
-import { ReactComponent as NextBtn } from "../images/next_button.svg";
+import whiteBackGroundLogo from "../../public/images/detailContents/white-background-logo.png";
+import { ReactComponent as PrevBtn } from "../../public/images/prev_button.svg";
+import { ReactComponent as NextBtn } from "../../public/images/next_button.svg";
 
 interface TitleType {
   text: string;
@@ -146,7 +146,7 @@ export function DetailContent() {
             {images.length === 1 && (
               <img
                 className="h-full"
-                src={whiteBackGroundLogo}
+                src={whiteBackGroundLogo.src}
                 alt="white-background-logo"
               />
             )}

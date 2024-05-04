@@ -2,25 +2,25 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Banner } from "../components/BackgroundBanner";
-import backgroundImg from "../images/instructor1.jpg";
-import snake from "../images/detailContents/snake.png";
-import spider from "../images/detailContents/spider.png";
-import logistics from "../images/detailContents/logistics.png";
-import smallPuppy from "../images/detailContents/smallPuppy.png";
-import hourGlass from "../images/detailContents/hourGlass.png";
-import human from "../images/detailContents/human.png";
-import deepLearning from "../images/detailContents/deepLearning.png";
-import embedded from "../images/detailContents/embedded.png";
-import kicad from "../images/detailContents/kicad.png";
-import manipulator from "../images/detailContents/manipulator.png";
-import otto from "../images/detailContents/otto.png";
-import plc from "../images/detailContents/plc.png";
-import printer from "../images/detailContents/printer.png";
-import reinforcementLearning from "../images/detailContents/reinforcementLearning.png";
-import ros2 from "../images/detailContents/ros2.png";
-import securityDog from "../images/detailContents/securityDog.png";
-import yolo from "../images/detailContents/yolo.png";
-import security from "../images/detailContents/security.png";
+import backgroundImg from "../../public/images/instructor1.jpg";
+import snake from "../../public/images/detailContents/snake.png";
+import spider from "../../public/images/detailContents/spider.png";
+import logistics from "../../public/images/detailContents/logistics.png";
+import smallPuppy from "../../public/images/detailContents/smallPuppy.png";
+import hourGlass from "../../public/images/detailContents/hourGlass.png";
+import human from "../../public/images/detailContents/human.png";
+import deepLearning from "../../public/images/detailContents/deepLearning.png";
+import embedded from "../../public/images/detailContents/embedded.png";
+import kicad from "../../public/images/detailContents/kicad.png";
+import manipulator from "../../public/images/detailContents/manipulator.png";
+import otto from "../../public/images/detailContents/otto.png";
+import plc from "../../public/images/detailContents/plc.png";
+import printer from "../../public/images/detailContents/printer.png";
+import reinforcementLearning from "../../public/images/detailContents/reinforcementLearning.png";
+import ros2 from "../../public/images/detailContents/ros2.png";
+import securityDog from "../../public/images/detailContents/securityDog.png";
+import yolo from "../../public/images/detailContents/yolo.png";
+import security from "../../public/images/detailContents/security.png";
 
 interface CategoryTypes {
   idx: number;
@@ -255,7 +255,7 @@ export function Contents() {
   return (
     <>
       <Banner
-        backgroundImg={backgroundImg}
+        backgroundImg={backgroundImg.src}
         title="교육 컨텐츠"
         subTitle="Education Contents"
         content={
@@ -280,7 +280,7 @@ export function Contents() {
               ? contents.hasSub[subCategory].map((el) => (
                   <ContentComponent
                     key={el.name}
-                    img={el.img}
+                    img={el.img.src}
                     tag={el.tag}
                     name={el.name}
                     nav={el.nav}
@@ -289,7 +289,7 @@ export function Contents() {
               : contents.noSub[mainCategory - 1].map((el) => (
                   <ContentComponent
                     key={el.name}
-                    img={el.img}
+                    img={el.img.src}
                     tag={el.tag}
                     name={el.name}
                     nav={el.nav}

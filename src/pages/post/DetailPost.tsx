@@ -16,8 +16,8 @@ import { useAdminCheck } from "../../utils/decode";
 import { YesNoModal } from "../../components/modal/YesNoModal";
 import { PwInputModal } from "../../components/modal/PwInputModal";
 import { Banner } from "../../components/BackgroundBanner";
-import backgroundImg from "../../images/instructor3.jpg";
-import Delete from "../../images/delete.png";
+import backgroundImg from "../../../public/images/instructor3.jpg";
+import Delete from "../../../public/images/delete.png";
 
 export function DetailPost() {
   const navigator = useNavigate();
@@ -141,7 +141,7 @@ export function DetailPost() {
         title="커뮤니티 게시판"
         subTitle="Community bulletin board"
         content="로봇지식을 공유하는 커뮤니티 입니다."
-        backgroundImg={backgroundImg}
+        backgroundImg={backgroundImg.src}
       />
       <div className="w-full py-[90px] flex items-center flex-col">
         <div className="max-w-[65.571rem] w-full">
@@ -178,7 +178,7 @@ export function DetailPost() {
                 className="h-[28px] w-[80px] rounded-[15px] bg-rodu-medium flex justify-center items-center"
                 onClick={() => setDeleteModal(true)}
               >
-                <img src={Delete} alt="delete" className="h-[20px]" />
+                <img src={Delete.src} alt="delete" className="h-[20px]" />
               </button>
             )}
           </div>

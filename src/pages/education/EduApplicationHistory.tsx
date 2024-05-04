@@ -12,7 +12,7 @@ import { ApplicationDataTypes } from "../../types/eduApplicationTypes";
 
 import { Banner } from "../../components/BackgroundBanner";
 
-import backgroundImg from "../../images/instructor2.jpg";
+import backgroundImg from "../../../public/images/instructor2.jpg";
 
 interface ApplicationsUIProps {
   application: ApplicationDataTypes;
@@ -188,7 +188,7 @@ export function EduApplicationHistory() {
         ""
       )}
       <Banner
-        backgroundImg={backgroundImg}
+        backgroundImg={backgroundImg.src}
         title="교육 신청내역조회"
         subTitle="Check Education Enrollment History"
         content={"신청하신 교육 내역을 조회를 할 수 있습니다."}

@@ -1,11 +1,12 @@
-import type { Metadata, Viewport } from "next";
-
-import "../index.css";
+import "../styles/index.css";
 import "../styles/postsStyles.css";
 import "../styles/postStyles.css";
 import "../styles/modalStyles.css";
 import "../styles/makeNewApplication.css";
 import "../styles/retrieveStyles.css";
+import type { Metadata, Viewport } from "next";
+import Header from "src/components/header";
+import Footer from "src/components/Footer";
 
 export const metadata: Metadata = {
   title: "RODU(Robot Education) - 로봇 교육의 선두주자",
@@ -42,7 +43,9 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <Header />
         <div id="root">{children}</div>
+        <Footer />
       </body>
     </html>
   );

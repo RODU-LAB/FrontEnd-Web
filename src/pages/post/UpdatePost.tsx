@@ -7,8 +7,8 @@ import { PostDataTypes } from "../../types/postTypes";
 
 import { Banner } from "../../components/BackgroundBanner";
 
-import infoConfirm from "../../images/Frame68.svg";
-import backgroundImg from "../../images/instructor3.jpg";
+import infoConfirm from "../../../public/images/Frame68.svg";
+import backgroundImg from "../../../public/images/instructor3.jpg";
 
 export const UpdatePost = () => {
   const navigate = useNavigate();
@@ -121,7 +121,7 @@ export const UpdatePost = () => {
         <title>Create | RODU</title>
       </Helmet> */}
       <Banner
-        backgroundImg={backgroundImg}
+        backgroundImg={backgroundImg.src}
         title={updateStatus === "update" ? "교육 신청" : "교육 신청내역 수정"}
         subTitle={
           updateStatus === "update"

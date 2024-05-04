@@ -23,9 +23,9 @@ import { YesNoModal } from "../../components/modal/YesNoModal";
 import "../../styles/boxShaking.css";
 import "../../styles/makeNewApplication.css";
 
-import { ReactComponent as Delete } from "../../images/delete.svg";
-import { ReactComponent as Loading } from "../../images/loading.svg";
-import backgroundImg from "../../images/instructor2.jpg";
+import { ReactComponent as Delete } from "../../../public/images/delete.svg";
+import { ReactComponent as Loading } from "../../../public/images/loading.svg";
+import backgroundImg from "../../../public/images/instructor2.jpg";
 
 interface ReduceAccumulator {
   classGroups: ClassGroupTypes[];
@@ -685,7 +685,7 @@ export const EduUpdateApplication = () => {
         <title>Create | RODU</title>
       </Helmet> */}
         <Banner
-          backgroundImg={backgroundImg}
+          backgroundImg={backgroundImg.src}
           title={`교육 신청${updateStatus === "update" ? "내역 수정" : ""}`}
           subTitle={`${
             updateStatus === "update"
