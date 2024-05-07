@@ -8,7 +8,7 @@ interface TitleProps {
   mobileWidth?: string;
 }
 
-export function Title({
+export default function Title({
   text,
   textCenter,
   subText,

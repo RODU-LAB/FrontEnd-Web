@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import logoSymbolWhite from "../../public/images/logo/logo-white.png";
-import logoSymbol from "../../public/images/logo/logo-symbol.png";
-import LogoText from "../../public/images/logo/logo-text.svg";
+import logoSymbolWhite from "public/images/logo/logo-white.png";
+import logoSymbol from "public/images/logo/logo-symbol.png";
+import LogoText from "public/images/logo/logo-text.svg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

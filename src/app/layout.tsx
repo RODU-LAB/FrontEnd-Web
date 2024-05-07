@@ -5,7 +5,7 @@ import "../styles/modalStyles.css";
 import "../styles/makeNewApplication.css";
 import "../styles/retrieveStyles.css";
 import type { Metadata, Viewport } from "next";
-import Header from "src/components/header";
+import Header from "src/components/Header";
 import Footer from "src/components/Footer";
 
 export const metadata: Metadata = {

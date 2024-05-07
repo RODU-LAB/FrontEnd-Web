@@ -49,6 +49,8 @@ import logisticsClass3 from "../../public/images/detailContents/slide/edu_detail
 import logisticsClass4 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsEduImage4.png";
 import logisticsClass5 from "../../public/images/detailContents/slide/edu_detail_logistics/logisticsEduImage5.png";
 
+import { StaticImageData } from "next/image";
+
 interface EduInfo {
   singleText: string[];
   texts: string[];
@@ -58,29 +60,30 @@ interface Curriculum {
   texts: string[][];
 }
 
-interface EduContent {
+export interface EduContent {
   korName: string;
   engName: string;
   bannerContent: string;
-  img: string;
+  img: StaticImageData;
   eduInfo: EduInfo;
   curriculum: Curriculum;
   learningObjectives: string[];
-  kitPicture?: string[];
-  eduPhoto?: string[];
+  kitPicture?: StaticImageData[];
+  eduPhoto?: StaticImageData[];
+  tag: string;
 }
 
-interface EduContents {
+interface eduDetailContents {
   [key: string]: EduContent;
 }
 
-export const eduContents: EduContents = {
+export const eduDetailContents: eduDetailContents = {
   snake: {
     korName: "뱀 로봇",
     engName: "Snake Robot",
     bannerContent:
       "유연한 움직임과 블루투스 제어로 로봇 프로그래밍을 배우는 로봇",
-    img: snake.src,
+    img: snake,
     eduInfo: {
       singleText: ["중학생, 고등학생", "로봇 교육"],
       texts: [
@@ -89,6 +92,7 @@ export const eduContents: EduContents = {
         "로봇 공학 분야에서의 실무 경험을 제공하여, 이론적인 지식뿐만 아니라 현장에서의 능력을 향상시킨다.",
       ],
     },
+    tag: "#모듈형 #다관절 제어 #생체모방",
     curriculum: {
       texts: [
         [
@@ -110,13 +114,13 @@ export const eduContents: EduContents = {
       "SG90 모터, 블루투스 모듈과 같은 부품의 원리와 구성을 이해합니다.",
       "설계 및 프로그래밍 이론을 학습하고, 블루투스 통신을 통한 GUI 제어를 연습하여 로봇 공학적 사고력을 강화합니다.",
     ],
-    kitPicture: [snakeKitImg1.src, snakeKitImg2.src],
+    kitPicture: [snakeKitImg1, snakeKitImg2],
     eduPhoto: [
-      snakeEduPhoto1.src,
-      snakeEduPhoto2.src,
-      snakeEduPhoto3.src,
-      snakeEduPhoto4.src,
-      snakeEduPhoto5.src,
+      snakeEduPhoto1,
+      snakeEduPhoto2,
+      snakeEduPhoto3,
+      snakeEduPhoto4,
+      snakeEduPhoto5,
     ],
   },
   spider: {
@@ -124,7 +128,7 @@ export const eduContents: EduContents = {
     engName: "Spider Robot",
     bannerContent:
       "고유한 움직임을 가진 8개 모터를 활용하여 로봇 프로그래밍 실습",
-    img: spider.src,
+    img: spider,
     eduInfo: {
       singleText: ["중학생, 고등학생", "로봇 교육"],
       texts: [
@@ -133,6 +137,7 @@ export const eduContents: EduContents = {
         "다양한 산업 분야에서 로봇 기술을 응용하는 능력을 키우게 하여 현업에서의 실제 응용 가능성을 강조한다.",
       ],
     },
+    tag: "#자율탐색 #다족보행 #고정밀 제어",
     curriculum: {
       texts: [
         [
@@ -154,13 +159,13 @@ export const eduContents: EduContents = {
       "SG90 모터, 블루투스 모듈, 감지 센서와 같은 부품의 원리와 구성을 이해합니다.",
       "모터 제어 알고리즘을 학습하고 로봇 움직임을 프로그래밍합니다.",
     ],
-    kitPicture: [spiderKitImg1.src, spiderKitImg2.src],
+    kitPicture: [spiderKitImg1, spiderKitImg2],
   },
   otto: {
     korName: "뚜벅이 로봇",
     engName: "OTTO BOT",
     bannerContent: "통신을 통해 다양한 움직임을 구현 가능한 2족 보행 로봇",
-    img: otto.src,
+    img: otto,
     eduInfo: {
       singleText: ["초등학생, 중학생", "소프트웨어 교육"],
       texts: [
@@ -169,6 +174,7 @@ export const eduContents: EduContents = {
         "로봇과의 상호작용을 통해 인공지능 및 로봇 공학에 대한 관심과 흥미를 증가시킨다.",
       ],
     },
+    tag: "#DIY #이족보행 #보행 알고리즘",
     curriculum: {
       texts: [
         [
@@ -187,14 +193,14 @@ export const eduContents: EduContents = {
       "모터와 센서를 통한 로봇 움직임의 기본 원리를 이해하고 부품을 조립합니다.",
       "모터 제어와 로봇 움직임 이론을 습득하여 로봇 공학 지식을 쌓습니다.",
     ],
-    kitPicture: [ottoKitImg1.src, ottoKitImg2.src],
+    kitPicture: [ottoKitImg1, ottoKitImg2],
   },
   hourglass: {
     korName: "LED 모래시계",
     engName: "LED Hourglass",
     bannerContent:
       "아두이노와 자이로 센서를 활용하여 기울기를 감지하고 도트 매트릭스로 모래시계를 표현하는 로봇",
-    img: hourglass.src,
+    img: hourglass,
     eduInfo: {
       singleText: ["초등학생, 중학생", "로봇 교육"],
       texts: [
@@ -203,6 +209,7 @@ export const eduContents: EduContents = {
         "실제로 회로를 조립하고 프로그래밍하는 기술을 배울 수 있다.",
       ],
     },
+    tag: "#도트 매트릭스 #밸런스 센서 #코딩",
     curriculum: {
       texts: [
         [
@@ -225,13 +232,13 @@ export const eduContents: EduContents = {
       "아두이노 및 자이로 센서를 활용한 LED 모래시계 부품을 조립하고 구성합니다.",
       "아두이노 프로그래밍과 센서 활용 이론을 학습하고 LED 모래시계를 프로그래밍합니다.",
     ],
-    kitPicture: [hourglassKitImg1.src, hourglassKitImg2.src],
+    kitPicture: [hourglassKitImg1, hourglassKitImg2],
   },
   "small-puppy": {
     korName: "작은 강아지 로봇",
     engName: "Small Puppy Robot",
     bannerContent: "8개 모터로 강아지와 같은 움직임을 구현하는 로봇",
-    img: smallPuppy.src,
+    img: smallPuppy,
     eduInfo: {
       singleText: ["초등학생, 중학생", "로봇 교육"],
       texts: [
@@ -240,6 +247,7 @@ export const eduContents: EduContents = {
         "로봇의 외형과 동작을 디자인하면서 창의적 사고 능력을 향상시킨다.",
       ],
     },
+    tag: "#사족 보행 #로봇 동역학 #인터렉티브",
     curriculum: {
       texts: [
         [
@@ -262,13 +270,13 @@ export const eduContents: EduContents = {
       "8개 모터를 활용하여 강아지와 비슷한 움직임을 구현 합니다.",
       "모터 제어와 로봇 움직임의 이론을 학습하고, 로봇의 생동감 있는 움직임을 프로그래밍합니다.",
     ],
-    kitPicture: [smallPuppyKitImg1.src, smallPuppyKitImg2.src],
+    kitPicture: [smallPuppyKitImg1, smallPuppyKitImg2],
   },
   human: {
     korName: "인간형 로봇",
     engName: "Humanoid Robot",
     bannerContent: "모터 14개로 사람의 움직임과 모션을 흉내내는 로봇",
-    img: human.src,
+    img: human,
     eduInfo: {
       singleText: ["중학생, 고등학생", "소프트웨어 교육"],
       texts: [
@@ -277,6 +285,7 @@ export const eduContents: EduContents = {
         "로봇의 디자인과 외형을 결정하며, 창의성을 키우고 자유로운 아이디어를 구현하는 경험을 제공한다.",
       ],
     },
+    tag: "#인체모방 #모션제어 #연구개발",
     curriculum: {
       texts: [
         [
@@ -297,14 +306,14 @@ export const eduContents: EduContents = {
       "14개 모터를 사용하여 사람의 움직임과 모션을 구현하는 프로그래밍을 수행 합니다.",
       "모터 제어와 로봇 모션 모방 이론을 학습하고 로봇의 섬세한 제어를 연습합니다.",
     ],
-    kitPicture: [humanKitImg1.src, humanKitImg2.src],
+    kitPicture: [humanKitImg1, humanKitImg2],
   },
   security: {
     korName: "경비 로봇",
     engName: "SecurityBot",
     bannerContent:
       "레이더와 카메라로 자율주행하며 침입자를 감지하는 경비 역할 로봇",
-    img: security.src,
+    img: security,
     eduInfo: {
       singleText: ["고등학생", "로봇 교육"],
       texts: [
@@ -313,6 +322,7 @@ export const eduContents: EduContents = {
         "실제 환경에서 로봇이 어떻게 행동해야 하는지를 결정하고 구현하는 경험을 쌓는다.",
       ],
     },
+    tag: "#레이더 #자율주행 #보안 솔루션",
     curriculum: {
       texts: [
         [
@@ -336,13 +346,13 @@ export const eduContents: EduContents = {
       "레이더 및 카메라를 활용한 경비 로봇의 자율주행 시스템을 이해하고 부품을 활용합니다.",
       "레이더 및 카메라를 활용한 로봇 자율주행 시스템 이론을 학습하고 경비 로봇을 프로그래밍합니다.",
     ],
-    kitPicture: [securityKitImg1.src, securityKitImg2.src],
+    kitPicture: [securityKitImg1, securityKitImg2],
   },
   logistics: {
     korName: "물류 로봇",
     engName: "Logistics Robot",
     bannerContent: "자동화된 창고를 위한 물류 로봇 제작, 물류 혁신의 시작점",
-    img: logistics.src,
+    img: logistics,
     eduInfo: {
       singleText: [
         "로봇 기업 종사자, 물류 관련 기업, 로봇 전공 대학생",
@@ -353,6 +363,7 @@ export const eduContents: EduContents = {
         "물류 및 자동화 분야의 전문 지식을 통해 경쟁력 있는 진로 및 취업 기회를 확보한다.",
       ],
     },
+    tag: "#물류자동화 #로봇배송 #스마트 물류",
     curriculum: {
       texts: [
         [
@@ -375,20 +386,20 @@ export const eduContents: EduContents = {
       "로봇의 동작 원리와 제어 방법을 이해하고, 물류 자동화 시스템에 적용하는 방법을 배운다.",
       "DC 모터, 센서 등의 부품을 활용하여 로봇을 제작하고 프로그래밍하는 능력을 향상시킨다.",
     ],
-    kitPicture: [logisticsKitImg1.src, logisticsKitImg2.src],
+    kitPicture: [logisticsKitImg1, logisticsKitImg2],
     eduPhoto: [
-      logisticsClass1.src,
-      logisticsClass2.src,
-      logisticsClass3.src,
-      logisticsClass4.src,
-      logisticsClass5.src,
+      logisticsClass1,
+      logisticsClass2,
+      logisticsClass3,
+      logisticsClass4,
+      logisticsClass5,
     ],
   },
   "security-dog": {
     korName: "경비 로봇 강아지",
     engName: "Security Robot Dog",
     bannerContent: "보안을 위한 네 발 친구, 경비 강아지 로봇 제작하기",
-    img: securityDog.src,
+    img: securityDog,
     eduInfo: {
       singleText: [
         "로봇 기업 종사자, 물류 관련 기업, 로봇 전공 대학생",
@@ -399,6 +410,7 @@ export const eduContents: EduContents = {
         "보안 및 감시 분야에서의 실무 경험을 쌓아 실전에서의 능력을 키울 수 있다.",
       ],
     },
+    tag: "#스마트경비 #보안로봇 #AI보안",
     curriculum: {
       texts: [
         [
@@ -420,13 +432,13 @@ export const eduContents: EduContents = {
       "비즈니스의 원리와 창업 개념을 이해하며 기업가 정신을 함양한다.",
       "제조 기반 창업을 위한 프로토타입제작 방법을 습득한다.",
     ],
-    kitPicture: [securityDogKitImg1.src, securityDogKitImg2.src],
+    kitPicture: [securityDogKitImg1, securityDogKitImg2],
   },
   yolo: {
     korName: "YOLO",
     engName: "You Only Look Once",
     bannerContent: "실시간 객체 인식 기술 YOLO를 통한 첨단 시각 처리 학습",
-    img: yolo.src,
+    img: yolo,
     eduInfo: {
       singleText: ["로봇 전공 대학생, 인공지능 전공 대학생", "AI 교육"],
       texts: [
@@ -434,6 +446,7 @@ export const eduContents: EduContents = {
         "컴퓨터 비전 및 이미지 처리 분야에서의 실무 경험을 쌓아 실전에서의 능력을 키울 수 있다.",
       ],
     },
+    tag: "#객체인식 #실시간객체인식 #YOLO알고리즘",
     curriculum: {
       texts: [
         [
@@ -461,7 +474,7 @@ export const eduContents: EduContents = {
     korName: "딥러닝",
     engName: "Deep Learning",
     bannerContent: "딥러닝 기술로 인공지능의 미래를 탐색하는 심화 교육",
-    img: deepLearning.src,
+    img: deepLearning,
     eduInfo: {
       singleText: ["로봇 전공 대학생, 인공지능 전공 대학생", "AI 교육"],
       texts: [
@@ -469,6 +482,7 @@ export const eduContents: EduContents = {
         "다양한 응용 분야에서 딥러닝을 활용하여 문제를 해결할 수 있는 능력을 키울 수 있다.",
       ],
     },
+    tag: "#인공지능학습 #데이터과학 #AI딥러닝",
     curriculum: {
       texts: [
         [
@@ -496,7 +510,7 @@ export const eduContents: EduContents = {
     engName: "Reinforcement Learning",
     bannerContent:
       "지능형 시스템을 위한 강화학습 기술, 스마트한 의사결정 알고리즘 개발",
-    img: reinforcementLearning.src,
+    img: reinforcementLearning,
     eduInfo: {
       singleText: ["로봇 전공 대학생, 인공지능 전공 대학생", "AI 교육"],
       texts: [
@@ -504,6 +518,7 @@ export const eduContents: EduContents = {
         "실전 프로젝트를 통해 실무 경험을 쌓고 인공지능 분야에서의 경쟁력을 향상시킬 수 있다.",
       ],
     },
+    tag: "#지능형알고리즘 #머신러닝강화 #AI",
     curriculum: {
       texts: [
         [
@@ -529,7 +544,7 @@ export const eduContents: EduContents = {
     korName: "3D 프린터",
     engName: "3D Printer",
     bannerContent: "혁신적인 제작 기술, 3D 프린팅의 모든 것",
-    img: printer.src,
+    img: printer,
     eduInfo: {
       singleText: ["제조·디자인 관련 기업, 대학생", "장비 교육"],
       texts: [
@@ -537,6 +552,7 @@ export const eduContents: EduContents = {
         "3D 프린팅 장비의 운용과 유지보수에 대한 실무 능력을 키울 수 있으며, 제조 및 디자인 분야에서의 경쟁력을 향상 시킬 수 있다.",
       ],
     },
+    tag: "#창작물 #3D모델링 #조형기술",
     curriculum: {
       texts: [
         [
@@ -566,7 +582,7 @@ export const eduContents: EduContents = {
     engName: "Programmable Logic Controller",
     bannerContent:
       "산업 자동화의 핵심, 프로그래머블 로직 컨트롤러(PLC) 마스터하기",
-    img: plc.src,
+    img: plc,
     eduInfo: {
       singleText: ["자동화 관련 기업, 자동화 전공 대학생", "장비 교육"],
       texts: [
@@ -574,6 +590,7 @@ export const eduContents: EduContents = {
         "실제 산업 현장에서의 경험을 쌓고 자동화 및 제어 분야에서의 경쟁력을 향상시킬 수 있다.",
       ],
     },
+    tag: "#제어시스템 #자동화 #컨트롤러",
     curriculum: {
       texts: [
         [
@@ -602,7 +619,7 @@ export const eduContents: EduContents = {
     engName: "KiCad",
     bannerContent:
       "전자 회로 설계의 기초부터 고급 기술까지, KiCad로 시작하는 PCB 디자인",
-    img: kicad.src,
+    img: kicad,
     eduInfo: {
       singleText: [
         "전자공학 학생, 전자 회로 설계 및 PCB 디자인 지식을 가진 전공자",
@@ -613,6 +630,7 @@ export const eduContents: EduContents = {
         "실제 PCB 디자인 프로젝트를 수행하여 실무 경험을 쌓을 수 있으며, 전자공학 및 PCB 디자인 분야에서의 경잭력을 향상시킬 수 있다.",
       ],
     },
+    tag: "#PCB디자인 #전자회로 #회로설계",
     curriculum: {
       texts: [
         [
@@ -640,7 +658,7 @@ export const eduContents: EduContents = {
     engName: "Embedded System",
     bannerContent:
       "임베디드 시스템의 세계, 마이크로컨트롤러부터 복잡한 시스템까지",
-    img: embedded.src,
+    img: embedded,
     eduInfo: {
       singleText: [
         "전자공학, 컴퓨터 공학, 소프트웨어 공학 학생 및 전문가",
@@ -651,6 +669,7 @@ export const eduContents: EduContents = {
         "임베디드 시스템 분야에서의 전문성을 향상시켜 다양한 응용 분야에서 활용할 수 있는 능력을 키우게 된다.",
       ],
     },
+    tag: "#마이크로컨트롤러 #스마트시스템",
     curriculum: {
       texts: [
         [
@@ -678,7 +697,7 @@ export const eduContents: EduContents = {
     korName: "ROS2",
     engName: "Robot Operating System2",
     bannerContent: "차세대 로봇 개발을 위한 ROS2, 로봇 운영 시스템의 모든 것",
-    img: ros2.src,
+    img: ros2,
     eduInfo: {
       singleText: ["로봇 관련기업, 로봇을 전공하는 대학생", "OS 교육"],
       texts: [
@@ -687,6 +706,7 @@ export const eduContents: EduContents = {
         "ROS2를 활용한 다양한 응용 분야에서의 활동과 연구 기회를 확대할 수 있다.",
       ],
     },
+    tag: "#로봇개발 #프로그래밍 #로봇운영",
     curriculum: {
       texts: [
         [
@@ -714,7 +734,7 @@ export const eduContents: EduContents = {
     korName: "매니퓰레이터",
     engName: "Manipulator",
     bannerContent: "6축 매니퓰레이터, 정밀하고 다양한 작업을 수행하는 로봇 팔",
-    img: manipulator.src,
+    img: manipulator,
     eduInfo: {
       singleText: [
         "로봇 관련기업, 로봇을 전공하는 대학생, 자동화 전공 대학생",
@@ -725,6 +745,7 @@ export const eduContents: EduContents = {
         "실전 프로젝트를 통해 실무 경험을 쌓고, 다양한 응용 분야에서의 활동과 연구 기회를 확대할 수 있다.",
       ],
     },
+    tag: "#6축 #정밀조작 #산업용로봇",
     curriculum: {
       texts: [
         [
@@ -747,6 +768,6 @@ export const eduContents: EduContents = {
       "6축 매니퓰레이터를 제어하고 프로그래밍하는 방법을 학습한다.",
       "로봇 팔 제어 및 로봇 아머처 프로젝트를 통해 로봇 공학 능력을 향상시킨다.",
     ],
-    kitPicture: [manipulatorKitImg1.src, manipulatorKitImg2.src],
+    kitPicture: [manipulatorKitImg1, manipulatorKitImg2],
   },
 };

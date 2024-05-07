@@ -16,13 +16,13 @@
   font-family: "Pretendard";
 }
 
-.swiper-slide {
-  width: auto !important;
+.swiper-wrapper {
+  display: flex;
 }
 
 html,
 body {
-  background-color: black;
+  background-color: white;
   height: 100%;
 }
 

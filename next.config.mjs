@@ -18,6 +18,19 @@ const nextConfig = {
       use: ["@svgr/webpack"], // svgr로 파일 처리
     });
 
+    // video 관련 설정 추가
+    config.module.rules.push({
+      test: /\.(mov|mp4)$/, //
+      use: [
+        {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+          },
+        },
+      ],
+    });
+
     return config;
   },
 };
