@@ -211,11 +211,12 @@ export default function Home() {
           >
             <Title text="RODU 교육 수행 유형" textCenter />
             <div className="grid grid-cols-1 md-home:grid-cols-2 gap-[18px]">
-              {trainingPerformanceType.map((item, i) => {
+              {trainingPerformanceType.map((item) => {
                 return (
                   <Link
                     className="py-[20px] w-full tablet:w-[427px] border border-[#eaeaea] rounded-md px-[35px] transition-all duration-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.15)]"
                     href="/contents"
+                    key={item.title}
                   >
                     <img
                       src={item.icon.src}
@@ -280,7 +281,7 @@ export default function Home() {
                   const content = eduDetailContents[item];
                   return (
                     <SwiperSlide>
-                      <Link href={"/contents/" + item}>
+                      <Link href={"/contents/" + item} key={item}>
                         <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
                           <div>
                             <div className="flex justify-center items-center w-full h-[196px]">
@@ -323,11 +324,12 @@ export default function Home() {
               textCenter
             />
             <div className="grid grid-cols-1 md-home:grid-cols-2 gap-[18px] w-full justify-items-center">
-              {instructorsData.map((item) => {
+              {instructorsData.map((item, i) => {
                 return (
                   <div
                     className="group w-full tablet:w-[420px] max-tablet:max-w-[360px] h-[200px] tablet:h-[230px] rounded-[10px] overflow-hidden bg-cover relative"
                     style={{ backgroundImage: `url(${item.imgURL})` }}
+                    key={i}
                   >
                     <div className="absolute inset-0 transition-transform duration-[700ms] tablet:group-hover:translate-y-[-290px] rounded-[10px]">
                       <img
@@ -378,6 +380,7 @@ export default function Home() {
                       i === 4 ? "cursor-pointer" : "border-b"
                     } border-[#d9d9d9] flex justify-between items-center h-[76px]`}
                     onClick={() => i === 4 && setIsOpenMap(true)}
+                    key={i}
                   >
                     <p className="text-[21px] font-medium">{item.left}</p>
                     <p className="text-[38px] font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#ffd857] to-rodu-medium">
@@ -463,9 +466,9 @@ export default function Home() {
                 }}
                 className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
               >
-                {teachingItemData.map((item) => {
+                {teachingItemData.map((item, i) => {
                   return (
-                    <SwiperSlide>
+                    <SwiperSlide key={i}>
                       <div className="rounded-[10px] border border-[#e4e4e4] overflow-hidden shadow-lg p-5 w-[262px] tablet:w-[406px]">
                         <img
                           src={item.src}
