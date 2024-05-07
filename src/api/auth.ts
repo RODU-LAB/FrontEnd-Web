@@ -1,9 +1,9 @@
-import { URL } from "../utils/config";
 import axios from "axios";
+import { API_URL } from "src/utils/config";
 
 export async function LoginAPI(account: string, pw: string) {
   try {
-    const res = await axios.post(`${URL}/login`, {
+    const res = await axios.post(`${API_URL}/login`, {
       account: account,
       password: pw,
     });
