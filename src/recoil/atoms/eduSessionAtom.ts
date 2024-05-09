@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const sessionIdAtom = atom({
-  key: "sessionIdAtom",
+export const eduSessionAtom = atom({
+  key: "eduSessionAtom",
   default: { id: "", time: new Date(), phoneNumber: "" },
 });

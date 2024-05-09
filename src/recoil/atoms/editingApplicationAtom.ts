@@ -1,8 +1,8 @@
 import { atom } from "recoil";
-import { ApplyFormType } from "../../types/applyFormTypes";
+import { EditingApplicationTypes } from "src/types/editingApplicationTypes";
 
-export const applyFormAtom = atom<ApplyFormType>({
-  key: "applyFormAtom",
+export const editingApplicationAtom = atom<EditingApplicationTypes>({
+  key: "editingApplicationAtom",
   default: {
     name: "",
     institutionName: "",

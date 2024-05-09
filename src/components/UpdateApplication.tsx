@@ -1,8 +1,14 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
 import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
-import { sessionIdAtom } from "../../recoil/atoms/eduSessionAtom";
-import { editingApplicationAtom } from "../../recoil/atoms/editingApplicationAtom";
+import { eduSessionAtom } from "src/recoil/atoms/eduSessionAtom";
+import { editingApplicationAtom } from "src/recoil/atoms/editingApplicationAtom";
+import {
+  ClassGroupsDataTypes,
+  ApplicationDataTypes,
+} from "src/types/eduApplicationTypes";
 import emailjs from "emailjs-com";
 // import { Helmet } from "react-helmet-async";
 
@@ -12,40 +18,39 @@ import {
   applyAPI,
   addClassesDataAPI,
   deleteApplicationAPI,
-} from "../../services/educationAPI";
+} from "src/api/educationAPI";
 
-import {
-  ClassGroupTypes,
-  ApplyFormType,
-} from "../../types/editingApplicationTypes";
+import Banner from "src/components/BackgroundBanner";
+import Calendar from "src/components/Calendar";
+import YesNoModal from "src/components/modal/YesNoModal";
 
-import { Banner } from "../../components/BackgroundBanner";
-import { Calendar } from "../../components/Calendar";
-import { YesNoModal } from "../../components/modal/YesNoModal";
-
-import "../../styles/boxShaking.css";
-import "../../styles/makeNewApplication.css";
-
-import { ReactComponent as Delete } from "../../../public/images/delete.svg";
-import { ReactComponent as Loading } from "../../../public/images/loading.svg";
-import backgroundImg from "../../../public/images/instructor2.jpg";
+import Delete from "/public/images/delete.svg";
+import Loading from "public/images/loading.svg";
+import backgroundImg from "public/images/instructor2.jpg";
 
 interface ReduceAccumulator {
-  classGroups: ClassGroupTypes[];
+  classGroups: ClassGroupsDataTypes[];
   educationDates: string[][];
 }
 
-export const EduUpdateApplication = () => {
+interface UpdateApplicationProps {
+  data?: ApplicationDataTypes;
+  session?: string;
+}
+
+export default function UpdateApplication({
+  data,
+  session,
+}: UpdateApplicationProps) {
+  const router = useRouter();
+
   const windowHeight = window.innerHeight;
   const basePosition = windowHeight + 250;
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const locationData = location.state;
-  const updateStatus = locationData ? "update" : "create";
+  const status = data ? "update" : "create";
 
-  const setSessionId = useSetRecoilState(sessionIdAtom);
-  const resetSessionId = useResetRecoilState(sessionIdAtom);
+  const setEduSession = useSetRecoilState(eduSessionAtom);
+  const resetEduSession = useResetRecoilState(eduSessionAtom);
   const [reloadForm, setReloadForm] = useRecoilState(editingApplicationAtom);
 
   // 렌더링 이후인지 확인
@@ -63,67 +68,52 @@ export const EduUpdateApplication = () => {
 
   const [formNum, setFormNum] = useState(0);
   const [inputCheck, setInputCheck] = useState("");
-  const [isAuth, setIsAuth] = useState(updateStatus === "update");
+  const [isAuth, setIsAuth] = useState(status === "update");
   const [isActiveTimer, setIsActiveTimer] = useState(false);
   // 인증번호 남은 시간
   const [timeLeft, setTimeLeft] = useState(300);
   const [isClickBeforeSendAuthCode, setIsClickBeforeSendAuthCode] =
     useState(false);
   // eslint-disable-next-line
-  const [authSessionId, setAuthSessionId] = useState("");
+  const [authSessionId, setAuthSessionId] = useState(session || "");
   const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
 
   // Form 0
-  const [name, setName] = useState<string>(
-    updateStatus === "update" ? locationData.name : ""
+  const [name, setName] = useState(data?.name || "");
+  const [institutionName, setInstitutionName] = useState(
+    data?.institutionName || ""
   );
-  const [institutionName, setInstitutionName] = useState<string>(
-    updateStatus === "update" ? locationData.institutionName : ""
-  );
-  const [position, setPosition] = useState<string>(
-    updateStatus === "update" ? locationData.position : ""
-  );
-  const [phoneNumber, setPhoneNumber] = useState<string>(
-    updateStatus === "update" ? locationData.phoneNumber : ""
-  );
-  const [authNum, setAuthNum] = useState(
-    updateStatus === "update" ? locationData.authNum : ""
-  ); // 인증번호
-  const [email, setEmail] = useState<string>(
-    updateStatus === "update" ? locationData.email : ""
-  );
+  const [position, setPosition] = useState(data?.position || "");
+  const [phoneNumber, setPhoneNumber] = useState(data?.phoneNumber || "");
+  const [email, setEmail] = useState(data?.email || "");
+  const [authNum, setAuthNum] = useState(""); // 인증번호
 
   // Form 1 - 교육생 정보
-  const [numberOfStudents, setNumberOfStudents] = useState<string>(
-    updateStatus === "update" ? locationData.numberOfStudents : ""
+  const [numberOfStudents, setNumberOfStudents] = useState(
+    data?.numberOfStudents || ""
   );
   const [studentRank, setStudentRank] = useState<string>(
-    updateStatus === "update" ? locationData.studentRank : ""
+    data?.studentRank || ""
   );
-  const [budget, setBudget] = useState<string>(
-    updateStatus === "update" ? locationData.budget : ""
-  );
+  const [budget, setBudget] = useState(data?.budget || "");
 
   // Form 2 - 학급별 교육 일정
-  const [classGroups, setClassGroups] = useState<ClassGroupTypes[]>(
-    updateStatus === "update"
-      ? locationData.classGroups
-      : [
-          {
-            className: "",
-            educationConcept: "",
-            numberOfStudents: "",
-            remark: "",
-            unfixed: false,
-          },
-        ]
+  const [classGroups, setClassGroups] = useState<ClassGroupsDataTypes[]>(
+    data?.classGroups || [
+      {
+        className: "",
+        educationConcept: "",
+        numberOfStudents: "",
+        remark: "",
+        unfixed: false,
+      },
+    ]
   );
+
   const [educationDates, setEducationDates] = useState<string[][]>(
-    updateStatus === "update"
-      ? locationData.classGroups.map(
-          (item: ClassGroupTypes) => item.educationDates
-        )
-      : []
+    data?.classGroups.map(
+      (item: ClassGroupsDataTypes) => item.educationDates!
+    ) || []
   );
 
   // Form 3 - 교육 특이사항
@@ -219,7 +209,7 @@ export const EduUpdateApplication = () => {
         setIsAuth(true);
         setIsActiveTimer(false);
         setAuthSessionId(newSessionId);
-        setSessionId({
+        setEduSession({
           id: newSessionId,
           time: new Date(),
           phoneNumber: phoneNumber,
@@ -233,10 +223,10 @@ export const EduUpdateApplication = () => {
   /** input 값 핸들링 (Form 2 - 학급별 교육 일정) */
   const handleClassGroupInput = (
     idx: number,
-    key: keyof ClassGroupTypes,
-    value: ClassGroupTypes[keyof ClassGroupTypes]
+    key: keyof ClassGroupsDataTypes,
+    value: ClassGroupsDataTypes[keyof ClassGroupsDataTypes]
   ) => {
-    const handleState = (prev: ClassGroupTypes[]) => {
+    const handleState = (prev: ClassGroupsDataTypes[]) => {
       const updatedData: any = [...prev];
 
       // 특정 인덱스의 객체에 접근하여 값을 업데이트
@@ -298,7 +288,7 @@ export const EduUpdateApplication = () => {
 
   /** 학급 삭제 (Form 2 - 학급별 교육 일정) */
   const handleRemoveClass = (idx: number) => {
-    const handleRemove = (prev: ClassGroupTypes[]) => {
+    const handleRemove = (prev: ClassGroupsDataTypes[]) => {
       const prevDate = [...prev];
       prevDate.splice(idx, 1);
       return prevDate;
@@ -384,7 +374,9 @@ export const EduUpdateApplication = () => {
         item: "numberOfStudents",
       },
       {
-        check: !onlyNumbers.test(numberOfStudents),
+        check: !onlyNumbers.test(
+          numberOfStudents ? numberOfStudents.toString() : ""
+        ),
         item: "numberOfStudentsRegex",
       },
       {
@@ -396,7 +388,7 @@ export const EduUpdateApplication = () => {
         item: "budget",
       },
       {
-        check: !onlyNumbers.test(budget),
+        check: !onlyNumbers.test(budget ? budget.toString() : ""),
         item: "budgetRegex",
       },
     ];
@@ -494,7 +486,7 @@ export const EduUpdateApplication = () => {
         if (applicationId === "SESSION_ID_NOT_VALID") {
           setFormNum(0);
           setIsAuth(false);
-          resetSessionId();
+          resetEduSession();
           setSubmitModal(false);
           setAuthNum("");
           return;
@@ -544,7 +536,7 @@ export const EduUpdateApplication = () => {
           );
         }
         alert("교육 신청이 완료되었습니다.");
-        navigate("/education");
+        router.push("/education");
       }
     } finally {
       setIsLoading(false);
@@ -552,7 +544,10 @@ export const EduUpdateApplication = () => {
   };
 
   /** classGroups을 제외한 Recoil 전역 Form 수정 */
-  const handleNormalReloadForm = (key: keyof ApplyFormType, data: string) => {
+  const handleNormalReloadForm = (
+    key: keyof ApplicationDataTypes,
+    data: string
+  ) => {
     if (isAuth) {
       setReloadForm((prev) => {
         const prevData = { ...prev };
@@ -689,9 +684,9 @@ export const EduUpdateApplication = () => {
       </Helmet> */}
         <Banner
           backgroundImg={backgroundImg.src}
-          title={`교육 신청${updateStatus === "update" ? "내역 수정" : ""}`}
+          title={`교육 신청${status === "update" ? "내역 수정" : ""}`}
           subTitle={`${
-            updateStatus === "update"
+            status === "update"
               ? "Edit Education Registration"
               : "Education Registration"
           }`}
@@ -794,16 +789,22 @@ export const EduUpdateApplication = () => {
               <div className="Create-post-kakao-modal-container">
                 <div className="Create-post-submit-modal">
                   <p className="Create-post-kakao-modal-top">
-                    교육을 신청하시겠습니까 ?
+                    {status === "update"
+                      ? "신청내역 수정"
+                      : "교육을 신청하시겠습니까?"}
                   </p>
                   <div className="Create-post-submit-modal-bottom">
                     <p
                       style={{ letterSpacing: "0.9px", textAlign: "center" }}
-                      className="Create-post-kakao-modal-bottom-text"
+                      className="Create-post-kakao-modal-bottom-text whitespace-pre-line"
                     >
-                      교육을 신청하시겠습니까?
+                      {status === "update"
+                        ? "신청내역을 수정하시겠습니까?\n\n"
+                        : "교육을 신청하시겠습니까?\n신청하신 정보는 수정 가능합니다."}
+
+                      {/* 교육을 신청하시겠습니까?
                       <br />
-                      신청하신 정보는 수정 가능합니다.
+                      신청하신 정보는 수정 가능합니다. */}
                     </p>
                     <div className="Create-post-submit-modal-button-container">
                       <button
@@ -824,7 +825,7 @@ export const EduUpdateApplication = () => {
                         className="Create-post-kakao-modal-button"
                         onClick={handleSubmit}
                       >
-                        교육 신청
+                        {status === "update" ? "수정 하기" : "교육 신청"}
                       </button>
                     </div>
                   </div>
@@ -1416,7 +1417,7 @@ export const EduUpdateApplication = () => {
                       setFormNum(formNum - 1);
                     }}
                   >
-                    수정 하기
+                    이전
                   </button>
                   <button
                     type="button"
@@ -1425,7 +1426,7 @@ export const EduUpdateApplication = () => {
                     }}
                     className="Create-post-submit-button-on rounded"
                   >
-                    교육 신청
+                    {status === "update" ? "수정 하기" : "교육 신청"}
                   </button>
                 </>
               ) : (
@@ -1453,4 +1454,4 @@ export const EduUpdateApplication = () => {
       />
     </>
   );
-};
+}

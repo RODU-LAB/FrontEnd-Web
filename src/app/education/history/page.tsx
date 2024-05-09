@@ -1,29 +1,34 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { sessionIdAtom } from "../../recoil/atoms/eduSessionAtom";
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from "recoil";
+import { eduSessionAtom } from "src/recoil/atoms/eduSessionAtom";
+import { detailApplicationAtom } from "src/recoil/atoms/detailApplicationAtom";
 
 import {
   sendAuthCodeAPI,
   verifyAuthCodeAPI,
   findApplicationAPI,
-} from "../../services/educationAPI";
-import { ApplicationDataTypes } from "../../types/eduApplicationTypes";
+} from "src/api/educationAPI";
+import isOverEduSession from "src/utils/isOverEduSession";
+import { ApplicationDataTypes } from "src/types/eduApplicationTypes";
 
-import { Banner } from "../../components/BackgroundBanner";
+import Banner from "src/components/BackgroundBanner";
 
-import backgroundImg from "../../../public/images/instructor2.jpg";
+import backgroundImg from "public/images/instructor2.jpg";
 
 interface ApplicationsUIProps {
   data: ApplicationDataTypes;
   idx: number;
 }
 
-export function EduApplicationHistory() {
-  const navigate = useNavigate();
+export default function EduApplicationHistory() {
+  const router = useRouter();
+  const setDetailApplication = useSetRecoilState(detailApplicationAtom);
 
-  const [sessionId, setSessionId] = useRecoilState(sessionIdAtom);
-  const resetSessionId = useResetRecoilState(sessionIdAtom);
+  const [eduSession, setEduSession] = useRecoilState(eduSessionAtom);
+  const resetSessionId = useResetRecoilState(eduSessionAtom);
   const [isAuth, setIsAuth] = useState(false);
 
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
@@ -41,16 +46,12 @@ export function EduApplicationHistory() {
   const [applicationData, setApplicationData] = useState([]);
 
   useEffect(() => {
-    if (!!sessionId.id) {
-      const nowTime = new Date();
-      const difference = nowTime.getTime() - sessionId.time.getTime();
-      if (difference < 300000) {
-        setIsAuth(true);
-        handleFindApplication(sessionId.id);
-      } else {
-        setIsAuth(false);
-        resetSessionId();
-      }
+    if (isOverEduSession(eduSession)) {
+      setIsAuth(true);
+      handleFindApplication(eduSession.id);
+    } else {
+      setIsAuth(false);
+      resetSessionId();
     }
 
     // eslint-disable-next-line
@@ -106,7 +107,7 @@ export function EduApplicationHistory() {
 
       // 인증 성공
       if (newSessionId) {
-        setSessionId({
+        setEduSession({
           id: newSessionId,
           time: new Date(),
           phoneNumber: phoneNumber,
@@ -129,12 +130,24 @@ export function EduApplicationHistory() {
 
   /** 교육 신청 항목 UI 컴포넌트 */
   const ApplicationsUI = ({ data, idx }: ApplicationsUIProps) => {
+    /** 신청내역 수정 페이지 이동 */
+    const handleEdit = () => {
+      if (isOverEduSession(eduSession)) {
+        setDetailApplication(data);
+        router.push("/education/history/edit");
+      } else {
+        // 세션이 만료되면 세션을 초기화
+        alert("세션이 만료되었습니다.");
+        setIsAuth(false);
+        resetSessionId();
+        router.refresh(); // 새로고침
+      }
+    };
+
     return (
-      <div
-        className="w-full h-[80px] flex justify-between pr-[20px] border-b-rodu-grey cursor-pointer border-b"
-        onClick={() =>
-          navigate("/education/update-application", { state: data })
-        }
+      <button
+        className="w-full h-[80px] flex justify-between items-center pr-[20px] border-b-rodu-grey cursor-pointer border-b"
+        onClick={handleEdit}
       >
         <div className="flex items-center">
           <p className="w-[78px] text-center text-rodu-grey mr-[20px] text-[16px]">
@@ -155,7 +168,7 @@ export function EduApplicationHistory() {
             삭제
           </button>
         </div>
-      </div>
+      </button>
     );
   };
 
@@ -165,7 +178,7 @@ export function EduApplicationHistory() {
         <title>Create | DORO</title>
       </Helmet> */}
       {sendAuthCodeModal ? (
-        <div className="Create-post-kakao-modal-container">
+        <div className="Create-post-kakao-modal-container z-20">
           <div className="Create-post-kakao-modal">
             <p className="Create-post-kakao-modal-top">인증 메시지 전송</p>
             <div className="Create-post-kakao-modal-bottom">
@@ -219,7 +232,7 @@ export function EduApplicationHistory() {
                   setInputCheck("");
                 }}
                 maxLength={11}
-                {...(isAuth ? { value: sessionId.phoneNumber } : {})}
+                {...(isAuth ? { value: eduSession.phoneNumber } : {})}
               />
               <button
                 type="button"
@@ -316,7 +329,7 @@ export function EduApplicationHistory() {
           </div>
         </div>
         {applicationData.map((item, i) => {
-          return <ApplicationsUI application={item} idx={i} />;
+          return <ApplicationsUI data={item} idx={i} />;
         })}
       </div>
     </div>

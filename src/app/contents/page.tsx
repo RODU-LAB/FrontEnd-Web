@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { Banner } from "src/components/BackgroundBanner";
+import Banner from "src/components/BackgroundBanner";
 import { eduDetailContents } from "src/data/eduDetailContents";
 import backgroundImg from "public/images/instructor1.jpg";
 
