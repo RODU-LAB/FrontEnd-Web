@@ -1,9 +1,11 @@
-import "../styles/index.css";
+import "../styles/globals.css";
 import "../styles/postsStyles.css";
 import "../styles/postStyles.css";
 import "../styles/modalStyles.css";
 import "../styles/makeNewApplication.css";
 import "../styles/retrieveStyles.css";
+
+import RecoilRootWrapper from "./recoilRootWrapper";
 import type { Metadata, Viewport } from "next";
 import Header from "src/components/Header";
 import Footer from "src/components/Footer";
@@ -43,9 +45,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Header />
-        <div id="root">{children}</div>
-        <Footer />
+        <RecoilRootWrapper>
+          <Header />
+          {children}
+          <Footer />
+        </RecoilRootWrapper>
       </body>
     </html>
   );
