@@ -5,7 +5,7 @@ interface BannerTypes {
   content: string;
 }
 
-export function Banner({
+export default function Banner({
   backgroundImg,
   title,
   subTitle,

@@ -14,7 +14,7 @@ interface CalendarTypes {
   selectedDatesProps: string[];
 }
 
-export function Calendar({
+export default function Calendar({
   handleXMark,
   handleSelectDates,
   selectedDatesProps,

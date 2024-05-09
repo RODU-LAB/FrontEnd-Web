@@ -280,7 +280,7 @@ export default function Home() {
                 {swiperData.map((item) => {
                   const content = eduDetailContents[item];
                   return (
-                    <SwiperSlide>
+                    <SwiperSlide key={item}>
                       <Link href={"/contents/" + item} key={item}>
                         <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
                           <div>

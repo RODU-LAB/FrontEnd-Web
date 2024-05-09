@@ -15,7 +15,7 @@ import { Banner } from "../../components/BackgroundBanner";
 import backgroundImg from "../../../public/images/instructor2.jpg";
 
 interface ApplicationsUIProps {
-  application: ApplicationDataTypes;
+  data: ApplicationDataTypes;
   idx: number;
 }
 
@@ -128,8 +128,7 @@ export function EduApplicationHistory() {
   };
 
   /** 교육 신청 항목 UI 컴포넌트 */
-  const ApplicationsUI = ({ application, idx }: ApplicationsUIProps) => {
-    const data = application;
+  const ApplicationsUI = ({ data, idx }: ApplicationsUIProps) => {
     return (
       <div
         className="w-full h-[80px] flex justify-between pr-[20px] border-b-rodu-grey cursor-pointer border-b"

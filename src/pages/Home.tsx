@@ -360,9 +360,9 @@ export function Home() {
               }}
               className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
             >
-              {swiperData.map((item) => {
+              {swiperData.map((item, i) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={i}>
                     <Link to={item.route}>
                       <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
                         <div>
@@ -532,9 +532,9 @@ export function Home() {
               }}
               className="flex !overflow-visible gap-[18px] transform transition duration-1000 !w-auto"
             >
-              {teachingItemData.map((item) => {
+              {teachingItemData.map((item, i) => {
                 return (
-                  <SwiperSlide>
+                  <SwiperSlide key={i}>
                     <div className="rounded-[10px] border border-[#e4e4e4] overflow-hidden shadow-lg p-5">
                       <img
                         src={item.src}
