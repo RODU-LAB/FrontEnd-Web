@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../utils/config";
+import { API_URL } from "src/utils/config";
 
 interface ApplyTypes {
   sessionId: string;
@@ -28,14 +28,14 @@ interface ClassesDataTypes {
 /** 교육 신청·조회 - 카카오톡 인증번호 발송 */
 export async function sendAuthCodeAPI(phoneNumber: string) {
   try {
-    const res = await axios.post(`${URL}/message/send`, {
+    const res = await axios.post(`${API_URL}/message/send`, {
       phone: phoneNumber,
       messageType: "APPLY",
     });
     return res.status;
   } catch (error) {
     alert("인증번호 발송에 실패하였습니다.");
-    // console.error(error);
+    console.error(error);
     return false;
     // throw error;
   }
@@ -44,7 +44,7 @@ export async function sendAuthCodeAPI(phoneNumber: string) {
 /** 교육 신청·조회 - 카카오톡 인증번호 인증하기 */
 export async function verifyAuthCodeAPI(authNum: string, phoneNumber: string) {
   try {
-    const res = await axios.post(`${URL}/message/verify2`, {
+    const res = await axios.post(`${API_URL}/message/verify2`, {
       authNum: authNum,
       phone: phoneNumber,
       messageType: "APPLY",
@@ -74,7 +74,7 @@ export async function applyAPI(applyData: ApplyTypes) {
   } = applyData;
   try {
     const res = await axios.post(
-      `${URL}/education-application`,
+      `${API_URL}/education-application`,
       {
         name: name,
         institutionName: institutionName,
@@ -123,7 +123,7 @@ export async function addClassesDataAPI(classesData: ClassesDataTypes) {
   } = classesData;
   try {
     const res = await axios.post(
-      `${URL}/education-application/${applicationId}/classGroup`,
+      `${API_URL}/education-application/${applicationId}/classGroup`,
       {
         className: className,
         educationConcept: educationConcept,
@@ -157,7 +157,7 @@ export async function deleteApplicationAPI(
 ) {
   try {
     const res = await axios.delete(
-      `${URL}/education-application/${applicationId}`,
+      `${API_URL}/education-application/${applicationId}`,
       {
         headers: {
           "session-id": sessionId,
@@ -180,7 +180,7 @@ export async function deleteApplicationAPI(
 /** 교육 신청 조회 */
 export async function findApplicationAPI(sessionId: string) {
   try {
-    const response = await axios.get(URL + "/education-application", {
+    const response = await axios.get(API_URL + "/education-application", {
       headers: {
         "session-id": sessionId,
       },
