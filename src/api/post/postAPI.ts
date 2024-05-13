@@ -1,21 +1,41 @@
 import axios from "axios";
-import Instance from "../../utils/config";
-import { PostDataTypes } from "../../types/postTypes";
+import Instance from "src/utils/config";
+import { API_URL } from "src/utils/config";
+import { CreatePostTypes, PostsTypes } from "src/types/postTypes";
+
+interface AllPostsTypes {
+  total: number;
+  posts: PostsTypes[];
+}
 
 /** 문의글 전체 조회 */
 export async function getAllPosts(page: number) {
   try {
-    const response = await Instance.get(`/posts?page=${page}`);
-    const result = response.data.data;
-    return result;
+    const response = await fetch(`${API_URL}/posts?page=${page}`, {
+      next: { revalidate: 60 },
+    });
+    const data = await response.json();
+    console.log(data.data);
+    return data.data as AllPostsTypes;
   } catch (error) {
     alert("문의글 전체 조회에 실패하셨습니다.");
     // console.error(error);
   }
 }
 
+// export async function getAllPosts(page: number) {
+//   try {
+//     const response = await Instance.get(`/posts?page=${page}`);
+//     const result = response.data.data;
+//     return result as PostsTypes[];
+//   } catch (error) {
+//     alert("문의글 전체 조회에 실패하셨습니다.");
+//     // console.error(error);
+//   }
+// }
+
 /** 문의글 조회 */
-export async function getPost(id: number, password?: string) {
+export async function getPostAPI(id: number, password?: string) {
   try {
     const url = `/posts/${id}${password ? "?password=" + password : ""}`;
     const res = await Instance.get(url);
@@ -27,12 +47,12 @@ export async function getPost(id: number, password?: string) {
     } else {
       alert("문의글 조회에 실패하셨습니다.");
     }
-    return "error";
+    return;
   }
 }
 
 /** 문의글 생성 */
-export async function createPostAPI(data: PostDataTypes) {
+export async function createPostAPI(data: CreatePostTypes) {
   try {
     const res = await Instance.post("/posts/", data);
     return res.status;
@@ -59,7 +79,7 @@ export async function deletePostAPI(id: number, password: string) {
 export async function updatePostAPI(
   id: number,
   password: string,
-  data: PostDataTypes
+  data: CreatePostTypes
 ) {
   try {
     const res = await Instance.patch(

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { sessionIdAtom } from "../../recoil/atoms/eduSessionAtom";
+import { sessionIdAtom } from "../../recoil/eduSessionAtom";
 
 import {
   sendAuthCodeAPI,

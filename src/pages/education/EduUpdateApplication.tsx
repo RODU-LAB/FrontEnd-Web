@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
-import { sessionIdAtom } from "../../recoil/atoms/eduSessionAtom";
-import { editingApplicationAtom } from "../../recoil/atoms/editingApplicationAtom";
+import { sessionIdAtom } from "../../recoil/eduSessionAtom";
+import { editingApplicationAtom } from "../../recoil/editingApplicationState";
 import emailjs from "emailjs-com";
 // import { Helmet } from "react-helmet-async";
 

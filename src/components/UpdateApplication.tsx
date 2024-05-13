@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
-import { eduSessionAtom } from "src/recoil/atoms/eduSessionAtom";
-import { editingApplicationAtom } from "src/recoil/atoms/editingApplicationAtom";
+import { eduSessionAtom } from "src/recoil/eduSessionAtom";
+import { editingApplicationState } from "src/recoil/editingApplicationState";
 import {
   ClassGroupsDataTypes,
   ApplicationDataTypes,
@@ -51,7 +51,7 @@ export default function UpdateApplication({
 
   const setEduSession = useSetRecoilState(eduSessionAtom);
   const resetEduSession = useResetRecoilState(eduSessionAtom);
-  const [reloadForm, setReloadForm] = useRecoilState(editingApplicationAtom);
+  const [reloadForm, setReloadForm] = useRecoilState(editingApplicationState);
 
   // 렌더링 이후인지 확인
   // const [isAfterRender, setIsAfterRender] = useState(true);
@@ -551,7 +551,7 @@ export default function UpdateApplication({
     if (isAuth) {
       setReloadForm((prev) => {
         const prevData = { ...prev };
-        if (key !== "classGroups") {
+        if (key !== "classGroups" && key !== "id") {
           prevData[key] = data;
         }
         return prevData;
@@ -1191,7 +1191,7 @@ export default function UpdateApplication({
               <div className="classInfo-container">
                 {classGroups.map((item, i) => {
                   return (
-                    <div className="classInfo-box">
+                    <div className="classInfo-box" key={i}>
                       <section className={"section"}>
                         <div className="classInfo-subtitle-container">
                           <div className="classInfo-subtitle">학급 정보</div>

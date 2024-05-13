@@ -1,26 +1,26 @@
 import { atom } from "recoil";
-import { EditingApplicationTypes } from "src/types/editingApplicationTypes";
+import { ApplicationDataTypes } from "src/types/eduApplicationTypes";
 
-export const editingApplicationAtom = atom<EditingApplicationTypes>({
-  key: "editingApplicationAtom",
+export const editingApplicationState = atom<ApplicationDataTypes>({
+  key: "editingApplicationState",
   default: {
     name: "",
     institutionName: "",
-    numberOfStudents: "",
-    overallRemark: "",
-    phoneNumber: "",
     position: "",
+    phoneNumber: "",
+    email: "",
+    numberOfStudents: "",
     studentRank: "",
     budget: "",
-    email: "",
+    overallRemark: "",
     classGroups: [
       {
         className: "",
         educationConcept: "",
+        educationDates: [],
         numberOfStudents: "",
         remark: "",
         unfixed: false,
-        educationDates: [],
       },
     ],
   },

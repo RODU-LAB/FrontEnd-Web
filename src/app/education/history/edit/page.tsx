@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { eduSessionAtom } from "src/recoil/atoms/eduSessionAtom";
-import { detailApplicationAtom } from "src/recoil/atoms/detailApplicationAtom";
+import { eduSessionAtom } from "src/recoil/eduSessionAtom";
+import { detailApplicationAtom } from "src/recoil/detailApplicationAtom";
 
 import isOverEduSession from "src/utils/isOverEduSession";
 

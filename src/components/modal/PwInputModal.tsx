@@ -9,7 +9,7 @@ interface PwInputModalTypes {
   onClickXmark: () => void;
 }
 
-export function PwInputModal({
+export default function PwInputModal({
   isOpen,
   enterPress,
   onInput,

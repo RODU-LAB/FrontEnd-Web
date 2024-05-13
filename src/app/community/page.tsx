@@ -1,34 +1,27 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useSetRecoilState } from "recoil";
+import { detailPostState } from "src/recoil/detailPostState";
+import { PostsTypes } from "src/types/postTypes";
 // import { Helmet } from "react-helmet-async";
 // import Modal from "react-modal";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-import { getAllPosts, getPost } from "../../services/post/postAPI";
-import { getPostAdmin } from "../../services/post/postAdminAPI";
-import { useAdminCheck } from "../../utils/decode";
-import { PwInputModal } from "../../components/modal/PwInputModal";
+import { getAllPosts, getPostAPI } from "src/api/post/postAPI";
+import { getPostAdmin } from "src/api/post/postAdminAPI";
+import { useAdminCheck } from "src/utils/decode";
+import PwInputModal from "src/components/modal/PwInputModal";
 
-import { Banner } from "../../components/BackgroundBanner";
-import backgroundImg from "../../../public/images/instructor3.jpg";
-import lock from "../../../public/images/lock.png";
-// import postsRoute from "../images/postsRoute.png";
-// import { Foot } from "../components/foot";
+import Banner from "src/components/BackgroundBanner";
+import backgroundImg from "/public/images/instructor3.jpg";
+import lock from "/public/images/lock.png";
 
-interface PostsTypes {
-  id: number;
-  title: string;
-  ownerName: string;
-  createdAt: string;
-  isLocked: boolean;
-  answered: boolean;
-  idx: number;
-}
-
-export function Community() {
-  const navigate = useNavigate();
+export default function Community() {
+  const router = useRouter();
   const isAdmin = useAdminCheck();
+  const setDetailPost = useSetRecoilState(detailPostState);
 
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<PostsTypes[]>([]);
@@ -36,6 +29,7 @@ export function Community() {
 
   const [passwordModal, setPasswordModal] = useState(false);
   const [postId, setPostId] = useState<number | null>();
+  const [postIdx, setPostIdx] = useState<number | null>();
   const [pw, setPw] = useState<string>("");
 
   useEffect(() => {
@@ -45,43 +39,53 @@ export function Community() {
   useEffect(() => {
     const fetchPosts = async () => {
       const result = await getAllPosts(page);
-      setPosts(result.posts);
-      setPostCounts(result.total);
+      if (result) {
+        setPosts(result.posts);
+        setPostCounts(result.total);
+      }
     };
 
     fetchPosts();
   }, [page]);
 
-  //** 게시물 로드 (관리자 모드) */
+  //** 게시물 불러오기 (관리자 모드) */
   const handleGetPostAdmin = async (id: number) => {
     const result = await getPostAdmin(id);
     if (result) {
-      navigate("/post", { state: result });
+      setDetailPost({ ...result, visited: false });
+      router.push("/community/" + id);
+    }
+  };
+
+  /** 게시물 불러오기 (일반 모드) */
+  const handleGetPost = async (id: number, isLocked: boolean, pw?: string) => {
+    const result = pw ? await getPostAPI(id, pw) : await getPostAPI(id);
+    if (result) {
+      setPw("");
+      setDetailPost({ ...result, visited: false, isLocked: isLocked });
+      router.push("/community/" + id);
     }
   };
 
   /** 게시판 항목 클릭 시 작동. 비밀글이 아니면 게시물 페이지로 넘어감 */
-  const handlePasswordModal = async (isLocked: boolean, id: number) => {
+  const handlePasswordModal = async (
+    isLocked: boolean,
+    id: number,
+    idx: number
+  ) => {
     if (isAdmin) {
       handleGetPostAdmin(id);
     } else {
       if (isLocked) {
         setPasswordModal(true);
         setPostId(id);
+        setPostIdx(idx);
       } else {
-        handleGetPost(id);
+        handleGetPost(id, isLocked);
         setPostId(null);
+        setPostIdx(null);
         setPasswordModal(false);
       }
-    }
-  };
-
-  /** 게시물 불러오기 */
-  const handleGetPost = async (id: number, pw?: string) => {
-    const result = pw ? await getPost(id, pw) : await getPost(id);
-    if (result) {
-      navigate("/post", { state: result });
-      setPw("");
     }
   };
 
@@ -96,7 +100,7 @@ export function Community() {
     idx,
   }: PostsTypes) => {
     const date = createdAt.substr(0, 10);
-    const lastPost = posts.length === idx + 1;
+    const lastPost = posts.length === idx! + 1;
     const containerClass = `w-full h-[80px] flex justify-between pr-[20px] border-b-rodu-grey cursor-pointer ${
       lastPost ? "border-b-[1.5px]" : "border-b"
     }`;
@@ -104,11 +108,11 @@ export function Community() {
     return (
       <div
         className={containerClass}
-        onClick={() => handlePasswordModal(isLocked, id)}
+        onClick={() => handlePasswordModal(isLocked, id, idx!)}
       >
         <div className="flex items-center">
           <p className="w-[78px] text-center button text-rodu-grey mr-[20px]">
-            {idx + 1 + page * 10}
+            {idx! + 1 + page * 10}
           </p>
           <p className="body1 mr-[14px]">{title}</p>
           {isLocked ? (
@@ -173,7 +177,6 @@ export function Community() {
                   page === 0 ? alert("현재 첫 페이지 입니다.") : setPage(0);
                 }}
                 className={"Posts-pagination-button-left"}
-                // disabled={page === 0 ? true : false}
               >
                 &laquo;
               </button>
@@ -184,7 +187,6 @@ export function Community() {
                     : setPage((prev) => prev - 1);
                 }}
                 className="Posts-pagination-button-left"
-                // disabled={page === 0 ? true : false}
               >
                 &lsaquo;
               </button>
@@ -212,18 +214,18 @@ export function Community() {
                 &raquo;
               </button>
             </div>
-            <button
+            <Link
               className="w-[180px] h-[52px] bg-rodu-medium text-white flex items-center justify-center rounded-[25px]"
-              onClick={() => navigate("/post/updatepost")}
+              href="/update-post"
             >
               글 쓰기
-            </button>
+            </Link>
           </div>
         </div>
       </div>
       <PwInputModal
         isOpen={passwordModal}
-        enterPress={() => handleGetPost(postId as number, pw)}
+        enterPress={() => handleGetPost(postId!, posts[postIdx!].isLocked, pw)}
         onInput={setPw}
         onClickXmark={() => {
           setPostId(null);
