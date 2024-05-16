@@ -35,7 +35,7 @@ export async function sendAuthCodeAPI(phoneNumber: string) {
     return res.status;
   } catch (error) {
     alert("인증번호 발송에 실패하였습니다.");
-    console.error(error);
+    // console.error(error);
     return false;
     // throw error;
   }

@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 // import { Helmet } from "react-helmet-async";
@@ -7,7 +9,7 @@ import { CreatePostTypes } from "src/types/postTypes";
 
 import Banner from "src/components/BackgroundBanner";
 
-import infoConfirm from "public/images/Frame68.svg";
+import InfoConfirm from "public/images/Frame68.svg";
 import backgroundImg from "public/images/instructor3.jpg";
 
 export default function UpdatePost({ loadData, status, slugId }) {
@@ -109,9 +111,9 @@ export default function UpdatePost({ loadData, status, slugId }) {
       </Helmet> */}
       <Banner
         backgroundImg={backgroundImg.src}
-        title={status === "update" ? "커뮤니티 글 등록" : "커뮤니티 글 수정"}
+        title={status === "create" ? "커뮤니티 글 등록" : "커뮤니티 글 수정"}
         subTitle={
-          status === "update" ? "Create Community Post" : "Edit Community Post"
+          status === "create" ? "Create Community Post" : "Edit Community Post"
         }
         content="로봇지식을 공유하는 커뮤니티 입니다."
       />
@@ -330,7 +332,7 @@ export default function UpdatePost({ loadData, status, slugId }) {
                   </div>
 
                   <div className="Create-post-agree-info-confirm-parent">
-                    {isHovering ? <img src={infoConfirm} alt="info" /> : ""}
+                    {isHovering && <InfoConfirm />}
                   </div>
                 </div>
               </div>

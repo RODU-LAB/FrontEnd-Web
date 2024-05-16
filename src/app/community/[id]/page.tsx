@@ -225,7 +225,7 @@ export default function DetailPost({ params }: { params: { id: string } }) {
           {/* 답변이 있다면 답변 내용 보여주기
           아닐 때 관리자 로그인이 되어 있다면 문의 답변 창 띄우기 */}
           <div className="mt-[100px]">
-            {data.isAnswered && !isAdminEditMode ? (
+            {data.isAnswered ? (
               <>
                 <div className="w-full flex justify-between items-end pr-2 pb-[12px]">
                   <p className="font-bold text-[34px] text-rodu-medium">답변</p>
@@ -233,46 +233,48 @@ export default function DetailPost({ params }: { params: { id: string } }) {
                 <p className="whitespace-pre-line py-[34px] border-y-[1.5px] border-y-rodu-black">
                   {data.answer}
                 </p>
-                <div className="flex justify-end gap-[20px] mt-[24px]">
-                  <button
-                    className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9] text-white font-semibold"
-                    onClick={() => {
-                      setAnswer(data.answer);
-                      setIsAdminEditMode(true);
-                    }}
-                  >
-                    답변 수정
-                  </button>
-                </div>
-              </>
-            ) : isAdmin ? (
-              <div className="px-2">
-                <div className="border p-3 bg-[#fafafa] rounded mt-6">
-                  <div>
-                    <p className="font-bold text-[18px] text-rodu-black ml-2 mb-1">
-                      답변 하기
-                    </p>
-                  </div>
-                  <textarea
-                    className="w-full h-[10rem] border p-2 mt-2 rounded outline-[#949494]"
-                    onInput={(e) => {
-                      const target = e.target as HTMLInputElement;
-                      setAnswer(target.value);
-                    }}
-                    {...(isAdminEditMode ? { value: answer } : {})}
-                  />
-                  <div className="flex justify-end">
+                {data.isAnswered && isAdminEditMode && (
+                  <div className="flex justify-end gap-[20px] mt-[24px]">
                     <button
-                      className="bg-rodu-medium rounded-[5px] text-white px-[10px] py-2 mr-3 mt-3 font-medium"
-                      onClick={handleAnswer}
+                      className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9] text-white font-semibold"
+                      onClick={() => {
+                        setAnswer(data.answer);
+                        setIsAdminEditMode(true);
+                      }}
                     >
-                      답변 작성
+                      답변 수정
                     </button>
                   </div>
-                </div>
-              </div>
+                )}
+              </>
             ) : (
-              ""
+              isAdmin && (
+                <div className="px-2">
+                  <div className="border p-3 bg-[#fafafa] rounded mt-6">
+                    <div>
+                      <p className="font-bold text-[18px] text-rodu-black ml-2 mb-1">
+                        답변 하기
+                      </p>
+                    </div>
+                    <textarea
+                      className="w-full h-[10rem] border p-2 mt-2 rounded outline-[#949494]"
+                      onInput={(e) => {
+                        const target = e.target as HTMLInputElement;
+                        setAnswer(target.value);
+                      }}
+                      {...(isAdminEditMode ? { value: answer } : {})}
+                    />
+                    <div className="flex justify-end">
+                      <button
+                        className="bg-rodu-medium rounded-[5px] text-white px-[10px] py-2 mr-3 mt-3 font-medium"
+                        onClick={handleAnswer}
+                      >
+                        답변 작성
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )
             )}
           </div>
         </div>

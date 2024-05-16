@@ -216,7 +216,7 @@ export default function Community() {
             </div>
             <Link
               className="w-[180px] h-[52px] bg-rodu-medium text-white flex items-center justify-center rounded-[25px]"
-              href="/update-post"
+              href="/community/create"
             >
               글 쓰기
             </Link>
