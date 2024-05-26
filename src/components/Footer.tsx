@@ -1,26 +1,29 @@
-import { Link } from "react-router-dom";
-import logo from "../images/logo/logo.png";
-import notion from "../images/notion_logo.png";
-import insta from "../images/instagram_logo.png";
+"use client";
 
-export const Footer = () => {
+import Link from "next/link";
+import Image from "next/image";
+import logo from "public/images/logo/logo.png";
+import notion from "public/images/notion_logo.png";
+import insta from "public/images/instagram_logo.png";
+
+export default function Footer() {
   return (
     <div className="md-home:h-[330px] w-full bg-[#f1f1f1] flex justify-center py-9">
       <div className="w-full lg-home:w-[1090px] px-[20px] flex flex-col md-home:flex-row justify-between md-home:items-center max-md-home:gap-4 max-md-home:items-center">
         <div className="h-full flex flex-col justify-between max-md-home:gap-4 max-md-home:items-center">
-          <Link to="/">
-            <img src={logo} className="h-[80px]" alt="logo" />
+          <Link href="/">
+            <Image src={logo.src} height={80} width={81.35} alt="logo" />
           </Link>
-          <p className="text-rodu-grey text-[13px] leading-5 max-md-home:text-center">
+          <div className="text-rodu-grey text-[13px] leading-5 max-md-home:text-center">
             RODU(로듀) | 대표 : 한대희
             <br className="inline-block tablet:hidden" />
             <span className="hidden tablet:inline-block">|&nbsp;</span>
             <span>사업자 등록번호:211-19-41243</span>
-            <div className="max-tablet:h-[4px]" />
+            <p className="max-tablet:h-[4px]" />
             경기도 안산시 상록구 한양대학로 55
             <br className="inline-block tablet:hidden" />
             학연산클러스터 4층, KF-ROOM 4호
-          </p>
+          </div>
         </div>
         <div className="flex gap-[96px] h-full">
           <div className="flex flex-col justify-between h-full max-tablet:hidden">
@@ -47,7 +50,7 @@ export const Footer = () => {
                 </a>
                 <Link
                   className="font-medium text-[13px] text-rodu-grey"
-                  to={"/login"}
+                  href="/login"
                 >
                   관리자 로그인
                 </Link>
@@ -59,14 +62,14 @@ export const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img className="h-[40px]" src={insta} alt="Instagram" />
+                <Image height={40} width={40} src={insta.src} alt="Instagram" />
               </a>
               <a
                 href="https://sugared-syzygy-e4c.notion.site/RODU-8116d06bc3c24f4cbfb112cdfab9e6cf?pvs=4"
                 target="_blank"
                 rel="noreferrer"
               >
-                <img className="h-[40px]" src={notion} alt="Notion" />
+                <Image height={40} width={40} src={notion.src} alt="Notion" />
               </a>
             </div>
           </div>
@@ -101,7 +104,7 @@ export const Footer = () => {
                 </p>
               </div>
             </div>
-            <Link to="/post/updatepost">
+            <Link href="/post/updatepost">
               <button
                 className="text-[13px] font-medium h-[46px] w-[160px] rounded-[25px] bg-white
                         hover:bg-rodu-medium hover:text-white transition-colors duration-500"
@@ -114,4 +117,4 @@ export const Footer = () => {
       </div>
     </div>
   );
-};
+}

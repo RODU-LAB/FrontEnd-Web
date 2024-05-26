@@ -7,7 +7,7 @@ interface ModalTypes {
   isOpen: boolean;
 }
 
-export function YesNoModal({
+export default function YesNoModal({
   title,
   yesHandler,
   noHandler,

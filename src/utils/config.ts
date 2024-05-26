@@ -1,12 +1,12 @@
 import axios from "axios";
 
 // baseURL 설정
-// export const URL = "http://localhost:8080";
-export const URL = process.env.REACT_APP_API_URL;
+// export const API_URL = "http://localhost:8080";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Axios 인스턴스 생성
 const Instance = axios.create({
-  baseURL: URL,
+  baseURL: API_URL,
 });
 
 // 인터셉터 설정
@@ -39,7 +39,7 @@ Instance.interceptors.response.use(
         const accessToken = sessionStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
         // 새 토큰 요청 로직
-        const response = await axios.post(`${URL}/reissue`, {
+        const response = await axios.post(`${API_URL}/reissue`, {
           accessToken: "Bearer " + accessToken,
           refreshToken: refreshToken,
         });
@@ -58,9 +58,12 @@ Instance.interceptors.response.use(
           axios.isAxiosError(refreshError) &&
           refreshError.response?.data.code === "AUTH004"
         ) {
-          alert(
-            "관리자 로그인 세션이 만료되었습니다.\n다시 로그인 하시길 바랍니다."
+          throw new Error(
+            "관리자 로그인 세션이 만료되었습니다. 다시 로그인 하시길 바랍니다."
           );
+          // alert(
+          //   "관리자 로그인 세션이 만료되었습니다.\n다시 로그인 하시길 바랍니다."
+          // );
         }
         return Promise.reject(refreshError);
       }

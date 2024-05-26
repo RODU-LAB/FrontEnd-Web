@@ -1,23 +1,23 @@
-interface ClassGroupsDataTypes {
-  id: number;
+export interface ClassGroupsDataTypes {
+  id?: number;
   className: string;
   educationConcept: string;
-  numberOfStudents: number;
-  educationDates: string[] | null[];
+  numberOfStudents: string;
+  educationDates?: string[];
   remark: string;
   unfixed: boolean;
 }
 
 export interface ApplicationDataTypes {
-  id: number;
+  id?: number;
   name: string;
   institutionName: string;
   position: string;
   phoneNumber: string;
   email: string;
-  numberOfStudents: number;
+  numberOfStudents: string;
   studentRank: string;
-  budget: number;
+  budget: string;
   overallRemark: string;
-  classGroups: ClassGroupsDataTypes;
+  classGroups: ClassGroupsDataTypes[];
 }

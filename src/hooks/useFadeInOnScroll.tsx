@@ -8,7 +8,7 @@ interface AnimationProps {
   };
 }
 
-export const useFadeInOnScroll = (): AnimationProps => {
+export default function useFadeInOnScroll(): AnimationProps {
   const dom = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(([entry]: IntersectionObserverEntry[]) => {
@@ -42,4 +42,4 @@ export const useFadeInOnScroll = (): AnimationProps => {
     ref: dom,
     style: { opacity: 0, transform: "translateY(50px)" }, // 초기 상태
   };
-};
+}

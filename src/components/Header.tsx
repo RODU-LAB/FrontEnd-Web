@@ -1,8 +1,13 @@
+"use client";
+
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import logoSymbolWhite from "../images/logo/logo-white.png";
-import logoSymbol from "../images/logo/logo-symbol.png";
-import { ReactComponent as LogoText } from "../images/logo/logo-text.svg";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+import logoSymbolWhite from "public/images/logo/logo-white.png";
+import logoSymbol from "public/images/logo/logo-symbol.png";
+import LogoText from "public/images/logo/logo-text.svg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,8 +19,8 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
-export function Header() {
-  const location = useLocation();
+export default function Header() {
+  const pathname = usePathname(); // 현재 페이지의 경로를 가져옴
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -40,7 +45,8 @@ export function Header() {
       hamburgerButton: "text-black",
     },
   };
-  const currentPage = location.pathname === "/" ? "home" : "other";
+
+  const currentPage = pathname === "/" ? "home" : "other";
 
   const { container, logoTextColor, logo, headerText, hamburgerButton } =
     pageStyles[currentPage];
@@ -50,8 +56,19 @@ export function Header() {
       <header
         className={`py-5 w-full px-[20px] tablet:px-[44px] lg:px-[120px] flex items-center justify-between z-[49] absolute ${container}`}
       >
-        <Link to="/" className="flex items-center gap-[14px] tablet:gap-[16px]">
-          <img src={logo} className="h-[26px] tablet:h-[38px]" alt="logo" />
+        <Link
+          href="/"
+          className="flex items-center gap-[14px] tablet:gap-[16px]"
+        >
+          <div className="relative h-[26px] tablet:h-[38px] w-[37px] tablet:w-[51px]">
+            <Image
+              src={logo.src}
+              className="h-[26px] tablet:h-[38px] w-[37px] tablet:w-[51px]"
+              height={38}
+              width={51}
+              alt="logo"
+            />
+          </div>
           <LogoText className="h-[14px] tablet:h-[20px]" fill={logoTextColor} />
         </Link>
         <div className="md:flex hidden gap-9">
@@ -63,13 +80,13 @@ export function Header() {
           >
             구매 링크
           </a>
-          <Link to="/contents" className={headerText}>
+          <Link href="/contents" className={headerText}>
             교육 콘텐츠
           </Link>
-          <Link to="/education" className={headerText}>
+          <Link href="/education" className={headerText}>
             교육 신청
           </Link>
-          <Link to="/community" className={headerText}>
+          <Link href="/community" className={headerText}>
             커뮤니티 게시판
           </Link>
         </div>
@@ -105,7 +122,7 @@ export function Header() {
                   />
                 </a>
                 <Link
-                  to="/contents"
+                  href="/contents"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
                   onClick={() => setIsOpen(false)}
                 >
@@ -116,7 +133,7 @@ export function Header() {
                   />
                 </Link>
                 <Link
-                  to="/education"
+                  href="/education"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
                   onClick={() => setIsOpen(false)}
                 >
@@ -127,7 +144,7 @@ export function Header() {
                   />
                 </Link>
                 <Link
-                  to="/community"
+                  href="/community"
                   className="text-rodu-grey text-[18px] font-medium hover:text-black transition-colors duration-500 flex justify-center gap-3"
                   onClick={() => setIsOpen(false)}
                 >
