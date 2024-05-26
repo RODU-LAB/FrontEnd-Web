@@ -1,0 +1,15 @@
+.custom-bullet {
+  list-style-type: "• "; /* 기본 불릿 설정 */
+}
+
+.custom-bullet li {
+  margin-left: 8px;
+}
+
+.custom-dash {
+  list-style-type: "-";
+}
+
+.custom-dash li {
+  padding-left: 8px;
+}
