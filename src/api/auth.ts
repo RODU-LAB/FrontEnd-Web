@@ -11,7 +11,6 @@ export async function LoginAPI(account: string, pw: string) {
     sessionStorage.setItem("accessToken", accessToken);
     return res;
   } catch (error) {
-    alert("로그인에 실패하셨습니다.");
     throw error;
   }
 }

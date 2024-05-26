@@ -186,6 +186,7 @@ export default function UpdateApplication({
         setTimeLeft(300);
       }
     } else {
+      alert("인증번호 발송에 실패하였습니다.");
       alert("휴대폰 번호를 다시 확인 해주세요.");
       setInputCheck("phoneNumber");
     }
@@ -214,6 +215,8 @@ export default function UpdateApplication({
           time: new Date(),
           phoneNumber: phoneNumber,
         });
+      } else {
+        alert("인증번호 인증에 실패하였습니다.");
       }
     } else if (!isActiveTimer) {
       setIsClickBeforeSendAuthCode(true);
@@ -484,6 +487,7 @@ export default function UpdateApplication({
       });
       if (applicationId) {
         if (applicationId === "SESSION_ID_NOT_VALID") {
+          alert("휴대폰 인증번호가 만료되었습니다.\n다시 시도해주세요.");
           setFormNum(0);
           setIsAuth(false);
           resetEduSession();
@@ -502,11 +506,15 @@ export default function UpdateApplication({
 
           const classesResult = await addClassesDataAPI(classesData);
           if (!classesResult) {
-            await deleteApplicationAPI(
+            alert("교육 신청 조회에 실패하셨습니다.");
+            const deleteApi = await deleteApplicationAPI(
               applicationId,
               authSessionId,
               "applyFail"
             );
+            if (!deleteApi) {
+              alert("초기화 단계에서 오류가 발생하였습니다.");
+            }
             return;
           }
         }
@@ -537,6 +545,8 @@ export default function UpdateApplication({
         }
         alert("교육 신청이 완료되었습니다.");
         router.push("/education");
+      } else {
+        alert("교육 신청에 실패하였습니다.");
       }
     } finally {
       setIsLoading(false);

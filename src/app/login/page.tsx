@@ -15,6 +15,8 @@ export default function Login() {
       const refreshToken = result.data;
       localStorage.setItem("refreshToken", refreshToken);
       router.push("/");
+    } else {
+      alert("로그인에 실패하셨습니다.");
     }
   };
 

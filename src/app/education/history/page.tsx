@@ -88,6 +88,7 @@ export default function EduApplicationHistory() {
         setTimeLeft(300);
       }
     } else {
+      alert("인증번호 발송에 실패하였습니다.");
       alert("휴대폰 번호를 다시 확인 해주세요.");
       setInputCheck("phoneNumber");
     }
@@ -115,6 +116,8 @@ export default function EduApplicationHistory() {
         setIsAuth(true);
         setIsActiveTimer(false);
         handleFindApplication(newSessionId);
+      } else {
+        alert("인증번호 인증에 실패하였습니다.");
       }
     } else if (!isActiveTimer) {
       setIsClickBeforeSendAuthCode(true);

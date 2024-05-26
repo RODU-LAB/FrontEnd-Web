@@ -105,12 +105,18 @@ export default function UpdatePost({
       if (result === 200) {
         alert("게시글이 성공적으로 등록되었습니다.");
         router.push("/community");
+      } else if (!result) {
+        alert("문의 신청에 실패하셨습니다.");
       }
     }
 
     if (status === "edit") {
       const result = await updatePostAPI(postId, pw, data);
-      if (result === 200) {
+      if (result === "PASSWORD ERROR") {
+        alert("비밀번호가 틀렸습니다.");
+      } else if (result === "LOAD ERROR") {
+        alert("문의글 조회에 실패하셨습니다.");
+      } else if (result === 200) {
         alert("게시글이 성공적으로 수정되었습니다.");
         router.push("/community");
       }

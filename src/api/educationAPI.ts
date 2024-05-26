@@ -34,7 +34,6 @@ export async function sendAuthCodeAPI(phoneNumber: string) {
     });
     return res.status;
   } catch (error) {
-    alert("인증번호 발송에 실패하였습니다.");
     // console.error(error);
     return false;
     // throw error;
@@ -51,7 +50,6 @@ export async function verifyAuthCodeAPI(authNum: string, phoneNumber: string) {
     });
     return res.headers["session-id"];
   } catch (error) {
-    alert("인증번호 인증에 실패하였습니다.");
     // console.error(error);
     return false;
     // throw error;
@@ -98,10 +96,8 @@ export async function applyAPI(applyData: ApplyTypes) {
       axios.isAxiosError(error) &&
       error.response?.data.errorCode === "SESSION_ID_NOT_VALID"
     ) {
-      alert("휴대폰 인증번호가 만료되었습니다.\n다시 시도해주세요.");
       return "SESSION_ID_NOT_VALID";
     } else {
-      alert("교육 신청에 실패하였습니다.");
       // console.error(error);
       return false;
     }
@@ -138,11 +134,8 @@ export async function addClassesDataAPI(classesData: ClassesDataTypes) {
         },
       }
     );
-    // console.log("학급 추가 단계");
-    // console.log(res);
     return res.status;
   } catch (error) {
-    alert("교육 신청에 실패하였습니다.");
     // console.error(error);
     // throw error;
     return false;
@@ -166,11 +159,11 @@ export async function deleteApplicationAPI(
     );
     return res.status;
   } catch (error) {
-    if (status === "delete") {
-      alert("신청 교육 삭제에 실패하였습니다.");
-    } else {
-      alert("초기화 단계에서 오류가 발생하였습니다.");
-    }
+    // if (status === "delete") {
+    //   alert("신청 교육 삭제에 실패하였습니다.");
+    // } else {
+    //   alert("초기화 단계에서 오류가 발생하였습니다.");
+    // }
     // console.error(error);
     // throw error;
     return false;
@@ -189,7 +182,6 @@ export async function findApplicationAPI(sessionId: string) {
     // console.log(result);
     return result;
   } catch (error) {
-    alert("교육 신청 조회에 실패하셨습니다.");
     // console.error(error);
     return false;
   }

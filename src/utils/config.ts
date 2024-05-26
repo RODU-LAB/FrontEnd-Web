@@ -58,9 +58,12 @@ Instance.interceptors.response.use(
           axios.isAxiosError(refreshError) &&
           refreshError.response?.data.code === "AUTH004"
         ) {
-          alert(
-            "관리자 로그인 세션이 만료되었습니다.\n다시 로그인 하시길 바랍니다."
+          throw new Error(
+            "관리자 로그인 세션이 만료되었습니다. 다시 로그인 하시길 바랍니다."
           );
+          // alert(
+          //   "관리자 로그인 세션이 만료되었습니다.\n다시 로그인 하시길 바랍니다."
+          // );
         }
         return Promise.reject(refreshError);
       }

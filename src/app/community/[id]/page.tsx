@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { CreatePostTypes } from "src/types/postTypes";
 // import { Helmet } from "react-helmet-async";
@@ -51,17 +52,28 @@ export default function DetailPost({ params }: { params: { id: string } }) {
   useEffect(() => {
     if (isAdmin) {
       const getPost = async () => {
-        const result = await getPostAdmin(postId);
-        if (result) {
+        try {
+          const result = await getPostAdmin(postId);
           setData(result);
+        } catch (error) {
+          if (error instanceof Error) {
+            alert(error.message);
+          }
         }
       };
       getPost();
     } else {
       const getPost = async () => {
         const result = await getPostAPI({ id: postId, isLoadCheck: true });
-        if (result) setData(result);
-        else setLoadMode(true);
+        if (result === "PASSWORD ERROR") {
+          alert("비밀번호가 틀렸습니다.");
+          setLoadMode(true);
+        } else if (result === "LOAD ERROR") {
+          alert("문의글 조회에 실패하셨습니다.");
+          setLoadMode(true);
+        } else if (result) {
+          setData(result);
+        }
       };
       setLoadMode(true);
       getPost();
@@ -81,15 +93,28 @@ export default function DetailPost({ params }: { params: { id: string } }) {
   /** 문의 답변하기 */
   const handleAnswer = async () => {
     if (!isAdminEditMode) {
-      const result = await answerPostAdmin(postId, answer);
-      if (result === 200) {
-        setData((prev) => ({ ...prev, answer: answer, isAnswered: true }));
+      try {
+        const result = await answerPostAdmin(postId, answer);
+        if (result === 200) {
+          setData((prev) => ({ ...prev, answer: answer, isAnswered: true }));
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
       }
     } else {
       const result = await editPostAnswerAPI(postId, answer);
-      if (result === 200) {
-        setData((prev) => ({ ...prev, answer: answer }));
-        setIsAdminEditMode(false);
+      try {
+        if (result === 200) {
+          alert("답변 수정이 완료되었습니다.");
+          setData((prev) => ({ ...prev, answer: answer }));
+          setIsAdminEditMode(false);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          alert(error.message);
+        }
       }
     }
   };
@@ -99,6 +124,8 @@ export default function DetailPost({ params }: { params: { id: string } }) {
     if (result === 200) {
       alert("문의글 삭제가 완료되었습니다.");
       router.push("/community");
+    } else if (!result) {
+      alert("문의글 삭제에 실패하셨습니다.");
     }
   };
 
@@ -116,8 +143,17 @@ export default function DetailPost({ params }: { params: { id: string } }) {
     if (status === "delete") {
       // 관리자 계정
       if (isAdmin) {
-        const result = await deletePostAdmin(postId);
-        if (result === 200) router.push("/community");
+        try {
+          const result = await deletePostAdmin(postId);
+          if (result === 200) {
+            alert("문의글을 삭제하였습니다.");
+            router.push("/community");
+          }
+        } catch (error) {
+          if (error instanceof Error) {
+            alert(error.message);
+          }
+        }
       } else {
         setDeleteMode(true);
       }

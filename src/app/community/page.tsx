@@ -24,6 +24,8 @@ export default function Community() {
       if (result) {
         setPosts(result.posts);
         setPostCounts(result.total);
+      } else {
+        alert("문의글 전체 조회에 실패하셨습니다.");
       }
     };
 
