@@ -511,8 +511,8 @@ export default function UpdateApplication({
           }
         }
 
-        const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-        const PublicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+        const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+        const PublicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
         if (serviceId && PublicKey) {
           const classGroupsString = classGroups
