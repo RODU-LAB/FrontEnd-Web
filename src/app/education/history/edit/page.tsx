@@ -24,7 +24,7 @@ export default function EduApplicationEdit() {
       alert("세션이 만료되었습니다.");
       router.push("/education/history");
     }
-  }, []);
+  }, [eduSession, resetEditApplication, resetEduSession, router]);
 
   return <UpdateApplication data={detailApplication} session={eduSession.id} />;
 }

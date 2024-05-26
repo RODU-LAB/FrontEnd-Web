@@ -15,7 +15,6 @@ export async function getAllPosts(page: number) {
       next: { revalidate: 60 },
     });
     const data = await response.json();
-    console.log(data.data);
     return data.data as AllPostsTypes;
   } catch (error) {
     alert("문의글 전체 조회에 실패하셨습니다.");
@@ -35,7 +34,15 @@ export async function getAllPosts(page: number) {
 // }
 
 /** 문의글 조회 */
-export async function getPostAPI(id: number, password?: string) {
+export async function getPostAPI({
+  id,
+  password,
+  isLoadCheck,
+}: {
+  id: number;
+  password?: string;
+  isLoadCheck?: boolean;
+}) {
   try {
     const url = `/posts/${id}${password ? "?password=" + password : ""}`;
     const res = await Instance.get(url);
@@ -45,7 +52,7 @@ export async function getPostAPI(id: number, password?: string) {
     if (axios.isAxiosError(error) && error.response?.data.code === "POST001") {
       alert("비밀번호가 틀렸습니다.");
     } else {
-      alert("문의글 조회에 실패하셨습니다.");
+      if (!isLoadCheck) alert("문의글 조회에 실패하셨습니다.");
     }
     return;
   }

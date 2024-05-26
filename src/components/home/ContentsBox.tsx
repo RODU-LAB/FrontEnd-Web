@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import arrow from "public/images/right-arrow.png";
 
@@ -23,7 +24,7 @@ export default function ContentsBox({
     <Link
       href="/contents"
       className="transition-all duration-500 hover:shadow-[0_0_15px_rgba(0,0,0,0.15)] hover:border-[#f8c58a] 
-            w-[250px] tablet:w-[220px] h-[350px] laptop:w-[220px] laptop:h-[350px] desktop:w-[246px] desktop:h-[372px] 
+            w-[250px] tablet:w-[220px] h-[350px] laptop:w-[220px] laptop:h-[350px] desktop:w-[234px] desktop:h-[372px] 
             rounded-[10px] border-[2px] border-super-light-grey bg-super-light-grey 
             flex flex-col items-center justify-between 
             pt-[30px] desktop:pt-[32px] 
@@ -31,9 +32,11 @@ export default function ContentsBox({
             pb-[15px] laptop:pb-[16px] desktop:pb-[17px]"
     >
       <div className="flex flex-col items-center">
-        <img
+        <Image
           src={img}
           alt={name}
+          height={96}
+          width={96}
           className="w-[80px] laptop:w-[88px] desktop:w-[96px]"
         />
         <p className="text-[28px] laptop:text-[30px] desktop:text-[33px] font-bold my-[13px]">
@@ -49,10 +52,12 @@ export default function ContentsBox({
         <p className="text-[13px] desktop:text-[14px] font-semibold">
           교육 커리큘럼 보기
         </p>
-        <img
+        <Image
           src={arrow.src}
           alt="arrow"
-          className="h-3 tablet:h-2.5 laptop:h-2.8 desktop:h-3"
+          width={6.8}
+          height={12}
+          className="h-3 tablet:h-2.5 desktop:h-3"
         />
       </div>
     </Link>

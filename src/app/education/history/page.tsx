@@ -329,7 +329,7 @@ export default function EduApplicationHistory() {
           </div>
         </div>
         {applicationData.map((item, i) => {
-          return <ApplicationsUI data={item} idx={i} />;
+          return <ApplicationsUI data={item} idx={i} key={i} />;
         })}
       </div>
     </div>

@@ -6,37 +6,50 @@ import { useEffect, useState } from "react";
 
 import { createPostAPI, updatePostAPI } from "src/api/post/postAPI";
 import { CreatePostTypes } from "src/types/postTypes";
-
 import Banner from "src/components/BackgroundBanner";
 
 import InfoConfirm from "public/images/Frame68.svg";
 import backgroundImg from "public/images/instructor3.jpg";
 
-export default function UpdatePost({ loadData, status, slugId }) {
+interface UpdatePostTypes {
+  loadData: CreatePostTypes;
+  status: "create" | "edit";
+  slugId: string;
+}
+
+export default function UpdatePost({
+  loadData,
+  status,
+  slugId,
+}: UpdatePostTypes) {
   const router = useRouter();
   const postId = Number(slugId);
   // 렌더링 이후인지 확인
   const [isAfterRender, setIsAfterRender] = useState(true);
 
-  const [name, setName] = useState(loadData?.name || "");
-  const [institution, setInstitution] = useState(loadData?.institution || "");
-  const [phoneNumber, setPhoneNumber] = useState(loadData?.phoneNumber || "");
-  const [email, setEmail] = useState(loadData?.email || "");
+  const [name, setName] = useState(loadData.ownerName || "");
+  const [institution, setInstitution] = useState(loadData.institution || "");
+  const [phoneNumber, setPhoneNumber] = useState(loadData.phoneNumber || "");
+  const [email, setEmail] = useState(loadData.email || "");
   const [pw, setPw] = useState("");
-  const [title, setTitle] = useState(loadData?.title || "");
-  const [content, setContent] = useState(loadData?.content || "");
+  const [title, setTitle] = useState(loadData.title || "");
+  const [content, setContent] = useState(loadData.content || "");
 
-  const [isLocked, setIsLocked] = useState(loadData?.isLocked || false);
+  const [isLocked, setIsLocked] = useState(loadData.isLocked || false);
   const [isAgree, setIsAgree] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     setIsAfterRender(false);
-    if (status === "edit" && Number(slugId) !== loadData.id) {
+    if (
+      status === "edit" &&
+      "id" in loadData &&
+      Number(slugId) !== loadData.id
+    ) {
       alert("잘못된 접근입니다.");
       router.push("/community");
     }
-  }, []);
+  }, [loadData, router, slugId, status]);
 
   /** 폼 제출 (제출 전 유효성 검사 포함) */
   const handleSummit = async () => {
@@ -95,7 +108,7 @@ export default function UpdatePost({ loadData, status, slugId }) {
       }
     }
 
-    if (status === "update") {
+    if (status === "edit") {
       const result = await updatePostAPI(postId, pw, data);
       if (result === 200) {
         alert("게시글이 성공적으로 수정되었습니다.");

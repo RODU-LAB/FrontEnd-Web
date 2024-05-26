@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import Banner from "src/components/BackgroundBanner";
 import { eduDetailContents } from "src/data/eduDetailContents";
@@ -82,10 +83,12 @@ export default function Contents() {
         href={nav}
       >
         <div className="w-[336px] h-[240px] flex justify-center items-center">
-          <img
+          <Image
             src={img}
             alt={name}
-            className="h-[75%] object-contain transition-transform duration-300 group-hover:scale-110"
+            height={336}
+            width={180}
+            className="transition-transform duration-300 group-hover:scale-110 h-[75%] object-contain"
           />
         </div>
         <div className="px-[18px]">

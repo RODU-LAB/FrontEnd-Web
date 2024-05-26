@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import logoSymbolWhite from "public/images/logo/logo-white.png";
@@ -59,7 +60,15 @@ export default function Header() {
           href="/"
           className="flex items-center gap-[14px] tablet:gap-[16px]"
         >
-          <img src={logo.src} className="h-[26px] tablet:h-[38px]" alt="logo" />
+          <div className="relative h-[26px] tablet:h-[38px] w-[37px] tablet:w-[51px]">
+            <Image
+              src={logo.src}
+              className="h-[26px] tablet:h-[38px] w-[37px] tablet:w-[51px]"
+              height={38}
+              width={51}
+              alt="logo"
+            />
+          </div>
           <LogoText className="h-[14px] tablet:h-[20px]" fill={logoTextColor} />
         </Link>
         <div className="md:flex hidden gap-9">

@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 합치려는 설정에서 가져온 옵션들
   reactStrictMode: true,
-  output: "export", // Outputs a Single-Page Application (SPA).
-  distDir: "./dist", // Changes the build output directory to `./dist/`,
+  // output: "export", // Outputs a Single-Page Application (SPA).
+  distDir: "./.next", // Changes the build output directory to `./dist/`,
 
   // Webpack 설정 추가
   webpack: (config) => {

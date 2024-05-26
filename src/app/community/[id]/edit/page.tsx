@@ -1,3 +1,5 @@
+"use client";
+
 import { useRecoilValue } from "recoil";
 import { detailPostState } from "src/recoil/detailPostState";
 import UpdatePost from "src/components/UpdatePost";

@@ -52,7 +52,7 @@ module.exports = {
   },
   plugins: [
     require("tailwind-scrollbar-hide"),
-    plugin(function ({ addUtilities }) {
+    plugin(function ({ addUtilities }: { addUtilities: Function }) {
       const newUtilities = {
         ".button": {
           fontSize: "14px",

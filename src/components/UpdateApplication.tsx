@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useSetRecoilState, useResetRecoilState, useRecoilState } from "recoil";
 import { eduSessionAtom } from "src/recoil/eduSessionAtom";
 import { editingApplicationState } from "src/recoil/editingApplicationState";
@@ -44,25 +44,21 @@ export default function UpdateApplication({
 }: UpdateApplicationProps) {
   const router = useRouter();
 
-  const windowHeight = window.innerHeight;
-  const basePosition = windowHeight + 250;
-
   const status = data ? "update" : "create";
 
   const setEduSession = useSetRecoilState(eduSessionAtom);
   const resetEduSession = useResetRecoilState(eduSessionAtom);
   const [reloadForm, setReloadForm] = useRecoilState(editingApplicationState);
 
-  // 렌더링 이후인지 확인
-  // const [isAfterRender, setIsAfterRender] = useState(true);
+  const [windowHeight, setWindowHeight] = useState(0);
+  const [browserWidth, setBrowserWidth] = useState(0);
 
-  const [barPosition, setBarPosition] = useState(basePosition);
+  const [barPosition, setBarPosition] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   const [sendAuthCodeModal, setSendAuthCodeModal] = useState(false);
   const [finishAuthModal, setFinishAuthModal] = useState(false);
   const [submitModal, setSubmitModal] = useState(false);
-  // 학급 정보 폼의 인덱스가 입력되면 modal이 띄워짐
   const [calendarModal, setCalendarModal] = useState(-1);
   const [reloadFormModal, setReloadFormModal] = useState(false);
 
@@ -70,13 +66,10 @@ export default function UpdateApplication({
   const [inputCheck, setInputCheck] = useState("");
   const [isAuth, setIsAuth] = useState(status === "update");
   const [isActiveTimer, setIsActiveTimer] = useState(false);
-  // 인증번호 남은 시간
   const [timeLeft, setTimeLeft] = useState(300);
   const [isClickBeforeSendAuthCode, setIsClickBeforeSendAuthCode] =
     useState(false);
-  // eslint-disable-next-line
   const [authSessionId, setAuthSessionId] = useState(session || "");
-  const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
 
   // Form 0
   const [name, setName] = useState(data?.name || "");
@@ -122,36 +115,43 @@ export default function UpdateApplication({
   const leftBarRef = useRef<HTMLDivElement>(null);
   const mainFormRef = useRef<HTMLDivElement>(null);
 
-  const handleScroll = () => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleResize = () => {
+        setBrowserWidth(window.innerWidth);
+        setWindowHeight(window.innerHeight);
+        setBarPosition(window.innerHeight + 250);
+      };
+
+      handleResize(); // 초기값 설정
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, []);
+
+  const handleScroll = useCallback(() => {
+    const basePosition = windowHeight + 250;
     const scroll = Math.max(window.scrollY + 220 - windowHeight, 0);
     const adjustedPosition = basePosition + scroll;
     let newPosition = adjustedPosition;
 
     newPosition = Math.min(newPosition, windowHeight * 2 - 50);
     setBarPosition(newPosition);
-  };
+  }, [windowHeight]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    // 컴포넌트가 언마운트되거나 다시 렌더링되기 전에 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      handleScroll();
-      setBrowserWidth(window.innerWidth);
-    });
-
-    // 컴포넌트가 언마운트되거나 다시 렌더링되기 전에 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("resize", handleScroll);
-    };
-    // eslint-disable-next-line
-  }, []);
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", handleScroll);
+      // 컴포넌트가 언마운트되거나 다시 렌더링되기 전에 이벤트 리스너 제거
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [handleScroll]);
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
@@ -511,8 +511,8 @@ export default function UpdateApplication({
           }
         }
 
-        const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-        const PublicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+        const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+        const PublicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
         if (serviceId && PublicKey) {
           const classGroupsString = classGroups

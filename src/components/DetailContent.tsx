@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useLayoutEffect } from "react";
 import { StaticImageData } from "next/image";
+import Image from "next/image";
 
 import { Banner } from "src/components/ContentsBanner";
 import { EduContent } from "src/data/eduDetailContents";
@@ -137,14 +138,23 @@ export default function DetailContent({ content }: { content: EduContent }) {
         <TitleComponent text="키트 사진" />
         <div className="w-full flex justify-center">
           <div className="grid grid-cols-2 gap-[18px]">
-            {images.map((image, i) => (
-              <img src={image.src} alt={"kit" + i} key={i} />
-            ))}
+            {images.map((image, i) => {
+              return (
+                <Image
+                  key={i}
+                  src={image.src}
+                  alt={"kit" + i}
+                  height={315.22}
+                  width={515}
+                />
+              );
+            })}
             {images.length === 1 && (
-              <img
-                className="h-full"
+              <Image
                 src={whiteBackGroundLogo.src}
                 alt="white-background-logo"
+                height={315.22}
+                width={515}
               />
             )}
           </div>
@@ -283,10 +293,12 @@ export default function DetailContent({ content }: { content: EduContent }) {
               style={{ transform: `translateX(${slideMove}px)` }}
             >
               {images.map((image, i) => (
-                <img
+                <Image
                   src={image.src}
                   key={i}
                   alt={"Slide" + i}
+                  height={400.39}
+                  width={694}
                   className="w-full object-cover"
                 />
               ))}

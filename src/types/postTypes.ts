@@ -1,17 +1,20 @@
 export interface CreatePostTypes {
   ownerName: string;
-  phoneNumber: string;
-  password: string;
   title: string;
   content: string;
-  isLocked: boolean;
+  password?: string;
+  phoneNumber?: string;
+  isLocked?: boolean;
   institution?: string;
   email?: string;
+  visited?: boolean;
+  id?: number;
+  isAnswered?: boolean;
+  answer?: string;
 }
 
 export interface DetailPostTypes {
   isLocked?: boolean;
-  visited?: boolean;
   id: number;
   title: string;
   content: string;

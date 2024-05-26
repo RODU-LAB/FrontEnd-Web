@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import logo from "../../public/images/logo/logo.png";
-import notion from "../../public/images/notion_logo.png";
-import insta from "../../public/images/instagram_logo.png";
+import Image from "next/image";
+import logo from "public/images/logo/logo.png";
+import notion from "public/images/notion_logo.png";
+import insta from "public/images/instagram_logo.png";
 
 export default function Footer() {
   return (
@@ -11,7 +12,7 @@ export default function Footer() {
       <div className="w-full lg-home:w-[1090px] px-[20px] flex flex-col md-home:flex-row justify-between md-home:items-center max-md-home:gap-4 max-md-home:items-center">
         <div className="h-full flex flex-col justify-between max-md-home:gap-4 max-md-home:items-center">
           <Link href="/">
-            <img src={logo.src} className="h-[80px]" alt="logo" />
+            <Image src={logo.src} height={80} width={81.35} alt="logo" />
           </Link>
           <div className="text-rodu-grey text-[13px] leading-5 max-md-home:text-center">
             RODU(로듀) | 대표 : 한대희
@@ -61,14 +62,14 @@ export default function Footer() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img className="h-[40px]" src={insta.src} alt="Instagram" />
+                <Image height={40} width={40} src={insta.src} alt="Instagram" />
               </a>
               <a
                 href="https://sugared-syzygy-e4c.notion.site/RODU-8116d06bc3c24f4cbfb112cdfab9e6cf?pvs=4"
                 target="_blank"
                 rel="noreferrer"
               >
-                <img className="h-[40px]" src={notion.src} alt="Notion" />
+                <Image height={40} width={40} src={notion.src} alt="Notion" />
               </a>
             </div>
           </div>

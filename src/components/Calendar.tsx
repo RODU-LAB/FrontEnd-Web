@@ -206,6 +206,7 @@ export default function Calendar({
               {selectedDates?.map((item, i) => {
                 return (
                   <button
+                    key={i}
                     className="flex items-center justify-between bg-rodu-medium w-[110px] pl-1 pr-[6px] py-1 rounded-[2px]"
                     onClick={() =>
                       setSelectedDates((prev) => {

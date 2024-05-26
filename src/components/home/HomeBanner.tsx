@@ -16,7 +16,7 @@ export default function HomeBanner() {
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-55">
           <div className="absolute w-full flex flex-col gap-[30px] text-center top-[39vh] tablet:top-[38vh]  px-5">
             <p className="font-bold text-white text-[20px] tablet:text-[24px] md:text-[33px] lg:text-[44px] ">
-              "로봇 기술의 미래를 이끌어가다"
+              &quot;로봇 기술의 미래를 이끌어가다&quot;
             </p>
             <p className="text-white text-[16px] tablet:text-[20px] md:text-[28px] lg:text-[36px]">
               전문성을 갖춘 로봇 직무교육의 선두주자 RODU

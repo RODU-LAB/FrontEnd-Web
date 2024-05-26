@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface BannerTypes {
   img: string;
   title: string;
@@ -9,10 +11,12 @@ export function Banner({ img, title, subTitle, content }: BannerTypes) {
   return (
     <div className="h-screen w-full pt-[78px] px-[20px] flex items-center gap-36 justify-center bg-[#E5E3E3]">
       <div className="flex items-center justify-center min-w-[200px]">
-        <img
+        <Image
           src={img}
           alt="title"
           className="max-h-[330px] max-w-[460px] object-contain"
+          height={460}
+          width={460}
         />
       </div>
       <div className="flex flex-col gap-[100px]">

@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import { DetailPostTypes } from "src/types/postTypes";
+import { CreatePostTypes } from "src/types/postTypes";
 
-export const detailPostState = atom<DetailPostTypes>({
+export const detailPostState = atom<CreatePostTypes>({
   key: "detailPostState",
   default: {
     visited: true,
@@ -10,6 +10,8 @@ export const detailPostState = atom<DetailPostTypes>({
     content: "",
     ownerName: "",
     isAnswered: false,
+    isLocked: false,
+    phoneNumber: "",
     answer: "",
   },
 });

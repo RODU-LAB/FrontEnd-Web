@@ -1,15 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { detailPostState } from "src/recoil/detailPostState";
-import { DetailPostTypes } from "src/types/postTypes";
+import { CreatePostTypes } from "src/types/postTypes";
 // import { Helmet } from "react-helmet-async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-import { getPostAPI, deletePostAPI, getAllPosts } from "src/api/post/postAPI";
+import { getPostAPI, deletePostAPI } from "src/api/post/postAPI";
 import {
   answerPostAdmin,
   getPostAdmin,
@@ -28,10 +27,8 @@ export default function DetailPost({ params }: { params: { id: string } }) {
   const router = useRouter();
   const postId = Number(params.id);
   const isAdmin = useAdminCheck();
-  const [post, setPost] = useRecoilState(detailPostState);
-  const resetPost = useResetRecoilState(detailPostState);
 
-  const [data, setData] = useState<DetailPostTypes>({
+  const [data, setData] = useState<CreatePostTypes>({
     id: 0,
     title: "",
     content: "",
@@ -40,63 +37,44 @@ export default function DetailPost({ params }: { params: { id: string } }) {
     answer: "",
   });
 
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
+  // 비밀번호 입력 창이 떴을 때 모드
+  const [loadMode, setLoadMode] = useState(false);
+  const [deleteMode, setDeleteMode] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
-  const [pwStatus, setPwStatus] = useState("");
   const [answer, setAnswer] = useState("");
   const [pw, setPw] = useState("");
 
+  // 이미 답변 수정할 때 사용 (답변 등록과 수정 API가 똑같아서 state로 추가 관리)
   const [isAdminEditMode, setIsAdminEditMode] = useState(false);
 
   useEffect(() => {
-    if (post.visited) {
-      if (isAdmin) {
-        const getPost = async () => {
-          const result = await getPostAdmin(postId);
-          if (result) {
-            setData(result);
-            setPost(result);
-          }
-        };
-        getPost();
-      } else {
-        const isPassword = async () => {
-          const result = await getPostAPI(postId);
-          resetPost();
-          if (result) {
-            setData({ ...result, isLocked: false });
-          } else {
-            setPwStatus("load");
-          }
-        };
-        isPassword();
-      }
+    if (isAdmin) {
+      const getPost = async () => {
+        const result = await getPostAdmin(postId);
+        if (result) {
+          setData(result);
+        }
+      };
+      getPost();
     } else {
-      setData(post);
+      const getPost = async () => {
+        const result = await getPostAPI({ id: postId, isLoadCheck: true });
+        if (result) setData(result);
+        else setLoadMode(true);
+      };
+      setLoadMode(true);
+      getPost();
     }
-
-    // if (post.visited) {
-    // } else {
-    //   if (!post.isAnswered && isAdmin) {
-    //     const getPost = async () => {
-    //       const result = await getPostAdmin(post.id);
-    //       setData(result);
-    //     };
-    //     getPost();
-    //   }
-    // }
-    // eslint-disable-next-line
-  }, []);
+  }, [isAdmin, postId]);
 
   /** 게시글 로드 (비밀번호 입력 후) */
   const handleLoadPost = async () => {
-    const result = await getPostAPI(postId, pw);
+    const result = await getPostAPI({ id: postId, password: pw });
     if (result) {
-      setData({ ...result, isLocked: true });
-      setPost({ ...result, isLocked: true, visited: true });
+      setData(result);
       setPw("");
-      setPwStatus("");
+      setLoadMode(false);
     }
   };
 
@@ -106,13 +84,11 @@ export default function DetailPost({ params }: { params: { id: string } }) {
       const result = await answerPostAdmin(postId, answer);
       if (result === 200) {
         setData((prev) => ({ ...prev, answer: answer, isAnswered: true }));
-        setPost((prev) => ({ ...prev, answer: answer, isAnswered: true }));
       }
     } else {
       const result = await editPostAnswerAPI(postId, answer);
       if (result === 200) {
         setData((prev) => ({ ...prev, answer: answer }));
-        setPost((prev) => ({ ...prev, answer: answer }));
         setIsAdminEditMode(false);
       }
     }
@@ -122,47 +98,28 @@ export default function DetailPost({ params }: { params: { id: string } }) {
     const result = await deletePostAPI(postId, pw);
     if (result === 200) {
       alert("문의글 삭제가 완료되었습니다.");
-      // setData({
-      //   title: "",
-      //   content: "",
-      //   ownerName: "",
-      //   id: 0,
-      //   isAnswered: false,
-      //   answer: "",
-      // });
-      // setDeleteModal(false);
-      // setPwStatus("");
-      // setPw("");
       router.push("/community");
     }
   };
 
   const handleEditPost = () => router.push("/community/" + postId + "/edit");
   const handlePassword = () => {
-    switch (pwStatus) {
-      case "delete":
-        handleDeletePost();
-        break;
-      case "edit":
-        handleEditPost();
-        break;
-      case "load":
-        handleLoadPost();
-        break;
-    }
+    loadMode && handleLoadPost();
+    deleteMode && handleDeletePost();
+    editMode && handleEditPost();
   };
 
   //** 문의 수정 삭제 시 관리자인지 확인 */
   const handleCheckStatus = async (status: string) => {
-    setDeleteModal(false);
-    setEditModal(false);
+    setDeleteMode(false);
+    setEditMode(false);
     if (status === "delete") {
       // 관리자 계정
       if (isAdmin) {
-        const result = await deletePostAdmin(data.id);
+        const result = await deletePostAdmin(postId);
         if (result === 200) router.push("/community");
       } else {
-        setPwStatus("delete");
+        setDeleteMode(true);
       }
     }
     if (status === "edit") {
@@ -170,7 +127,7 @@ export default function DetailPost({ params }: { params: { id: string } }) {
       if (isAdmin) {
         router.push("/community/" + postId + "/edit");
       } else {
-        setPwStatus("edit");
+        setEditMode(true);
       }
     }
   };
@@ -201,7 +158,7 @@ export default function DetailPost({ params }: { params: { id: string } }) {
               // 게시물 수정 버튼
               <button
                 className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9]"
-                onClick={() => setEditModal(true)}
+                onClick={() => setEditMode(true)}
               >
                 <FontAwesomeIcon
                   icon={faPenToSquare}
@@ -215,9 +172,15 @@ export default function DetailPost({ params }: { params: { id: string } }) {
               // 게시물 삭제 버튼
               <button
                 className="h-[28px] w-[80px] rounded-[15px] bg-rodu-medium flex justify-center items-center"
-                onClick={() => setDeleteModal(true)}
+                onClick={() => setDeleteMode(true)}
               >
-                <img src={Delete.src} alt="delete" className="h-[20px]" />
+                <Image
+                  src={Delete.src}
+                  alt="delete"
+                  height={20}
+                  width={20}
+                  className="object-contain"
+                />
               </button>
             )}
           </div>
@@ -238,7 +201,7 @@ export default function DetailPost({ params }: { params: { id: string } }) {
                     <button
                       className="h-[28px] w-[80px] rounded-[15px] bg-[#0072B9] text-white font-semibold"
                       onClick={() => {
-                        setAnswer(data.answer);
+                        // setAnswer(data.answer);
                         setIsAdminEditMode(true);
                       }}
                     >
@@ -280,24 +243,24 @@ export default function DetailPost({ params }: { params: { id: string } }) {
         </div>
       </div>
       <YesNoModal
-        isOpen={deleteModal || editModal}
-        title={`게시물을 ${deleteModal ? "삭제" : "수정"}하겠습니까?`}
+        isOpen={deleteMode || editMode}
+        title={`게시물을 ${deleteMode ? "삭제" : "수정"}하겠습니까?`}
         yesHandler={() =>
-          deleteModal ? handleCheckStatus("delete") : handleCheckStatus("edit")
+          deleteMode ? handleCheckStatus("delete") : handleCheckStatus("edit")
         }
         noHandler={() => {
-          setDeleteModal(false);
-          setEditModal(false);
+          setDeleteMode(false);
+          setEditMode(false);
         }}
       />
       <PwInputModal
-        isOpen={pwStatus !== ""}
+        isOpen={loadMode || deleteMode || editMode}
         enterPress={handlePassword}
         onInput={setPw}
         onClickXmark={() => {
-          setDeleteModal(false);
-          setEditModal(false);
-          setPwStatus("");
+          setLoadMode(false);
+          setDeleteMode(false);
+          setEditMode(false);
           setPw("");
         }}
       />

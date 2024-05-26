@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
@@ -186,7 +187,7 @@ export default function Home() {
               text="RODU의 대표 콘텐츠"
               subText="고객들에게 최적의 교육과정을 제공합니다."
             />
-            <div className="h-full grid grid-cols-1 tablet:grid-cols-2 md-home:grid-cols-4 gap-6 md-home:gap-4 justify-items-center">
+            <div className="h-full grid grid-cols-1 tablet:grid-cols-2 md-home:grid-cols-4 gap-6 justify-items-center">
               {mainContentsData.map((item, i) => {
                 return (
                   <ContentsBox
@@ -218,10 +219,12 @@ export default function Home() {
                     href="/contents"
                     key={item.title}
                   >
-                    <img
+                    <Image
                       src={item.icon.src}
                       alt="icon"
-                      className="h-[60px] w-14 mb-[20px]"
+                      height={60}
+                      width={56}
+                      className="mb-[20px]"
                     />
                     <p className="text-[14px] text-rodu-medium font-medium">
                       {item.subTitle}
@@ -255,13 +258,19 @@ export default function Home() {
                 />
                 <div className="flex gap-[18px] max-md-home:hidden">
                   <button className="move-left-robot">
-                    <img src={leftButton.src} alt="Left" className="h-[36px]" />
+                    <Image
+                      src={leftButton.src}
+                      alt="Left"
+                      height={36}
+                      width={36}
+                    />
                   </button>
                   <button className="move-right-robot">
-                    <img
+                    <Image
                       src={rightButton.src}
                       alt="Right"
-                      className="h-[36px]"
+                      height={36}
+                      width={36}
                     />
                   </button>
                 </div>
@@ -285,10 +294,12 @@ export default function Home() {
                         <div className="h-[337px] w-[70vw] mobile:w-[337px] rounded-[20px] p-3 px-5 bg-rodu-medium flex flex-col justify-between text-white">
                           <div>
                             <div className="flex justify-center items-center w-full h-[196px]">
-                              <img
+                              <Image
                                 src={content.img.src}
                                 alt="program"
-                                className="h-[130px]"
+                                height={130}
+                                width={171.7}
+                                className="h-[130px] object-contain"
                               />
                             </div>
                             <p className="text-[22px] font-bold">
@@ -332,10 +343,11 @@ export default function Home() {
                     key={i}
                   >
                     <div className="absolute inset-0 transition-transform duration-[700ms] tablet:group-hover:translate-y-[-290px] rounded-[10px]">
-                      <img
+                      <Image
+                        fill
                         src={item.boxURL}
                         alt="instructor"
-                        className="w-full h-full tablet:translate-y-[290px] bg-black bg-opacity-45"
+                        className="tablet:translate-y-[290px] bg-black bg-opacity-45"
                       />
                     </div>
                   </div>
@@ -356,11 +368,15 @@ export default function Home() {
               textCenter
               smallTitle
             />
-            <img
-              src={roduEducation.src}
-              alt="rodu-education"
-              className="w-[702px]"
-            />
+            <div className="relative w-[702px]">
+              <Image
+                src={roduEducation.src}
+                alt="rodu-education"
+                width={702}
+                height={316.6}
+                className="object-contain"
+              />
+            </div>
           </div>
 
           {/* RODU를 신뢰할 수 있는 이유! */}
@@ -391,10 +407,11 @@ export default function Home() {
               })}
             </div>
             <div className="flex justify-end w-full max-w-[696px]">
-              <img
+              <Image
                 src={roduLogoGray.src}
                 alt="logo-gray"
-                className="h-[34px]"
+                height={34}
+                width={34}
               />
             </div>
           </div>
@@ -402,11 +419,17 @@ export default function Home() {
           {/* 지도 */}
           {isOpenMap && (
             <button
-              className="h-full w-full fixed cursor-pointer flex justify-center items-center"
+              className="h-full w-full fixed cursor-pointer flex justify-center items-center z-10"
               style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
               onClick={() => setIsOpenMap(false)}
             >
-              <img src={roduMap.src} alt="rodu-map" className="h-[90vh]" />
+              <Image
+                src={roduMap.src}
+                alt="rodu-map"
+                height={626}
+                width={1112}
+                className="object-contain"
+              />
             </button>
           )}
 
@@ -421,10 +444,12 @@ export default function Home() {
               subText={`RODU는 다양한 기업과의 협력을 통해 양질의 제품을 합리적인 가격에 제공합니다.\n예상 지원 정부사업 : 국민내일 배움카드, 디지털새싹 취업성공패키지, 늘봄학교`}
               smallTitle
             />
-            <img
+            <Image
               src={company.src}
               alt="Company x RODU"
               className="Main4-image"
+              height={380}
+              width={657}
             />
           </div>
 
@@ -444,13 +469,21 @@ export default function Home() {
                 />
                 <div className="flex gap-[18px] max-md-home:hidden">
                   <button className="move-left-teach">
-                    <img src={leftButton.src} alt="Left" className="h-[36px]" />
+                    <Image
+                      src={leftButton.src}
+                      alt="Left"
+                      className="object-contain"
+                      height={36}
+                      width={36}
+                    />
                   </button>
                   <button className="move-right-teach">
-                    <img
+                    <Image
                       src={rightButton.src}
                       alt="Right"
-                      className="h-[36px]"
+                      className="object-contain"
+                      height={36}
+                      width={36}
                     />
                   </button>
                 </div>
@@ -470,11 +503,12 @@ export default function Home() {
                   return (
                     <SwiperSlide key={i}>
                       <div className="rounded-[10px] border border-[#e4e4e4] overflow-hidden shadow-lg p-5 w-[262px] tablet:w-[406px]">
-                        <img
+                        <Image
                           src={item.src}
                           alt="program"
-                          // className="h-[150px] target:h-[240px] w-[242px] tablet:w-[386px]"
-                          className="object-contain"
+                          className="h-[150px] target:h-[240px] w-[242px] tablet:w-[386px] object-contain"
+                          height={240}
+                          width={386}
                         />
                       </div>
                     </SwiperSlide>
@@ -491,10 +525,12 @@ export default function Home() {
             {...fadeInProps9}
           >
             <Title text="RODU 교육 프로세스" textCenter />
-            <img
+            <Image
               src={process.src}
               alt="process"
-              className="w-full max-w-[1048px]"
+              height={232.33}
+              width={1048}
+              className="max-w-[1048px] w-full object-contain"
             />
           </div>
         </div>
@@ -505,10 +541,12 @@ export default function Home() {
             {...fadeInProps10}
           >
             <div className="w-full lg-home:w-[1090px]">
-              <img
+              <Image
                 src={logoWhite.src}
                 alt="logo-white"
-                className="h-[60px] mb-10"
+                height={60}
+                width={85}
+                className="mb-10 object-contain"
               />
               <p className="text-[24px] tablet:text-[42px] font-bold text-white">
                 산업현장에 필요한 수준 높은
