@@ -11,6 +11,7 @@ import Header from "src/components/Header";
 import Footer from "src/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rodu-edu.com"),
   title: "RODU(Robot Education) - 로봇 교육의 선두주자",
   description:
     "로듀는 맞춤형 로봇교육 솔루션을 개발, 공급하는 로봇 전문 기업입니다.",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
       "로듀는 맞춤형 로봇교육 솔루션을 개발, 공급하는 로봇 전문 기업입니다.",
     type: "website",
     locale: "ko_KR",
-    url: "https:/www.rodu.co.kr",
+    url: "https://rodu-edu.com",
   },
 };
 

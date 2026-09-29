@@ -1,38 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
-<url>
-  <loc>https://www.rodu.co.kr/</loc>
-  <lastmod>2024-03-29T06:19:14+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://www.rodu.co.kr/contents/</loc>
-  <lastmod>2024-03-29T06:19:14+00:00</lastmod>
-  <priority>0.70</priority>
-</url>
-<url>
-  <loc>https://www.rodu.co.kr/posts/</loc>
-  <lastmod>2024-03-29T06:19:14+00:00</lastmod>
-  <priority>0.60</priority>
-</url>
-
-<url>
-  <loc>https://www.rodu.co.kr/applyEdu/</loc>
-  <lastmod>2024-03-29T06:19:14+00:00</lastmod>
-  <priority>0.60</priority>
-</url>
-<url>
-  <loc>https://www.rodu.co.kr/showApplication/</loc>
-  <lastmod>2024-03-29T06:19:14+00:00</lastmod>
-  <priority>0.60</priority>
-</url>
-
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://rodu-edu.com/</loc></url>
+  <url><loc>https://rodu-edu.com/contents</loc></url>
+  <url><loc>https://rodu-edu.com/education</loc></url>
+  <url><loc>https://rodu-edu.com/community</loc></url>
+  <url><loc>https://rodu-edu.com/contents/snake</loc></url>
+  <url><loc>https://rodu-edu.com/contents/spider</loc></url>
+  <url><loc>https://rodu-edu.com/contents/otto</loc></url>
+  <url><loc>https://rodu-edu.com/contents/hourglass</loc></url>
+  <url><loc>https://rodu-edu.com/contents/human</loc></url>
+  <url><loc>https://rodu-edu.com/contents/security</loc></url>
+  <url><loc>https://rodu-edu.com/contents/logistics</loc></url>
+  <url><loc>https://rodu-edu.com/contents/yolo</loc></url>
+  <url><loc>https://rodu-edu.com/contents/reinforcement</loc></url>
+  <url><loc>https://rodu-edu.com/contents/printer</loc></url>
+  <url><loc>https://rodu-edu.com/contents/plc</loc></url>
+  <url><loc>https://rodu-edu.com/contents/kicad</loc></url>
+  <url><loc>https://rodu-edu.com/contents/embedded</loc></url>
+  <url><loc>https://rodu-edu.com/contents/ros2</loc></url>
+  <url><loc>https://rodu-edu.com/contents/manipulator</loc></url>
 </urlset>
